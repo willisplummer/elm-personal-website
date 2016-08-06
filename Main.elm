@@ -5,33 +5,59 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List exposing (..)
+import Navigation exposing (..)
+import Routing exposing (..)
+
+
+--main : Program Never
+--main =
+--    Html.App.beginnerProgram { model = model, view = view, update = update }
 
 
 main : Program Never
 main =
-    Html.App.beginnerProgram { model = model, view = view, update = update }
+    Navigation.program Routing.parser
+        { init = init
+        , view = view
+        , update = update
+        , urlUpdate = urlUpdate
+        , subscriptions = subscriptions
+        }
 
 
-model : Model
-model =
+
+-- Data
+
+
+init : Result String Route -> ( Model, Cmd Msg )
+init result =
+    let
+        currentRoute =
+            Routing.routeFromResult result
+    in
+        ( initialModel currentRoute, Cmd.none )
+
+
+initialModel : Routing.Route -> Model
+initialModel route =
     { subHeaderLinks =
         [ ( "mailto:willisplummer@gmail.com", "email me" )
         , ( "https://github.com/willisplummer", "github" )
         , ( "https://twitter.com/willisplummer", "twitter" )
         , ( "https://www.linkedin.com/in/willisplummer", "linkedin" )
         ]
-    , content = About
     , nav =
-        [ ( "About", About )
-        , ( "Writing", Writing )
-        , ( "Portfolio", Portfolio )
-        , ( "Contact", Contact )
+        [ ( "About", ShowAbout )
+        , ( "Writing", ShowWriting )
+        , ( "Portfolio", ShowPortfolio )
+        , ( "Contact", ShowContact )
         ]
     , writingLinks =
         { poetryLinks = poetry
         , proseLinks = prose
         , miscLinks = misc
         }
+    , route = route
     }
 
 
@@ -67,9 +93,9 @@ misc =
 
 type alias Model =
     { subHeaderLinks : List ( String, String )
-    , content : Msg
     , nav : List ( String, Msg )
     , writingLinks : Links
+    , route : Routing.Route
     }
 
 
@@ -80,16 +106,35 @@ type alias Links =
     }
 
 
+
+-- Update
+
+
 type Msg
-    = About
-    | Writing
-    | Portfolio
-    | Contact
+    = ShowAbout
+    | ShowWriting
+    | ShowPortfolio
+    | ShowContact
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    { model | content = msg }
+    case msg of
+        ShowAbout ->
+            ( model, Navigation.modifyUrl "#about" )
+
+        ShowWriting ->
+            ( model, Navigation.modifyUrl "#writing" )
+
+        ShowPortfolio ->
+            ( model, Navigation.modifyUrl "#portfolio" )
+
+        ShowContact ->
+            ( model, Navigation.modifyUrl "#contact" )
+
+
+
+-- View
 
 
 view : Model -> Html Msg
@@ -122,14 +167,14 @@ subHeader model =
 
 content : Model -> Html Msg
 content model =
-    case model.content of
-        About ->
+    case model.route of
+        AboutRoute ->
             div [ class "content" ]
                 [ p [] [ text "Hi, I'm Willis" ]
                 , p [] [ text "I'm a poet and a web developer" ]
                 ]
 
-        Writing ->
+        WritingRoute ->
             div [ class "content" ]
                 [ p [] [ text "You can find some of my writing online:" ]
                 , p [] [ text "Poetry:" ]
@@ -152,7 +197,7 @@ content model =
                     )
                 ]
 
-        Portfolio ->
+        PortfolioRoute ->
             div [ class "content" ]
                 [ p [] [ text "Here are some things I've built:" ]
                 , div [ class "project" ]
@@ -187,7 +232,7 @@ content model =
                     ]
                 ]
 
-        Contact ->
+        ContactRoute ->
             div [ class "content" ]
                 [ p []
                     [ text "You can find me on "
@@ -206,3 +251,28 @@ content model =
                     , text " is the best way to get in touch"
                     ]
                 ]
+
+        NotFoundRoute ->
+            div [ class "content" ] [ text "NOT FOUND" ]
+
+
+
+-- urlUpdate
+
+
+urlUpdate : Result String Route -> Model -> ( Model, Cmd Msg )
+urlUpdate result model =
+    let
+        currentRoute =
+            Routing.routeFromResult result
+    in
+        ( { model | route = currentRoute }, Cmd.none )
+
+
+
+-- Subscriptions
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
