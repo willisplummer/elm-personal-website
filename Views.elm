@@ -10,9 +10,10 @@ import Routing exposing (..)
 
 view : Model -> Html Msg
 view model =
-    div [ class "main" ]
-        [ div [ class "header" ]
-            [ h1 [] [ text "Willis Plummer Personal Webpage" ]
+    div
+        [ class "main", mainStyle ]
+        [ div [ class "header", headerStyle ]
+            [ h1 [] [ text "Willis Plummer Web Presence" ]
             , nav model
             ]
         , br [] []
@@ -32,15 +33,14 @@ content : Model -> Html Msg
 content model =
     case model.route of
         AboutRoute ->
-            div [ class "content" ]
+            div [ class "content", contentStyle ]
                 [ p [] [ text "Hi, I'm Willis" ]
                 , p [] [ text "I'm a poet and a web developer" ]
                 ]
 
         WritingRoute ->
-            div [ class "content" ]
-                [ p [] [ text "You can find some of my writing online:" ]
-                , p [] [ text "Poetry:" ]
+            div [ class "content", contentStyle ]
+                [ p [] [ text "Poetry:" ]
                 , ul [ class "writing-list" ]
                     (List.concatMap
                         (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
@@ -61,9 +61,8 @@ content model =
                 ]
 
         PortfolioRoute ->
-            div [ class "content" ]
-                [ p [] [ text "Here are some things I've built:" ]
-                , div [ class "project" ]
+            div [ class "content", contentStyle ]
+                [ div [ class "project" ]
                     [ h2 [] [ text "This Personal Website" ]
                     , p []
                         [ text "I wrote this website in Elm ("
@@ -96,7 +95,7 @@ content model =
                 ]
 
         ContactRoute ->
-            div [ class "content" ]
+            div [ class "content", contentStyle ]
                 [ p []
                     [ text "You can find me on "
                     , a [ href "https://github.com/willisplummer" ] [ text "Github" ]
@@ -116,4 +115,28 @@ content model =
                 ]
 
         NotFoundRoute ->
-            div [ class "content" ] [ text "NOT FOUND" ]
+            div [ class "content", contentStyle ] [ text "NOT FOUND" ]
+
+
+mainStyle : Attribute msg
+mainStyle =
+    style
+        [ ( "margin", "auto" )
+        , ( "width", "40%" )
+        ]
+
+
+headerStyle : Attribute msg
+headerStyle =
+    style
+        [ ( "text-align", "center" )
+        ]
+
+
+contentStyle : Attribute msg
+contentStyle =
+    style
+        [ ( "text-align", "left" )
+        , ( "margin", "auto" )
+        , ( "width", "90%" )
+        ]

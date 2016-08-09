@@ -23,7 +23,7 @@ initialModel route =
     { nav =
         [ ( "About", ShowAbout )
         , ( "Writing", ShowWriting )
-        , ( "Portfolio", ShowPortfolio )
+        , ( "Projects", ShowPortfolio )
         , ( "Contact", ShowContact )
         ]
     , writingLinks =
