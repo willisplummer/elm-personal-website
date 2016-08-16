@@ -1,0 +1,78 @@
+var _user$project$Models$projects = _elm_lang$core$Native_List.fromArray(
+	[
+		{
+		title: 'This Portfolio Site',
+		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
+		links: _elm_lang$core$Native_List.fromArray(
+			[
+				{ctor: '_Tuple2', _0: 'https://github.com/willisplummer/elm-personal-website', _1: 'github'}
+			])
+	},
+		{
+		title: 'MTA Bus Times App for Amazon Echo',
+		description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
+		links: _elm_lang$core$Native_List.fromArray(
+			[
+				{ctor: '_Tuple2', _0: 'https://github.com/willisplummer/mta_alexa_app', _1: 'github'}
+			])
+	},
+		{
+		title: 'Western Beefs of North America',
+		description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
+		links: _elm_lang$core$Native_List.fromArray(
+			[
+				{ctor: '_Tuple2', _0: 'http://westernbeefs.com/', _1: 'site'},
+				{ctor: '_Tuple2', _0: 'https://github.com/willisplummer/westernbeefs', _1: 'github'}
+			])
+	}
+	]);
+var _user$project$Models$misc = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'http://dadsofshutterstock.tumblr.com', _1: 'dads of shutterstock'},
+		{ctor: '_Tuple2', _0: 'http://twitter.com/willisunedited', _1: '@willisunedited'},
+		{ctor: '_Tuple2', _0: 'http://twitter.com/willisdepressed', _1: '@willisdepressed'},
+		{ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.twitter1.2012.html', _1: 'selections from willis plummer\'s twitter (edited by mira gonzalez)'},
+		{ctor: '_Tuple2', _0: 'http://muumuuhouse.com/vt.twitter.2012-13.html', _1: 'selections from victoria trott\'s twitter (edited by willis plummer)'}
+	]);
+var _user$project$Models$prose = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
+		{ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+		{ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
+		{ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/', _1: 'my tweets almost got me sent home from study abroad'}
+	]);
+var _user$project$Models$poetry = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
+		{ctor: '_Tuple2', _0: 'http://darkfuckingwizard.com/three-poems/', _1: '3 poems (dark fucking wizard)'},
+		{ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.13nov2014.html', _1: '14 haiku (muumuu house)'},
+		{ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
+		{ctor: '_Tuple2', _0: 'http://cwp.fas.nyu.edu/object/cwp.ug.lobelprize_plummer', _1: 'good and beautiful (nyu creative writing program)'},
+		{ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'}
+	]);
+var _user$project$Models$initialModel = function (route) {
+	return {
+		nav: _elm_lang$core$Native_List.fromArray(
+			[
+				{ctor: '_Tuple2', _0: 'About', _1: _user$project$Messages$ShowAbout},
+				{ctor: '_Tuple2', _0: 'Writing', _1: _user$project$Messages$ShowWriting},
+				{ctor: '_Tuple2', _0: 'Projects', _1: _user$project$Messages$ShowPortfolio},
+				{ctor: '_Tuple2', _0: 'Contact', _1: _user$project$Messages$ShowContact}
+			]),
+		writingLinks: {poetryLinks: _user$project$Models$poetry, proseLinks: _user$project$Models$prose, miscLinks: _user$project$Models$misc},
+		projectDescriptions: _user$project$Models$projects,
+		route: route
+	};
+};
+var _user$project$Models$Model = F4(
+	function (a, b, c, d) {
+		return {nav: a, writingLinks: b, projectDescriptions: c, route: d};
+	});
+var _user$project$Models$Links = F3(
+	function (a, b, c) {
+		return {poetryLinks: a, proseLinks: b, miscLinks: c};
+	});
+var _user$project$Models$Project = F3(
+	function (a, b, c) {
+		return {title: a, description: b, links: c};
+	});

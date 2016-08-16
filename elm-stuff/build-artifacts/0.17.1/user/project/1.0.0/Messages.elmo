@@ -1,0 +1,4 @@
+var _user$project$Messages$ShowContact = {ctor: 'ShowContact'};
+var _user$project$Messages$ShowPortfolio = {ctor: 'ShowPortfolio'};
+var _user$project$Messages$ShowWriting = {ctor: 'ShowWriting'};
+var _user$project$Messages$ShowAbout = {ctor: 'ShowAbout'};

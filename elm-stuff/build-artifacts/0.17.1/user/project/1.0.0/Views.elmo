@@ -1,0 +1,465 @@
+var _user$project$Views$h1Style = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'padding', _1: '0%'},
+			{ctor: '_Tuple2', _0: 'margin', _1: '15px'}
+		]));
+var _user$project$Views$h2Style = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'padding', _1: '0%'},
+			{ctor: '_Tuple2', _0: 'margin', _1: '0%'},
+			{ctor: '_Tuple2', _0: 'font-size', _1: '110%'}
+		]));
+var _user$project$Views$projectContentStyle = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'padding', _1: '0 1.5%'},
+			{ctor: '_Tuple2', _0: 'text-align', _1: 'left'}
+		]));
+var _user$project$Views$projectStyle = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'padding', _1: '15px 3% 2px 3%'},
+			{ctor: '_Tuple2', _0: 'margin', _1: '10px 0%'},
+			{ctor: '_Tuple2', _0: 'border-radius', _1: '10px'},
+			{ctor: '_Tuple2', _0: 'border', _1: '0px invisible black'},
+			{ctor: '_Tuple2', _0: 'background-color', _1: '#E4FEFF'}
+		]));
+var _user$project$Views$buttonStyle = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'width', _1: '15%'},
+			{ctor: '_Tuple2', _0: 'min-width', _1: '55px'},
+			{ctor: '_Tuple2', _0: 'border-color', _1: 'black'},
+			{ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
+			{ctor: '_Tuple2', _0: 'border-radius', _1: '5px'}
+		]));
+var _user$project$Views$contentStyle = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'text-align', _1: 'left'},
+			{ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
+			{ctor: '_Tuple2', _0: 'width', _1: '90%'},
+			{ctor: '_Tuple2', _0: 'max-width', _1: '450px'}
+		]));
+var _user$project$Views$headerStyle = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+			{ctor: '_Tuple2', _0: 'margin', _1: '20px'}
+		]));
+var _user$project$Views$mainStyle = _elm_lang$html$Html_Attributes$style(
+	_elm_lang$core$Native_List.fromArray(
+		[
+			{ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
+			{ctor: '_Tuple2', _0: 'width', _1: '80%'},
+			{ctor: '_Tuple2', _0: 'height', _1: '100%'},
+			{ctor: '_Tuple2', _0: 'min-width', _1: '380px'},
+			{ctor: '_Tuple2', _0: 'max-width', _1: '625px'},
+			{ctor: '_Tuple2', _0: 'background-color', _1: 'white'}
+		]));
+var _user$project$Views$showProject = function (project) {
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('project'),
+					_user$project$Views$projectStyle
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('project-content'),
+							_user$project$Views$projectContentStyle
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$h2,
+							_elm_lang$core$Native_List.fromArray(
+								[_user$project$Views$h2Style]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text(project.title)
+								])),
+							A2(
+							_elm_lang$html$Html$p,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text(project.description)
+								])),
+							A2(
+							_elm_lang$html$Html$p,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							A2(
+								_elm_lang$core$List$concatMap,
+								function (_p0) {
+									var _p1 = _p0;
+									return _elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html$text('('),
+											A2(
+											_elm_lang$html$Html$a,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$href(_p1._0)
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html$text(_p1._1)
+												])),
+											_elm_lang$html$Html$text(')')
+										]);
+								},
+								project.links))
+						]))
+				]))
+		]);
+};
+var _user$project$Views$content = function (model) {
+	var _p2 = model.route;
+	switch (_p2.ctor) {
+		case 'AboutRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('content'),
+						_user$project$Views$contentStyle
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Hi, I\'m Willis')
+							])),
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('I\'m a poet and a web developer based in Brooklyn')
+							])),
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('I\'m also the Technical Operations Manager on Kickstarter\'s Support team')
+							]))
+					]));
+		case 'WritingRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('content'),
+						_user$project$Views$contentStyle
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Poetry:')
+							])),
+						A2(
+						_elm_lang$html$Html$ul,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('writing-list')
+							]),
+						A2(
+							_elm_lang$core$List$concatMap,
+							function (_p3) {
+								var _p4 = _p3;
+								return _elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$li,
+										_elm_lang$core$Native_List.fromArray(
+											[]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												A2(
+												_elm_lang$html$Html$a,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$href(_p4._0)
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html$text(_p4._1)
+													]))
+											]))
+									]);
+							},
+							model.writingLinks.poetryLinks)),
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Prose:')
+							])),
+						A2(
+						_elm_lang$html$Html$ul,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('writing-list')
+							]),
+						A2(
+							_elm_lang$core$List$concatMap,
+							function (_p5) {
+								var _p6 = _p5;
+								return _elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$li,
+										_elm_lang$core$Native_List.fromArray(
+											[]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												A2(
+												_elm_lang$html$Html$a,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$href(_p6._0)
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html$text(_p6._1)
+													]))
+											]))
+									]);
+							},
+							model.writingLinks.proseLinks)),
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Misc:')
+							])),
+						A2(
+						_elm_lang$html$Html$ul,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('writing-list')
+							]),
+						A2(
+							_elm_lang$core$List$concatMap,
+							function (_p7) {
+								var _p8 = _p7;
+								return _elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$li,
+										_elm_lang$core$Native_List.fromArray(
+											[]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												A2(
+												_elm_lang$html$Html$a,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$href(_p8._0)
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html$text(_p8._1)
+													]))
+											]))
+									]);
+							},
+							model.writingLinks.miscLinks))
+					]));
+		case 'PortfolioRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('content'),
+						_user$project$Views$contentStyle
+					]),
+				A2(_elm_lang$core$List$concatMap, _user$project$Views$showProject, model.projectDescriptions));
+		case 'ContactRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('content'),
+						_user$project$Views$contentStyle
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('You can find me on '),
+								A2(
+								_elm_lang$html$Html$a,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$href('https://github.com/willisplummer')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Github')
+									])),
+								_elm_lang$html$Html$text(' and '),
+								A2(
+								_elm_lang$html$Html$a,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$href('https://twitter.com/willisplummer')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Twitter')
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('I\'m also on '),
+								A2(
+								_elm_lang$html$Html$a,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('LinkedIn')
+									])),
+								_elm_lang$html$Html$text(' and '),
+								A2(
+								_elm_lang$html$Html$a,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$href('https://willisplummer.tumblr.com')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Tumblr')
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$a,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$href('mailto:willisplummer@gmail.com')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Email')
+									])),
+								_elm_lang$html$Html$text(' is the best way to get in touch')
+							]))
+					]));
+		default:
+			return A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('content'),
+						_user$project$Views$contentStyle
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('NOT FOUND')
+					]));
+	}
+};
+var _user$project$Views$nav = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(
+			_elm_lang$core$List$intersperse,
+			_elm_lang$html$Html$text(' | '),
+			A2(
+				_elm_lang$core$List$concatMap,
+				function (_p9) {
+					var _p10 = _p9;
+					return _elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$button,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$type$('button'),
+									_elm_lang$html$Html_Events$onClick(_p10._1),
+									_user$project$Views$buttonStyle
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text(_p10._0)
+								]))
+						]);
+				},
+				model.nav)));
+};
+var _user$project$Views$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$body,
+		_elm_lang$core$Native_List.fromArray(
+			[_user$project$Views$mainStyle]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('header'),
+						_user$project$Views$headerStyle
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$h1,
+						_elm_lang$core$Native_List.fromArray(
+							[_user$project$Views$h1Style]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Willis Plummer')
+							])),
+						_user$project$Views$nav(model)
+					])),
+				_user$project$Views$content(model)
+			]));
+};
