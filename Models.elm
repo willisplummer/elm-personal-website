@@ -7,6 +7,7 @@ import Messages exposing (..)
 type alias Model =
     { nav : List ( String, Msg )
     , writingLinks : Links
+    , projectDescriptions : List (Project)
     , route : Routing.Route
     }
 
@@ -15,6 +16,13 @@ type alias Links =
     { poetryLinks : List ( String, String )
     , proseLinks : List ( String, String )
     , miscLinks : List ( String, String )
+    }
+
+
+type alias Project =
+    { title : String
+    , description : String
+    , links : List ( String, String )
     }
 
 
@@ -31,6 +39,7 @@ initialModel route =
         , proseLinks = prose
         , miscLinks = misc
         }
+    , projectDescriptions = projects
     , route = route
     }
 
@@ -62,4 +71,30 @@ misc =
     , ( "http://twitter.com/willisdepressed", "@willisdepressed" )
     , ( "http://muumuuhouse.com/wp.twitter1.2012.html", "selections from willis plummer's twitter (edited by mira gonzalez)" )
     , ( "http://muumuuhouse.com/vt.twitter.2012-13.html", "selections from victoria trott's twitter (edited by willis plummer)" )
+    ]
+
+
+projects : List (Project)
+projects =
+    [ { title = "This Portfolio Site"
+      , description = """
+                        This single-page portfolio site was built using Elm.
+                        It implements the Navigation and URLparser packages to handle routing.
+                        """
+      , links = [ ( "https://github.com/willisplummer/elm-personal-website", "github" ) ]
+      }
+    , { title = "MTA Bus Times App for Amazon Echo"
+      , description = """
+                        This ruby app runs on Sinatra and enables the Amazon Echo to
+                        let you know when the next bus will arrive via the MTA's Bus Time API.
+                        """
+      , links = [ ( "https://github.com/willisplummer/mta_alexa_app", "github" ) ]
+      }
+    , { title = "Western Beefs of North America"
+      , description = """
+                        This is a poetry and prose website that I edited in 2014 and 2015.
+                        I built a Rails CMS to simplify the process of adding new content.
+                        """
+      , links = [ ( "http://westernbeefs.com/", "site" ), ( "https://github.com/willisplummer/westernbeefs", "github" ) ]
+      }
     ]
