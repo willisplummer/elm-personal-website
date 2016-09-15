@@ -36,7 +36,7 @@ content model =
             div [ class "content", contentStyle ]
                 [ p [] [ text "Hi, I'm Willis" ]
                 , p [] [ text "I'm a poet and a web developer based in Brooklyn" ]
-                , p [] [ text "I'm also the Technical Operations Manager on Kickstarter's Support team" ]
+                , p [] [ text "I'm also a Support Engineer at Kickstarter" ]
                 ]
 
         WritingRoute ->
