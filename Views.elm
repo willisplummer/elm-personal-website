@@ -35,8 +35,8 @@ content model =
         AboutRoute ->
             div [ class "content", contentStyle ]
                 [ p [] [ text "Hi, I'm Willis" ]
-                , p [] [ text "I'm a poet and a web developer based in Brooklyn" ]
-                , p [] [ text "I'm also a Support Engineer at Kickstarter" ]
+                , p [] [ text "I'm a software engineer and sometimes poet living in Brooklyn" ]
+                , p [] [ text "I work at Kickstarter" ]
                 ]
 
         WritingRoute ->
