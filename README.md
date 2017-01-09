@@ -8,5 +8,4 @@ run `elm-make Main.elm` and then commit the new `index.html` file and the latest
 
 ## TO DO's
 
-- [ ] upgrade to Elm 0.18.0
-- [ ] add a commit hook to warn if changes are pushed to gh-pages without also pushing a new version of index.html
+- [ ] improve deploy to gh-pages workflow
