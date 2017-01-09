@@ -152,7 +152,7 @@ var _user$project$Views$content = function (model) {
 							[]),
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$html$Html$text('I\'m a poet and a web developer based in Brooklyn')
+								_elm_lang$html$Html$text('I\'m a software engineer and sometimes poet living in Brooklyn')
 							])),
 						A2(
 						_elm_lang$html$Html$p,
@@ -160,7 +160,7 @@ var _user$project$Views$content = function (model) {
 							[]),
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$html$Html$text('I\'m also the Technical Operations Manager on Kickstarter\'s Support team')
+								_elm_lang$html$Html$text('I work at Kickstarter')
 							]))
 					]));
 		case 'WritingRoute':
