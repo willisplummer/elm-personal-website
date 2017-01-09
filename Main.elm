@@ -183,6 +183,7 @@ route =
         [ UrlParser.map AboutRoute top
         , UrlParser.map AboutRoute (UrlParser.s "about")
         , UrlParser.map WritingRoute (UrlParser.s "writing")
+        , UrlParser.map PortfolioRoute (UrlParser.s "projects")
         , UrlParser.map PortfolioRoute (UrlParser.s "portfolio")
         , UrlParser.map ContactRoute (UrlParser.s "contact")
         ]

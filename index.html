@@ -10605,14 +10605,21 @@ var _user$project$Main$route = _evancz$url_parser$UrlParser$oneOf(
 					_0: A2(
 						_evancz$url_parser$UrlParser$map,
 						_user$project$Main$PortfolioRoute,
-						_evancz$url_parser$UrlParser$s('portfolio')),
+						_evancz$url_parser$UrlParser$s('projects')),
 					_1: {
 						ctor: '::',
 						_0: A2(
 							_evancz$url_parser$UrlParser$map,
-							_user$project$Main$ContactRoute,
-							_evancz$url_parser$UrlParser$s('contact')),
-						_1: {ctor: '[]'}
+							_user$project$Main$PortfolioRoute,
+							_evancz$url_parser$UrlParser$s('portfolio')),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_evancz$url_parser$UrlParser$map,
+								_user$project$Main$ContactRoute,
+								_evancz$url_parser$UrlParser$s('contact')),
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
