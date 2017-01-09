@@ -7,7 +7,7 @@ import Messages exposing (..)
 type alias Model =
     { nav : List ( String, Msg )
     , writingLinks : Links
-    , projectDescriptions : List (Project)
+    , projectDescriptions : List Project
     , route : Routing.Route
     }
 
@@ -74,7 +74,7 @@ misc =
     ]
 
 
-projects : List (Project)
+projects : List Project
 projects =
     [ { title = "This Portfolio Site"
       , description = """

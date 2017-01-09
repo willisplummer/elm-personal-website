@@ -25,7 +25,7 @@ nav : Model -> Html Msg
 nav model =
     div []
         (List.intersperse (text " | ")
-            (List.concatMap (\( description, msg ) -> [ button [ type' "button", onClick msg, buttonStyle ] [ text description ] ]) model.nav)
+            (List.concatMap (\( description, msg ) -> [ button [ type_ "button", onClick msg, buttonStyle ] [ text description ] ]) model.nav)
         )
 
 
