@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+
+INDEX_FILE = "index.html".freeze
+
+PRIMARY_BRANCH = "gh-pages".freeze
+
+current_branch = %x{git branch}.match(/\* (.+?)\n/m)[1]
+
+exit(0) if current_branch != PRIMARY_BRANCH
+
+commit_files = %x{git diff --cached --name-only}
+
+committing_index = commit_files.include?(INDEX_FILE)
+
+if !committing_index
+  puts <<-EOT
+
+ERROR: To commit to gh-pages, run the following command
+
+> elm-make Main.elm
+
+then add the the latest version of index.html to your staged changes
+
+Include '-n' to bypass this check.
+
+Exiting...
+  EOT
+
+  exit(1)
+end
+
+exit(0)
