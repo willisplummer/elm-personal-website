@@ -19,7 +19,7 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = subscriptions
+        , subscriptions = (\_ -> Sub.none)
         }
 
 
@@ -43,6 +43,22 @@ type alias Project =
     , description : String
     , links : List ( String, String )
     }
+
+
+parseUrl : Navigation.Location -> Route
+parseUrl location =
+    let
+        parsedURL =
+            UrlParser.parseHash route location
+    in
+        Maybe.withDefault NotFoundRoute parsedURL
+
+
+init : Navigation.Location -> ( Model, Cmd Msg )
+init location =
+    ( initialModel (parseUrl location)
+    , Cmd.none
+    )
 
 
 initialModel : Route -> Model
@@ -120,17 +136,6 @@ projects =
 
 
 
--- Init
-
-
-init : Navigation.Location -> ( Model, Cmd Msg )
-init location =
-    ( initialModel (routeFromResult (UrlParser.parseHash route location))
-    , Cmd.none
-    )
-
-
-
 -- Update
 
 
@@ -160,7 +165,7 @@ update msg model =
         UrlChange location ->
             let
                 currentRoute =
-                    routeFromResult (UrlParser.parseHash route location)
+                    parseUrl location
             in
                 ( { model | route = currentRoute }, Cmd.none )
 
@@ -187,16 +192,6 @@ route =
         , UrlParser.map PortfolioRoute (UrlParser.s "portfolio")
         , UrlParser.map ContactRoute (UrlParser.s "contact")
         ]
-
-
-routeFromResult : Maybe Route -> Route
-routeFromResult location =
-    case location of
-        Just route ->
-            route
-
-        _ ->
-            NotFoundRoute
 
 
 
@@ -379,12 +374,3 @@ h1Style =
         [ ( "padding", "0%" )
         , ( "margin", "15px" )
         ]
-
-
-
--- Subscriptions
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
