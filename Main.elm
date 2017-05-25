@@ -221,65 +221,66 @@ nav model =
 
 content : Model -> Html Msg
 content model =
-    case model.route of
-        AboutRoute ->
-            div [ class "content", contentStyle ]
-                [ p [] [ text "Hi, I'm Willis" ]
-                , p [] [ text "I'm a software engineer and sometimes poet living in Brooklyn" ]
-                , p [] [ text "I work at Kickstarter" ]
-                ]
-
-        WritingRoute ->
-            div [ class "content", contentStyle ]
-                [ p [] [ text "Poetry:" ]
-                , ul [ class "writing-list" ]
-                    (List.concatMap
-                        (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
-                        model.writingLinks.poetryLinks
-                    )
-                , p [] [ text "Prose:" ]
-                , ul [ class "writing-list" ]
-                    (List.concatMap
-                        (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
-                        model.writingLinks.proseLinks
-                    )
-                , p [] [ text "Misc:" ]
-                , ul [ class "writing-list" ]
-                    (List.concatMap
-                        (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
-                        model.writingLinks.miscLinks
-                    )
-                ]
-
-        PortfolioRoute ->
-            div [ class "content", contentStyle ]
+    div [] 
+        [ div [ class "content", contentStyle ]
+            [ h2 [] [ text "About Me" ]
+            , p [] [ text "Hi, I'm Willis" ]
+            , p [] [ text "I'm a software engineer and sometimes poet living in Brooklyn" ]
+            , p [] [ text "I work at Kickstarter" ]
+            ]
+        , div [ class "content", contentStyle ]
+            [ h2 [] [ text "Writing" ]
+            , p [] [ text "Poetry:" ]
+            , ul [ class "writing-list" ]
                 (List.concatMap
-                    showProject
-                    model.projectDescriptions
+                    (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
+                    model.writingLinks.poetryLinks
                 )
-
-        ContactRoute ->
-            div [ class "content", contentStyle ]
-                [ p []
-                    [ text "You can find me on "
-                    , a [ href "https://github.com/willisplummer" ] [ text "Github" ]
-                    , text " and "
-                    , a [ href "https://twitter.com/willisplummer" ] [ text "Twitter" ]
-                    ]
-                , p []
-                    [ text "I'm also on "
-                    , a [ href "https://www.linkedin.com/in/willisplummer" ] [ text "LinkedIn" ]
-                    , text " and "
-                    , a [ href "https://willisplummer.tumblr.com" ] [ text "Tumblr" ]
-                    ]
-                , p []
-                    [ a [ href "mailto:willisplummer@gmail.com" ] [ text "Email" ]
-                    , text " is the best way to get in touch"
-                    ]
+            , p [] [ text "Prose:" ]
+            , ul [ class "writing-list" ]
+                (List.concatMap
+                    (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
+                    model.writingLinks.proseLinks
+                )
+            , p [] [ text "Misc:" ]
+            , ul [ class "writing-list" ]
+                (List.concatMap
+                    (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
+                    model.writingLinks.miscLinks
+                )
+            ]
+        , div [ class "content", contentStyle ]
+                [ h2 [] [ text "Projects" ]
+                , div [] 
+                    (List.concatMap
+                        showProject
+                        model.projectDescriptions
+                        )
                 ]
-
-        NotFoundRoute ->
-            div [ class "content", contentStyle ] [ text "NOT FOUND" ]
+        , div [ class "content", contentStyle ]
+            [ h2 [] [ text "Contact" ]
+            , p []
+                [ text "You can find me on "
+                , a [ href "https://github.com/willisplummer" ] [ text "Github" ]
+                , text " and "
+                , a [ href "https://twitter.com/willisplummer" ] [ text "Twitter" ]
+                ]
+            , p []
+                [ text "I'm also on "
+                , a [ href "https://www.linkedin.com/in/willisplummer" ] [ text "LinkedIn" ]
+                , text " and "
+                , a [ href "https://willisplummer.tumblr.com" ] [ text "Tumblr" ]
+                ]
+            , p []
+                [ a [ href "mailto:willisplummer@gmail.com" ] [ text "Email" ]
+                , text " is the best way to get in touch"
+                ]
+            ]
+        ]
+            
+-- TODO: Handle NotFoundRoute
+        -- NotFoundRoute ->
+        --     div [ class "content", contentStyle ] [ text "NOT FOUND" ]
 
 
 showProject : Project -> List (Html Msg)
@@ -324,7 +325,7 @@ contentStyle : Attribute msg
 contentStyle =
     style
         [ ( "text-align", "left" )
-        , ( "margin", "auto" )
+        , ( "margin", "100px auto" )
         , ( "width", "90%" )
         , ( "max-width", "450px" )
         ]

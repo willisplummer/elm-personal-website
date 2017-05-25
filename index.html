@@ -9919,7 +9919,7 @@ var _user$project$Main$contentStyle = _elm_lang$html$Html_Attributes$style(
 		_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'left'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
+			_0: {ctor: '_Tuple2', _0: 'margin', _1: '100px auto'},
 			_1: {
 				ctor: '::',
 				_0: {ctor: '_Tuple2', _0: 'width', _1: '90%'},
@@ -10063,10 +10063,12 @@ var _user$project$Main$showProject = function (project) {
 	};
 };
 var _user$project$Main$content = function (model) {
-	var _p2 = model.route;
-	switch (_p2.ctor) {
-		case 'AboutRoute':
-			return A2(
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
 				_elm_lang$html$Html$div,
 				{
 					ctor: '::',
@@ -10080,11 +10082,11 @@ var _user$project$Main$content = function (model) {
 				{
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$p,
+						_elm_lang$html$Html$h2,
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Hi, I\'m Willis'),
+							_0: _elm_lang$html$Html$text('About Me'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -10094,7 +10096,7 @@ var _user$project$Main$content = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('I\'m a software engineer and sometimes poet living in Brooklyn'),
+								_0: _elm_lang$html$Html$text('Hi, I\'m Willis'),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
@@ -10104,73 +10106,47 @@ var _user$project$Main$content = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('I work at Kickstarter'),
+									_0: _elm_lang$html$Html$text('I\'m a software engineer and sometimes poet living in Brooklyn'),
 									_1: {ctor: '[]'}
 								}),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$p,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('I work at Kickstarter'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
 						}
 					}
-				});
-		case 'WritingRoute':
-			return A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
 						ctor: '::',
-						_0: _user$project$Main$contentStyle,
-						_1: {ctor: '[]'}
-					}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$p,
-						{ctor: '[]'},
-						{
+						_0: _elm_lang$html$Html_Attributes$class('content'),
+						_1: {
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Poetry:'),
+							_0: _user$project$Main$contentStyle,
 							_1: {ctor: '[]'}
-						}),
-					_1: {
+						}
+					},
+					{
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$ul,
+							_elm_lang$html$Html$h2,
+							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('writing-list'),
+								_0: _elm_lang$html$Html$text('Writing'),
 								_1: {ctor: '[]'}
-							},
-							A2(
-								_elm_lang$core$List$concatMap,
-								function (_p3) {
-									var _p4 = _p3;
-									return {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$li,
-											{ctor: '[]'},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$a,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$href(_p4._0),
-														_1: {ctor: '[]'}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text(_p4._1),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									};
-								},
-								model.writingLinks.poetryLinks)),
+							}),
 						_1: {
 							ctor: '::',
 							_0: A2(
@@ -10178,7 +10154,7 @@ var _user$project$Main$content = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Prose:'),
+									_0: _elm_lang$html$Html$text('Poetry:'),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
@@ -10192,8 +10168,8 @@ var _user$project$Main$content = function (model) {
 									},
 									A2(
 										_elm_lang$core$List$concatMap,
-										function (_p5) {
-											var _p6 = _p5;
+										function (_p2) {
+											var _p3 = _p2;
 											return {
 												ctor: '::',
 												_0: A2(
@@ -10205,12 +10181,12 @@ var _user$project$Main$content = function (model) {
 															_elm_lang$html$Html$a,
 															{
 																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$href(_p6._0),
+																_0: _elm_lang$html$Html_Attributes$href(_p3._0),
 																_1: {ctor: '[]'}
 															},
 															{
 																ctor: '::',
-																_0: _elm_lang$html$Html$text(_p6._1),
+																_0: _elm_lang$html$Html$text(_p3._1),
 																_1: {ctor: '[]'}
 															}),
 														_1: {ctor: '[]'}
@@ -10218,7 +10194,7 @@ var _user$project$Main$content = function (model) {
 												_1: {ctor: '[]'}
 											};
 										},
-										model.writingLinks.proseLinks)),
+										model.writingLinks.poetryLinks)),
 								_1: {
 									ctor: '::',
 									_0: A2(
@@ -10226,7 +10202,7 @@ var _user$project$Main$content = function (model) {
 										{ctor: '[]'},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('Misc:'),
+											_0: _elm_lang$html$Html$text('Prose:'),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -10240,8 +10216,8 @@ var _user$project$Main$content = function (model) {
 											},
 											A2(
 												_elm_lang$core$List$concatMap,
-												function (_p7) {
-													var _p8 = _p7;
+												function (_p4) {
+													var _p5 = _p4;
 													return {
 														ctor: '::',
 														_0: A2(
@@ -10253,12 +10229,12 @@ var _user$project$Main$content = function (model) {
 																	_elm_lang$html$Html$a,
 																	{
 																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$href(_p8._0),
+																		_0: _elm_lang$html$Html_Attributes$href(_p5._0),
 																		_1: {ctor: '[]'}
 																	},
 																	{
 																		ctor: '::',
-																		_0: _elm_lang$html$Html$text(_p8._1),
+																		_0: _elm_lang$html$Html$text(_p5._1),
 																		_1: {ctor: '[]'}
 																	}),
 																_1: {ctor: '[]'}
@@ -10266,174 +10242,241 @@ var _user$project$Main$content = function (model) {
 														_1: {ctor: '[]'}
 													};
 												},
-												model.writingLinks.miscLinks)),
-										_1: {ctor: '[]'}
+												model.writingLinks.proseLinks)),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$p,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Misc:'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$ul,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('writing-list'),
+														_1: {ctor: '[]'}
+													},
+													A2(
+														_elm_lang$core$List$concatMap,
+														function (_p6) {
+															var _p7 = _p6;
+															return {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$li,
+																	{ctor: '[]'},
+																	{
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$a,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$href(_p7._0),
+																				_1: {ctor: '[]'}
+																			},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text(_p7._1),
+																				_1: {ctor: '[]'}
+																			}),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {ctor: '[]'}
+															};
+														},
+														model.writingLinks.miscLinks)),
+												_1: {ctor: '[]'}
+											}
+										}
 									}
 								}
 							}
 						}
-					}
-				});
-		case 'PortfolioRoute':
-			return A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$contentStyle,
-						_1: {ctor: '[]'}
-					}
-				},
-				A2(_elm_lang$core$List$concatMap, _user$project$Main$showProject, model.projectDescriptions));
-		case 'ContactRoute':
-			return A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$contentStyle,
-						_1: {ctor: '[]'}
-					}
-				},
-				{
+					}),
+				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$p,
-						{ctor: '[]'},
+						_elm_lang$html$Html$div,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('You can find me on '),
+							_0: _elm_lang$html$Html_Attributes$class('content'),
+							_1: {
+								ctor: '::',
+								_0: _user$project$Main$contentStyle,
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$h2,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Projects'),
+									_1: {ctor: '[]'}
+								}),
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$a,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$href('https://github.com/willisplummer'),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('Github'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html$text(' and '),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$a,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$href('https://twitter.com/willisplummer'),
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('Twitter'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}
-								}
+									_elm_lang$html$Html$div,
+									{ctor: '[]'},
+									A2(_elm_lang$core$List$concatMap, _user$project$Main$showProject, model.projectDescriptions)),
+								_1: {ctor: '[]'}
 							}
 						}),
 					_1: {
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$p,
-							{ctor: '[]'},
+							_elm_lang$html$Html$div,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('I\'m also on '),
+								_0: _elm_lang$html$Html_Attributes$class('content'),
+								_1: {
+									ctor: '::',
+									_0: _user$project$Main$contentStyle,
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$h2,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Contact'),
+										_1: {ctor: '[]'}
+									}),
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_elm_lang$html$Html$a,
+										_elm_lang$html$Html$p,
+										{ctor: '[]'},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('LinkedIn'),
-											_1: {ctor: '[]'}
+											_0: _elm_lang$html$Html$text('You can find me on '),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$a,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$href('https://github.com/willisplummer'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Github'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html$text(' and '),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$a,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$href('https://twitter.com/willisplummer'),
+																_1: {ctor: '[]'}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('Twitter'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
 										}),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$html$Html$text(' and '),
+										_0: A2(
+											_elm_lang$html$Html$p,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('I\'m also on '),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('LinkedIn'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(' and '),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$a,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$href('https://willisplummer.tumblr.com'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('Tumblr'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
-												_elm_lang$html$Html$a,
+												_elm_lang$html$Html$p,
+												{ctor: '[]'},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$href('https://willisplummer.tumblr.com'),
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Tumblr'),
-													_1: {ctor: '[]'}
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href('mailto:willisplummer@gmail.com'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Email'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(' is the best way to get in touch'),
+														_1: {ctor: '[]'}
+													}
 												}),
 											_1: {ctor: '[]'}
 										}
 									}
 								}
 							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$p,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$a,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$href('mailto:willisplummer@gmail.com'),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Email'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(' is the best way to get in touch'),
-										_1: {ctor: '[]'}
-									}
-								}),
-							_1: {ctor: '[]'}
-						}
-					}
-				});
-		default:
-			return A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$contentStyle,
 						_1: {ctor: '[]'}
 					}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('NOT FOUND'),
-					_1: {ctor: '[]'}
-				});
-	}
+				}
+			}
+		});
 };
 var _user$project$Main$nav = function (model) {
 	return A2(
@@ -10444,8 +10487,8 @@ var _user$project$Main$nav = function (model) {
 			_elm_lang$html$Html$text(' | '),
 			A2(
 				_elm_lang$core$List$concatMap,
-				function (_p9) {
-					var _p10 = _p9;
+				function (_p8) {
+					var _p9 = _p8;
 					return {
 						ctor: '::',
 						_0: A2(
@@ -10455,7 +10498,7 @@ var _user$project$Main$nav = function (model) {
 								_0: _elm_lang$html$Html_Attributes$type_('button'),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onClick(_p10._1),
+									_0: _elm_lang$html$Html_Events$onClick(_p9._1),
 									_1: {
 										ctor: '::',
 										_0: _user$project$Main$buttonStyle,
@@ -10465,7 +10508,7 @@ var _user$project$Main$nav = function (model) {
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text(_p10._0),
+								_0: _elm_lang$html$Html$text(_p9._0),
 								_1: {ctor: '[]'}
 							}),
 						_1: {ctor: '[]'}
@@ -10732,8 +10775,8 @@ var _user$project$Main$init = function (location) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p11 = msg;
-		switch (_p11.ctor) {
+		var _p10 = msg;
+		switch (_p10.ctor) {
 			case 'ShowAbout':
 				return {
 					ctor: '_Tuple2',
@@ -10759,7 +10802,7 @@ var _user$project$Main$update = F2(
 					_1: _elm_lang$navigation$Navigation$modifyUrl('#contact')
 				};
 			default:
-				var currentRoute = _user$project$Main$parseUrl(_p11._0);
+				var currentRoute = _user$project$Main$parseUrl(_p10._0);
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -10776,7 +10819,7 @@ var _user$project$Main$main = A2(
 		init: _user$project$Main$init,
 		view: _user$project$Main$view,
 		update: _user$project$Main$update,
-		subscriptions: function (_p12) {
+		subscriptions: function (_p11) {
 			return _elm_lang$core$Platform_Sub$none;
 		}
 	})();
