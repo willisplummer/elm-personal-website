@@ -10644,7 +10644,7 @@ var _user$project$Main$projects = {
 	ctor: '::',
 	_0: {
 		title: 'This Portfolio Site',
-		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
+		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing and\n                        uses a port to use JavaScript for scrolling.\n                        ',
 		links: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/elm-personal-website', _1: 'github'},

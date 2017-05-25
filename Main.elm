@@ -114,7 +114,8 @@ projects =
     [ { title = "This Portfolio Site"
       , description = """
                         This single-page portfolio site was built using Elm.
-                        It implements the Navigation and URLparser packages to handle routing.
+                        It implements the Navigation and URLparser packages to handle routing
+                        and uses a port for JavaScript scrolling.
                         """
       , links = [ ( "https://github.com/willisplummer/elm-personal-website", "github" ) ]
       }
