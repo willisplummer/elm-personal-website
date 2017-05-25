@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>willis plummer</title>
-	</head>
-	<body>
-		<div id="main"></div>
-		<script src="main.js"></script>
-		<script>
-				var node = document.getElementById('main');
-				var app = Elm.Main.embed(node);
+  <head>
+    <title>willis plummer</title>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script src="main.js"></script>
+    <script>
+      var node = document.getElementById('main');
+      var app = Elm.Main.embed(node);
 
-				function findPos(obj) {
-					var curtop = 0;
-					if (obj.offsetParent) {
-							do {
-									curtop += obj.offsetTop;
-							} while (obj = obj.offsetParent);
-					return [curtop];
-					}
-				}
+      function findPos(obj) {
+        var curtop = 0;
+        if (obj.offsetParent) {
+          do {
+            curtop += obj.offsetTop;
+          } while (obj = obj.offsetParent);
+          return [curtop];
+        }
+      }
 
-				app.ports.scroll.subscribe(function(elementId) {
-					window.scroll(0, findPos(document.getElementById(elementId)));
-				});
-		</script>
-	</body>
+      app.ports.scroll.subscribe(function(elementId) {
+        window.scroll(0, findPos(document.getElementById(elementId)));
+      });
+    </script>
+  </body>
 </html>
