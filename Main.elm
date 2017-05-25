@@ -1,4 +1,4 @@
-port module Main exposing (..)
+module Main exposing (..)
 
 import Navigation
 import Html exposing (..)
@@ -7,6 +7,9 @@ import Html.Events exposing (..)
 import List exposing (..)
 import Navigation
 import UrlParser exposing (..)
+import Dom exposing (..)
+import Dom.Scroll exposing (..)
+import Task exposing (..)
 
 
 -- Main
@@ -146,6 +149,8 @@ type Msg
     | ShowPortfolio
     | ShowContact
     | UrlChange Navigation.Location
+    | Scrolled
+    | NotFound
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -168,12 +173,25 @@ update msg model =
                 currentRoute =
                     parseUrl location
             in
-                ( { model | route = currentRoute }, scroll (routeToString currentRoute) )
+                ( { model | route = currentRoute }, Task.attempt handleResult (scrollTask currentRoute)  )
 
+        Scrolled ->
+            ( model, Cmd.none )
+        
+        NotFound ->
+            ( model, Cmd.none )
+
+handleResult : Result Dom.Error () -> Msg
+handleResult result =
+    case result of
+        Err _ ->
+            NotFound
+
+        Ok _ ->
+            Scrolled
 
 
 -- ROUTING
-
 
 type Route
     = AboutRoute
@@ -194,8 +212,11 @@ route =
         , UrlParser.map ContactRoute (UrlParser.s "contact")
         ]
 
-routeToString : Route -> String
-routeToString route =
+scrollTask : Route -> Task.Task Dom.Error ()
+scrollTask currentRoute = toBottom (routeToId currentRoute)
+
+routeToId : Route -> String
+routeToId route =
     case route of
         AboutRoute ->
             "about"
@@ -207,10 +228,6 @@ routeToString route =
             "contact"
         NotFoundRoute ->
             "header"
-    
--- Ports
-
-port scroll : String -> Cmd msg    
 
 -- Views
 

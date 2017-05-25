@@ -6356,8 +6356,34 @@ return {
 
 }();
 
+var _elm_lang$dom$Dom$blur = _elm_lang$dom$Native_Dom.blur;
+var _elm_lang$dom$Dom$focus = _elm_lang$dom$Native_Dom.focus;
+var _elm_lang$dom$Dom$NotFound = function (a) {
+	return {ctor: 'NotFound', _0: a};
+};
+
 var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
 var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
+
+var _elm_lang$dom$Dom_Size$width = _elm_lang$dom$Native_Dom.width;
+var _elm_lang$dom$Dom_Size$height = _elm_lang$dom$Native_Dom.height;
+var _elm_lang$dom$Dom_Size$VisibleContentWithBordersAndMargins = {ctor: 'VisibleContentWithBordersAndMargins'};
+var _elm_lang$dom$Dom_Size$VisibleContentWithBorders = {ctor: 'VisibleContentWithBorders'};
+var _elm_lang$dom$Dom_Size$VisibleContent = {ctor: 'VisibleContent'};
+var _elm_lang$dom$Dom_Size$Content = {ctor: 'Content'};
+
+var _elm_lang$dom$Dom_Scroll$toX = _elm_lang$dom$Native_Dom.setScrollLeft;
+var _elm_lang$dom$Dom_Scroll$x = _elm_lang$dom$Native_Dom.getScrollLeft;
+var _elm_lang$dom$Dom_Scroll$toRight = _elm_lang$dom$Native_Dom.toRight;
+var _elm_lang$dom$Dom_Scroll$toLeft = function (id) {
+	return A2(_elm_lang$dom$Dom_Scroll$toX, id, 0);
+};
+var _elm_lang$dom$Dom_Scroll$toY = _elm_lang$dom$Native_Dom.setScrollTop;
+var _elm_lang$dom$Dom_Scroll$y = _elm_lang$dom$Native_Dom.getScrollTop;
+var _elm_lang$dom$Dom_Scroll$toBottom = _elm_lang$dom$Native_Dom.toBottom;
+var _elm_lang$dom$Dom_Scroll$toTop = function (id) {
+	return A2(_elm_lang$dom$Dom_Scroll$toY, id, 0);
+};
 
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
@@ -10625,7 +10651,7 @@ var _user$project$Main$view = function (model) {
 			}
 		});
 };
-var _user$project$Main$routeToString = function (route) {
+var _user$project$Main$routeToId = function (route) {
 	var _p10 = route;
 	switch (_p10.ctor) {
 		case 'AboutRoute':
@@ -10640,11 +10666,15 @@ var _user$project$Main$routeToString = function (route) {
 			return 'header';
 	}
 };
+var _user$project$Main$scrollTask = function (currentRoute) {
+	return _elm_lang$dom$Dom_Scroll$toBottom(
+		_user$project$Main$routeToId(currentRoute));
+};
 var _user$project$Main$projects = {
 	ctor: '::',
 	_0: {
 		title: 'This Portfolio Site',
-		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing and\n                        uses a port to use JavaScript for scrolling.\n                        ',
+		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing\n                        and uses a port for JavaScript scrolling.\n                        ',
 		links: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/elm-personal-website', _1: 'github'},
@@ -10748,11 +10778,6 @@ var _user$project$Main$poetry = {
 		}
 	}
 };
-var _user$project$Main$scroll = _elm_lang$core$Native_Platform.outgoingPort(
-	'scroll',
-	function (v) {
-		return v;
-	});
 var _user$project$Main$Model = F4(
 	function (a, b, c, d) {
 		return {nav: a, writingLinks: b, projectDescriptions: c, route: d};
@@ -10765,6 +10790,16 @@ var _user$project$Main$Project = F3(
 	function (a, b, c) {
 		return {title: a, description: b, links: c};
 	});
+var _user$project$Main$NotFound = {ctor: 'NotFound'};
+var _user$project$Main$Scrolled = {ctor: 'Scrolled'};
+var _user$project$Main$handleResult = function (result) {
+	var _p11 = result;
+	if (_p11.ctor === 'Err') {
+		return _user$project$Main$NotFound;
+	} else {
+		return _user$project$Main$Scrolled;
+	}
+};
 var _user$project$Main$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
 };
@@ -10856,8 +10891,8 @@ var _user$project$Main$init = function (location) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p11 = msg;
-		switch (_p11.ctor) {
+		var _p12 = msg;
+		switch (_p12.ctor) {
 			case 'ShowAbout':
 				return {
 					ctor: '_Tuple2',
@@ -10882,16 +10917,28 @@ var _user$project$Main$update = F2(
 					_0: model,
 					_1: _elm_lang$navigation$Navigation$modifyUrl('#contact')
 				};
-			default:
-				var currentRoute = _user$project$Main$parseUrl(_p11._0);
+			case 'UrlChange':
+				var currentRoute = _user$project$Main$parseUrl(_p12._0);
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{route: currentRoute}),
-					_1: _user$project$Main$scroll(
-						_user$project$Main$routeToString(currentRoute))
+					_1: A2(
+						_elm_lang$core$Task$attempt,
+						_user$project$Main$handleResult,
+						_user$project$Main$scrollTask(currentRoute))
 				};
+			case 'Scrolled':
+				return A2(
+					_elm_lang$core$Debug$log,
+					'worked',
+					{ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none});
+			default:
+				return A2(
+					_elm_lang$core$Debug$log,
+					'what',
+					{ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none});
 		}
 	});
 var _user$project$Main$main = A2(
@@ -10901,7 +10948,7 @@ var _user$project$Main$main = A2(
 		init: _user$project$Main$init,
 		view: _user$project$Main$view,
 		update: _user$project$Main$update,
-		subscriptions: function (_p12) {
+		subscriptions: function (_p13) {
 			return _elm_lang$core$Platform_Sub$none;
 		}
 	})();

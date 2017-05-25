@@ -9,20 +9,6 @@
     <script>
       var node = document.getElementById('main');
       var app = Elm.Main.embed(node);
-
-      function findPos(obj) {
-        var curtop = 0;
-        if (obj.offsetParent) {
-          do {
-            curtop += obj.offsetTop;
-          } while (obj = obj.offsetParent);
-          return [curtop];
-        }
-      }
-
-      app.ports.scroll.subscribe(function(elementId) {
-        window.scroll(0, findPos(document.getElementById(elementId)));
-      });
     </script>
   </body>
 </html>
