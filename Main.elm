@@ -1,11 +1,10 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Navigation
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List exposing (..)
-import String
 import Navigation
 import UrlParser exposing (..)
 
@@ -168,7 +167,7 @@ update msg model =
                 currentRoute =
                     parseUrl location
             in
-                ( { model | route = currentRoute }, Cmd.none )
+                ( { model | route = currentRoute }, scroll (routeToString currentRoute) )
 
 
 
@@ -194,7 +193,23 @@ route =
         , UrlParser.map ContactRoute (UrlParser.s "contact")
         ]
 
+routeToString : Route -> String
+routeToString route =
+    case route of
+        AboutRoute ->
+            "about"
+        WritingRoute ->
+            "writing"
+        PortfolioRoute ->
+            "projects"
+        ContactRoute ->
+            "contact"
+        NotFoundRoute ->
+            "header"
+    
+-- Ports
 
+port scroll : String -> Cmd msg    
 
 -- Views
 
@@ -203,7 +218,7 @@ view : Model -> Html Msg
 view model =
     body
         [ mainStyle ]
-        [ div [ class "header", headerStyle ]
+        [ div [ class "header", id "header", headerStyle ]
             [ h1 [ h1Style ] [ text "Willis Plummer" ]
             , nav model
             ]
@@ -222,13 +237,13 @@ nav model =
 content : Model -> Html Msg
 content model =
     div [] 
-        [ div [ class "content", contentStyle ]
+        [ div [ class "content", id "about", contentStyle ]
             [ h2 [] [ text "About Me" ]
             , p [] [ text "Hi, I'm Willis" ]
             , p [] [ text "I'm a software engineer and sometimes poet living in Brooklyn" ]
             , p [] [ text "I work at Kickstarter" ]
             ]
-        , div [ class "content", contentStyle ]
+        , div [ class "content", id "writing", contentStyle ]
             [ h2 [] [ text "Writing" ]
             , p [] [ text "Poetry:" ]
             , ul [ class "writing-list" ]
@@ -249,7 +264,7 @@ content model =
                     model.writingLinks.miscLinks
                 )
             ]
-        , div [ class "content", contentStyle ]
+        , div [ class "content", id "projects", contentStyle ]
                 [ h2 [] [ text "Projects" ]
                 , div [] 
                     (List.concatMap
@@ -257,7 +272,7 @@ content model =
                         model.projectDescriptions
                         )
                 ]
-        , div [ class "content", contentStyle ]
+        , div [ class "content", id "contact", contentStyle ]
             [ h2 [] [ text "Contact" ]
             , p []
                 [ text "You can find me on "
