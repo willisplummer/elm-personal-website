@@ -4,7 +4,11 @@ This website is hosted on github pages, so only the static index.html file is ac
 
 This means that changes to the elm code will only be reflected if the latest build is pushed to the `gh-pages` branch
 
-run `elm-make Main.elm` and then commit the new `index.html` file and the latest should be reflected at willisplummer.com
+If you haven't already, install the [Elm Command Line Tools](https://guide.elm-lang.org/install.html)
+
+Then run `elm-make Main.elm` and commit the new `index.html` file.
+
+The latest should be reflected at [willisplummer.com]()
 
 ## PRE-COMMIT HOOK
 

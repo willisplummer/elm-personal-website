@@ -80,7 +80,8 @@ initialModel route =
 
 poetry : List ( String, String )
 poetry =
-    [ ( "http://www.bodegamag.com/articles/172-bros", "bros (bodega mag)" )
+    [ ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 Year Clock" )
+    , ( "http://www.bodegamag.com/articles/172-bros", "bros (bodega mag)" )
     , ( "http://darkfuckingwizard.com/three-poems/", "3 poems (dark fucking wizard)" )
     , ( "http://muumuuhouse.com/wp.13nov2014.html", "14 haiku (muumuu house)" )
     , ( "https://preludemag.com/contributors/willis-plummer/", "3 poems (prelude magazine)" )
