@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-import Navigation
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -18,7 +17,7 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = (\_ -> Sub.none)
+        , subscriptions = \_ -> Sub.none
         }
 
 
@@ -50,7 +49,7 @@ parseUrl location =
         parsedURL =
             UrlParser.parseHash route location
     in
-        Maybe.withDefault NotFoundRoute parsedURL
+    Maybe.withDefault NotFoundRoute parsedURL
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
@@ -80,8 +79,8 @@ initialModel route =
 
 poetry : List ( String, String )
 poetry =
-    [ ( "https://gumroad.com/l/okoyomon_plummer2017", "Wild Horse Rappers ebook w/ precious okoyomon" )
-    , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 Year Clock" )
+    [ ( "https://gumroad.com/l/okoyomon_plummer2017", "Wild Horse Rappers ebook w/ precious okoyomon (ghost city press)" )
+    , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 Year Clock (muumuu house)" )
     , ( "http://www.bodegamag.com/articles/172-bros", "bros (bodega mag)" )
     , ( "http://darkfuckingwizard.com/three-poems/", "3 poems (dark fucking wizard)" )
     , ( "http://muumuuhouse.com/wp.13nov2014.html", "14 haiku (muumuu house)" )
@@ -93,20 +92,21 @@ poetry =
 
 prose : List ( String, String )
 prose =
-    [ ( "https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/", "tao lin on why he writes" )
-    , ( "https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/", "precious okoyomon on finding poetry in everything" )
-    , ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons" )
-    , ( "http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/", "not even doom music: an interview with mat riviere" )
-    , ( "http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/", "an interview with giancarlo ditrapano" )
-    , ( "http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/", "my tweets almost got me sent home from study abroad" )
+    [ ( "https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/", "tao lin on why he writes (the creative independent)" )
+    , ( "https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/", "precious okoyomon on finding poetry in everything (the creative independent)" )
+    , ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons (kickstarter blog)" )
+    , ( "http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/", "not even doom music: an interview with mat riviere (thought catalog)" )
+    , ( "http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/", "an interview with giancarlo ditrapano (thought catalog)" )
+    , ( "http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/", "my tweets almost got me sent home from study abroad (thought catalog)" )
     ]
 
 
 misc : List ( String, String )
 misc =
-    [ ( "http://dadsofshutterstock.tumblr.com", "dads of shutterstock" )
-    , ( "http://twitter.com/willisunedited", "@willisunedited" )
+    [ ( "http://westernbeefs.com", "Western Beefs of North America (editor)" )
+    , ( "http://dadsofshutterstock.tumblr.com", "dads of shutterstock" )
     , ( "http://twitter.com/willisdepressed", "@willisdepressed" )
+    , ( "http://twitter.com/willisunedited", "@willisunedited" )
     , ( "http://muumuuhouse.com/wp.twitter1.2012.html", "selections from willis plummer's twitter (edited by mira gonzalez)" )
     , ( "http://muumuuhouse.com/vt.twitter.2012-13.html", "selections from victoria trott's twitter (edited by willis plummer)" )
     ]
@@ -170,7 +170,7 @@ update msg model =
                 currentRoute =
                     parseUrl location
             in
-                ( { model | route = currentRoute }, Cmd.none )
+            ( { model | route = currentRoute }, Cmd.none )
 
 
 
