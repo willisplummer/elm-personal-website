@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, href, style, type_)
+import Html.Attributes.A11y exposing (pressed)
 import Html.Events exposing (..)
 import List exposing (..)
 import Navigation
@@ -22,7 +23,7 @@ main =
 
 
 type alias Model =
-    { nav : List ( String, Msg )
+    { nav : List ( String, Msg, Route )
     , writingLinks : Links
     , projectDescriptions : List Project
     , route : Route
@@ -62,10 +63,10 @@ init location =
 initialModel : Route -> Model
 initialModel route =
     { nav =
-        [ ( "About", ShowAbout )
-        , ( "Writing", ShowWriting )
-        , ( "Projects", ShowPortfolio )
-        , ( "Contact", ShowContact )
+        [ ( "About", ShowAbout, AboutRoute )
+        , ( "Writing", ShowWriting, WritingRoute )
+        , ( "Projects", ShowPortfolio, PortfolioRoute )
+        , ( "Contact", ShowContact, ContactRoute )
         ]
     , writingLinks =
         { poetryLinks = poetry
@@ -215,9 +216,17 @@ view model =
 
 headerNav : Model -> Html Msg
 headerNav model =
+    let
+        navItemStyle =
+            \bool ->
+                if bool then
+                    activeButtonStyle
+                else
+                    buttonStyle
+    in
     nav []
         (List.intersperse (text " | ")
-            (List.concatMap (\( description, msg ) -> [ button [ type_ "button", onClick msg, buttonStyle ] [ text description ] ]) model.nav)
+            (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), navItemStyle (model.route == route) ] [ text description ] ]) model.nav)
         )
 
 
@@ -329,6 +338,18 @@ contentStyle =
         , ( "margin", "auto" )
         , ( "width", "90%" )
         , ( "max-width", "450px" )
+        ]
+
+
+activeButtonStyle : Attribute msg
+activeButtonStyle =
+    style
+        [ ( "width", "15%" )
+        , ( "min-width", "55px" )
+        , ( "border-color", "black" )
+        , ( "background-color", "black" )
+        , ( "color", "white" )
+        , ( "border-radius", "5px" )
         ]
 
 
