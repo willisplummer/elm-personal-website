@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (class, href, style, type_)
 import Html.Events exposing (..)
 import List exposing (..)
 import Navigation
@@ -207,15 +207,15 @@ view model =
         [ mainStyle ]
         [ div [ class "header", headerStyle ]
             [ h1 [ h1Style ] [ text "Willis Plummer" ]
-            , nav model
+            , headerNav model
             ]
         , content model
         ]
 
 
-nav : Model -> Html Msg
-nav model =
-    div []
+headerNav : Model -> Html Msg
+headerNav model =
+    Html.nav []
         (List.intersperse (text " | ")
             (List.concatMap (\( description, msg ) -> [ button [ type_ "button", onClick msg, buttonStyle ] [ text description ] ]) model.nav)
         )
