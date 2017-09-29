@@ -19,10 +19,10 @@ suite =
             \_ ->
                 let
                     snapshot =
-                        toString "hannah"
+                        toString <| String.reverse "hannah"
 
                     reference =
-                        toString <| String.reverse "hannah"
+                        "\"hannah\""
                 in
                 Expect.equal snapshot reference
         ]
