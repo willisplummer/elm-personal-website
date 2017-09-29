@@ -1,8 +1,8 @@
 port module Main exposing (..)
 
-import Navigation
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (class, href, id, style, type_)
+import Html.Attributes.A11y exposing (pressed)
 import Html.Events exposing (..)
 import List exposing (..)
 import Navigation
@@ -18,12 +18,12 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = (\_ -> Sub.none)
+        , subscriptions = \_ -> Sub.none
         }
 
 
 type alias Model =
-    { nav : List ( String, Msg )
+    { nav : List ( String, Msg, Route )
     , writingLinks : Links
     , projectDescriptions : List Project
     , route : Route
@@ -50,7 +50,7 @@ parseUrl location =
         parsedURL =
             UrlParser.parseHash route location
     in
-        Maybe.withDefault NotFoundRoute parsedURL
+    Maybe.withDefault NotFoundRoute parsedURL
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
@@ -63,10 +63,10 @@ init location =
 initialModel : Route -> Model
 initialModel route =
     { nav =
-        [ ( "About", ShowAbout )
-        , ( "Writing", ShowWriting )
-        , ( "Projects", ShowPortfolio )
-        , ( "Contact", ShowContact )
+        [ ( "About", ShowAbout, AboutRoute )
+        , ( "Writing", ShowWriting, WritingRoute )
+        , ( "Projects", ShowPortfolio, PortfolioRoute )
+        , ( "Contact", ShowContact, ContactRoute )
         ]
     , writingLinks =
         { poetryLinks = poetry
@@ -80,7 +80,8 @@ initialModel route =
 
 poetry : List ( String, String )
 poetry =
-    [ ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 Year Clock" )
+    [ ( "https://gumroad.com/l/okoyomon_plummer2017", "Wild Horse Rappers ebook w/ precious okoyomon (ghost city press)" )
+    , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 Year Clock (muumuu house)" )
     , ( "http://www.bodegamag.com/articles/172-bros", "bros (bodega mag)" )
     , ( "http://darkfuckingwizard.com/three-poems/", "3 poems (dark fucking wizard)" )
     , ( "http://muumuuhouse.com/wp.13nov2014.html", "14 haiku (muumuu house)" )
@@ -92,18 +93,21 @@ poetry =
 
 prose : List ( String, String )
 prose =
-    [ ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons" )
-    , ( "http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/", "not even doom music: an interview with mat riviere" )
-    , ( "http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/", "an interview with giancarlo ditrapano" )
-    , ( "http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/", "my tweets almost got me sent home from study abroad" )
+    [ ( "https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/", "tao lin on why he writes (the creative independent)" )
+    , ( "https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/", "precious okoyomon on finding poetry in everything (the creative independent)" )
+    , ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons (kickstarter blog)" )
+    , ( "http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/", "not even doom music: an interview with mat riviere (thought catalog)" )
+    , ( "http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/", "an interview with giancarlo ditrapano (thought catalog)" )
+    , ( "http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/", "my tweets almost got me sent home from study abroad (thought catalog)" )
     ]
 
 
 misc : List ( String, String )
 misc =
-    [ ( "http://dadsofshutterstock.tumblr.com", "dads of shutterstock" )
-    , ( "http://twitter.com/willisunedited", "@willisunedited" )
+    [ ( "http://westernbeefs.com", "Western Beefs of North America (editor)" )
+    , ( "http://dadsofshutterstock.tumblr.com", "dads of shutterstock" )
     , ( "http://twitter.com/willisdepressed", "@willisdepressed" )
+    , ( "http://twitter.com/willisunedited", "@willisunedited" )
     , ( "http://muumuuhouse.com/wp.twitter1.2012.html", "selections from willis plummer's twitter (edited by mira gonzalez)" )
     , ( "http://muumuuhouse.com/vt.twitter.2012-13.html", "selections from victoria trott's twitter (edited by willis plummer)" )
     ]
@@ -168,7 +172,7 @@ update msg model =
                 currentRoute =
                     parseUrl location
             in
-                ( { model | route = currentRoute }, scroll (routeToString currentRoute) )
+            ( { model | route = currentRoute }, scroll (routeToString currentRoute) )
 
 
 
@@ -194,23 +198,33 @@ route =
         , UrlParser.map ContactRoute (UrlParser.s "contact")
         ]
 
+
 routeToString : Route -> String
 routeToString route =
     case route of
         AboutRoute ->
             "about"
+
         WritingRoute ->
             "writing"
+
         PortfolioRoute ->
             "projects"
+
         ContactRoute ->
             "contact"
+
         NotFoundRoute ->
             "header"
-    
+
+
+
 -- Ports
 
-port scroll : String -> Cmd msg    
+
+port scroll : String -> Cmd msg
+
+
 
 -- Views
 
@@ -219,25 +233,33 @@ view : Model -> Html Msg
 view model =
     body
         [ mainStyle ]
-        [ div [ class "header", id "header", headerStyle ]
+        [ header [ class "header", id "header", headerStyle ]
             [ h1 [ h1Style ] [ text "Willis Plummer" ]
-            , nav model
+            , headerNav model
             ]
         , content model
         ]
 
 
-nav : Model -> Html Msg
-nav model =
-    div []
+headerNav : Model -> Html Msg
+headerNav model =
+    let
+        navItemStyle =
+            \bool ->
+                if bool then
+                    activeButtonStyle
+                else
+                    buttonStyle
+    in
+    nav []
         (List.intersperse (text " | ")
-            (List.concatMap (\( description, msg ) -> [ button [ type_ "button", onClick msg, buttonStyle ] [ text description ] ]) model.nav)
+            (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), navItemStyle (model.route == route) ] [ text description ] ]) model.nav)
         )
 
 
 content : Model -> Html Msg
 content model =
-    div [] 
+    div []
         [ div [ class "content", id "about", contentStyle ]
             [ h2 [] [ text "About Me" ]
             , p [] [ text "Hi, I'm Willis" ]
@@ -266,13 +288,13 @@ content model =
                 )
             ]
         , div [ class "content", id "projects", contentStyle ]
-                [ h2 [] [ text "Projects" ]
-                , div [] 
-                    (List.concatMap
-                        showProject
-                        model.projectDescriptions
-                        )
-                ]
+            [ h2 [] [ text "Projects" ]
+            , div []
+                (List.concatMap
+                    showProject
+                    model.projectDescriptions
+                )
+            ]
         , div [ class "content", id "contact", contentStyle ]
             [ h2 [] [ text "Contact" ]
             , p []
@@ -293,10 +315,12 @@ content model =
                 ]
             ]
         ]
-            
+
+
+
 -- TODO: Handle NotFoundRoute
-        -- NotFoundRoute ->
-        --     div [ class "content", contentStyle ] [ text "NOT FOUND" ]
+-- NotFoundRoute ->
+--     div [ class "content", contentStyle ] [ text "NOT FOUND" ]
 
 
 showProject : Project -> List (Html Msg)
@@ -344,6 +368,18 @@ contentStyle =
         , ( "margin", "100px auto" )
         , ( "width", "90%" )
         , ( "max-width", "450px" )
+        ]
+
+
+activeButtonStyle : Attribute msg
+activeButtonStyle =
+    style
+        [ ( "width", "15%" )
+        , ( "min-width", "55px" )
+        , ( "border-color", "black" )
+        , ( "background-color", "black" )
+        , ( "color", "white" )
+        , ( "border-radius", "5px" )
         ]
 
 
