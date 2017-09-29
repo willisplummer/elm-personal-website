@@ -205,7 +205,7 @@ view : Model -> Html Msg
 view model =
     body
         [ mainStyle ]
-        [ div [ class "header", headerStyle ]
+        [ header [ class "header", headerStyle ]
             [ h1 [ h1Style ] [ text "Willis Plummer" ]
             , headerNav model
             ]
@@ -215,7 +215,7 @@ view model =
 
 headerNav : Model -> Html Msg
 headerNav model =
-    Html.nav []
+    nav []
         (List.intersperse (text " | ")
             (List.concatMap (\( description, msg ) -> [ button [ type_ "button", onClick msg, buttonStyle ] [ text description ] ]) model.nav)
         )
