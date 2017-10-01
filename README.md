@@ -8,7 +8,7 @@ If you haven't already, install the [Elm Command Line Tools](https://guide.elm-l
 
 Then run `elm-make Main.elm` and commit the new `index.html` file.
 
-The latest should be reflected at [willisplummer.com]()
+The latest should be reflected at [willisplummer.com](http://willisplummer.com)
 
 ## PRE-COMMIT HOOK
 
