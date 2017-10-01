@@ -1,4 +1,4 @@
-module ModelTest exposing (..)
+module ModelSpec exposing (spec)
 
 import Data exposing (..)
 import Expect exposing (Expectation)
@@ -7,8 +7,8 @@ import Test exposing (..)
 import Types exposing (..)
 
 
-modelSuite : Test
-modelSuite =
+spec : Test
+spec =
     describe "Model module"
         [ describe "initialModel"
             [ test "accepts a route and returns the initial state" <|
@@ -16,10 +16,10 @@ modelSuite =
                     let
                         expectation =
                             { nav =
-                                [ ( "About", ShowAbout )
-                                , ( "Writing", ShowWriting )
-                                , ( "Projects", ShowPortfolio )
-                                , ( "Contact", ShowContact )
+                                [ ( "About", ShowAbout, AboutRoute )
+                                , ( "Writing", ShowWriting, WritingRoute )
+                                , ( "Projects", ShowPortfolio, PortfolioRoute )
+                                , ( "Contact", ShowContact, ContactRoute )
                                 ]
                             , writingLinks =
                                 { poetryLinks = poetry

@@ -12,7 +12,7 @@ type Route
 
 
 type alias Model =
-    { nav : List ( String, Msg )
+    { nav : List ( String, Msg, Route )
     , writingLinks : Links
     , projectDescriptions : List Project
     , route : Route

@@ -16,10 +16,10 @@ init location =
 initialModel : Route -> Model
 initialModel route =
     { nav =
-        [ ( "About", ShowAbout )
-        , ( "Writing", ShowWriting )
-        , ( "Projects", ShowPortfolio )
-        , ( "Contact", ShowContact )
+        [ ( "About", ShowAbout, AboutRoute )
+        , ( "Writing", ShowWriting, WritingRoute )
+        , ( "Projects", ShowPortfolio, PortfolioRoute )
+        , ( "Contact", ShowContact, ContactRoute )
         ]
     , writingLinks =
         { poetryLinks = poetry

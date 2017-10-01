@@ -1,4 +1,4 @@
-module UpdateTest exposing (..)
+module UpdateSpec exposing (spec)
 
 import Expect exposing (Expectation)
 import Model exposing (initialModel)
@@ -8,8 +8,8 @@ import Types exposing (..)
 import Update exposing (update)
 
 
-updateSuite : Test
-updateSuite =
+spec : Test
+spec =
     describe "update"
         [ describe "with ShowAbout msg"
             [ test "returns the correct state and side effects" <|

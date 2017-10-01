@@ -2,6 +2,7 @@ module View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Attributes.A11y exposing (pressed)
 import Html.Events exposing (..)
 import Types exposing (..)
 
@@ -10,20 +11,28 @@ view : Model -> Html Msg
 view model =
     body
         [ mainStyle ]
-        [ div [ class "header", headerStyle ]
-            [ h1 [ h1Style ] [ text "Willis Plummer" ]
-            , nav model
-            ]
+        [ headerNav model
         , content model
         ]
 
 
-nav : Model -> Html Msg
-nav model =
-    div []
-        (List.intersperse (text " | ")
-            (List.concatMap (\( description, msg ) -> [ button [ type_ "button", onClick msg, buttonStyle ] [ text description ] ]) model.nav)
-        )
+headerNav : Model -> Html Msg
+headerNav model =
+    let
+        navItemStyle =
+            \bool ->
+                if bool then
+                    activeButtonStyle
+                else
+                    buttonStyle
+    in
+    header [ class "header", headerStyle ]
+        [ h1 [ h1Style ] [ text "Willis Plummer" ]
+        , nav []
+            (List.intersperse (text " | ")
+                (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), navItemStyle (model.route == route) ] [ text description ] ]) model.nav)
+            )
+        ]
 
 
 content : Model -> Html Msg
@@ -134,6 +143,18 @@ contentStyle =
         , ( "margin", "auto" )
         , ( "width", "90%" )
         , ( "max-width", "450px" )
+        ]
+
+
+activeButtonStyle : Attribute msg
+activeButtonStyle =
+    style
+        [ ( "width", "15%" )
+        , ( "min-width", "55px" )
+        , ( "border-color", "black" )
+        , ( "background-color", "black" )
+        , ( "color", "white" )
+        , ( "border-radius", "5px" )
         ]
 
 
