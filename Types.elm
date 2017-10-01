@@ -19,17 +19,21 @@ type alias Model =
     }
 
 
+type alias LinksList =
+    List ( String, String )
+
+
 type alias Links =
-    { poetryLinks : List ( String, String )
-    , proseLinks : List ( String, String )
-    , miscLinks : List ( String, String )
+    { poetryLinks : LinksList
+    , proseLinks : LinksList
+    , miscLinks : LinksList
     }
 
 
 type alias Project =
     { title : String
     , description : String
-    , links : List ( String, String )
+    , links : LinksList
     }
 
 

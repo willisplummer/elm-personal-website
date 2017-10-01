@@ -76,17 +76,17 @@ updateSuite =
                 \_ ->
                     let
                         location =
-                            { href = "jkjkjk"
-                            , host = "jkjkjk"
-                            , hostname = "jkjkjk"
-                            , protocol = "jkjkjk"
-                            , origin = "jkjkjk"
-                            , port_ = "jkjkjk"
-                            , pathname = "jkjkjk"
-                            , search = "jkjkjk"
+                            { href = ""
+                            , host = ""
+                            , hostname = ""
+                            , protocol = ""
+                            , origin = ""
+                            , port_ = ""
+                            , pathname = ""
+                            , search = ""
                             , hash = "#about"
-                            , username = "jkjkjk"
-                            , password = "jkjkjk"
+                            , username = ""
+                            , password = ""
                             }
 
                         model =
