@@ -1,12 +1,11 @@
 module Main exposing (..)
 
-import Navigation
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List exposing (..)
-import String
 import Navigation
+import String
 import UrlParser exposing (..)
 
 
@@ -19,7 +18,7 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = (\_ -> Sub.none)
+        , subscriptions = \_ -> Sub.none
         }
 
 
@@ -51,7 +50,7 @@ parseUrl location =
         parsedURL =
             UrlParser.parseHash route location
     in
-        Maybe.withDefault NotFoundRoute parsedURL
+    Maybe.withDefault NotFoundRoute parsedURL
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
@@ -168,7 +167,7 @@ update msg model =
                 currentRoute =
                     parseUrl location
             in
-                ( { model | route = currentRoute }, Cmd.none )
+            ( { model | route = currentRoute }, Cmd.none )
 
 
 
