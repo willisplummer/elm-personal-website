@@ -10669,7 +10669,255 @@ var _tesk9$elm_html_a11y$Html_Attributes_A11y$invisible = _elm_lang$html$Html_At
 			}
 		}
 	});
-var _user$project$Main$h1Style = _elm_lang$html$Html_Attributes$style(
+var _user$project$Types$Model = F4(
+	function (a, b, c, d) {
+		return {nav: a, writingLinks: b, projectDescriptions: c, route: d};
+	});
+var _user$project$Types$Links = F3(
+	function (a, b, c) {
+		return {poetryLinks: a, proseLinks: b, miscLinks: c};
+	});
+var _user$project$Types$Project = F3(
+	function (a, b, c) {
+		return {title: a, description: b, links: c};
+	});
+var _user$project$Types$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _user$project$Types$ContactRoute = {ctor: 'ContactRoute'};
+var _user$project$Types$PortfolioRoute = {ctor: 'PortfolioRoute'};
+var _user$project$Types$WritingRoute = {ctor: 'WritingRoute'};
+var _user$project$Types$AboutRoute = {ctor: 'AboutRoute'};
+var _user$project$Types$UrlChange = function (a) {
+	return {ctor: 'UrlChange', _0: a};
+};
+var _user$project$Types$ShowContact = {ctor: 'ShowContact'};
+var _user$project$Types$ShowPortfolio = {ctor: 'ShowPortfolio'};
+var _user$project$Types$ShowWriting = {ctor: 'ShowWriting'};
+var _user$project$Types$ShowAbout = {ctor: 'ShowAbout'};
+var _user$project$Data$projects = {
+	ctor: '::',
+	_0: {
+		title: 'This Portfolio Site',
+		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
+		links: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/elm-personal-website', _1: 'github'},
+			_1: {ctor: '[]'}
+		}
+	},
+	_1: {
+		ctor: '::',
+		_0: {
+			title: 'MTA Bus Times App for Amazon Echo',
+			description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
+			links: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/mta_alexa_app', _1: 'github'},
+				_1: {ctor: '[]'}
+			}
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				title: 'Western Beefs of North America',
+				description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
+				links: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'http://westernbeefs.com/', _1: 'site'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/westernbeefs', _1: 'github'},
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _user$project$Data$misc = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 'http://dadsofshutterstock.tumblr.com', _1: 'dads of shutterstock'},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'http://twitter.com/willisunedited', _1: '@willisunedited'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'http://twitter.com/willisdepressed', _1: '@willisdepressed'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.twitter1.2012.html', _1: 'selections from willis plummer\'s twitter (edited by mira gonzalez)'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/vt.twitter.2012-13.html', _1: 'selections from victoria trott\'s twitter (edited by willis plummer)'},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _user$project$Data$prose = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/', _1: 'my tweets almost got me sent home from study abroad'},
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _user$project$Data$poetry = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 Year Clock'},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'http://darkfuckingwizard.com/three-poems/', _1: '3 poems (dark fucking wizard)'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.13nov2014.html', _1: '14 haiku (muumuu house)'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'http://cwp.fas.nyu.edu/object/cwp.ug.lobelprize_plummer', _1: 'good and beautiful (nyu creative writing program)'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _user$project$Routing$route = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$Types$AboutRoute, _evancz$url_parser$UrlParser$top),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_user$project$Types$AboutRoute,
+				_evancz$url_parser$UrlParser$s('about')),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_evancz$url_parser$UrlParser$map,
+					_user$project$Types$WritingRoute,
+					_evancz$url_parser$UrlParser$s('writing')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_evancz$url_parser$UrlParser$map,
+						_user$project$Types$PortfolioRoute,
+						_evancz$url_parser$UrlParser$s('projects')),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$url_parser$UrlParser$map,
+							_user$project$Types$PortfolioRoute,
+							_evancz$url_parser$UrlParser$s('portfolio')),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_evancz$url_parser$UrlParser$map,
+								_user$project$Types$ContactRoute,
+								_evancz$url_parser$UrlParser$s('contact')),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	});
+var _user$project$Routing$parseUrl = function (location) {
+	var parsedURL = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Routing$route, location);
+	return A2(_elm_lang$core$Maybe$withDefault, _user$project$Types$NotFoundRoute, parsedURL);
+};
+var _user$project$Model$initialModel = function (route) {
+	return {
+		nav: {
+			ctor: '::',
+			_0: {ctor: '_Tuple3', _0: 'About', _1: _user$project$Types$ShowAbout, _2: _user$project$Types$AboutRoute},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple3', _0: 'Writing', _1: _user$project$Types$ShowWriting, _2: _user$project$Types$WritingRoute},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple3', _0: 'Projects', _1: _user$project$Types$ShowPortfolio, _2: _user$project$Types$PortfolioRoute},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple3', _0: 'Contact', _1: _user$project$Types$ShowContact, _2: _user$project$Types$ContactRoute},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		writingLinks: {poetryLinks: _user$project$Data$poetry, proseLinks: _user$project$Data$prose, miscLinks: _user$project$Data$misc},
+		projectDescriptions: _user$project$Data$projects,
+		route: route
+	};
+};
+var _user$project$Model$init = function (location) {
+	return {
+		ctor: '_Tuple2',
+		_0: _user$project$Model$initialModel(
+			_user$project$Routing$parseUrl(location)),
+		_1: _elm_lang$core$Platform_Cmd$none
+	};
+};
+var _user$project$Update$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'ShowAbout':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _elm_lang$navigation$Navigation$modifyUrl('#about')
+				};
+			case 'ShowWriting':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _elm_lang$navigation$Navigation$modifyUrl('#writing')
+				};
+			case 'ShowPortfolio':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _elm_lang$navigation$Navigation$modifyUrl('#portfolio')
+				};
+			case 'ShowContact':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _elm_lang$navigation$Navigation$modifyUrl('#contact')
+				};
+			default:
+				var currentRoute = _user$project$Routing$parseUrl(_p0._0);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{route: currentRoute}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$View$h1Style = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'padding', _1: '0%'},
@@ -10679,7 +10927,7 @@ var _user$project$Main$h1Style = _elm_lang$html$Html_Attributes$style(
 			_1: {ctor: '[]'}
 		}
 	});
-var _user$project$Main$h2Style = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$h2Style = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'padding', _1: '0%'},
@@ -10693,7 +10941,7 @@ var _user$project$Main$h2Style = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
-var _user$project$Main$projectContentStyle = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$projectContentStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'padding', _1: '0 1.5%'},
@@ -10703,7 +10951,7 @@ var _user$project$Main$projectContentStyle = _elm_lang$html$Html_Attributes$styl
 			_1: {ctor: '[]'}
 		}
 	});
-var _user$project$Main$projectStyle = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$projectStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'padding', _1: '15px 3% 2px 3%'},
@@ -10725,7 +10973,7 @@ var _user$project$Main$projectStyle = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
-var _user$project$Main$buttonStyle = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$buttonStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'width', _1: '15%'},
@@ -10747,7 +10995,7 @@ var _user$project$Main$buttonStyle = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
-var _user$project$Main$activeButtonStyle = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$activeButtonStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'width', _1: '15%'},
@@ -10773,7 +11021,7 @@ var _user$project$Main$activeButtonStyle = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
-var _user$project$Main$contentStyle = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$contentStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'left'},
@@ -10791,7 +11039,7 @@ var _user$project$Main$contentStyle = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
-var _user$project$Main$headerStyle = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$headerStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
@@ -10801,7 +11049,7 @@ var _user$project$Main$headerStyle = _elm_lang$html$Html_Attributes$style(
 			_1: {ctor: '[]'}
 		}
 	});
-var _user$project$Main$mainStyle = _elm_lang$html$Html_Attributes$style(
+var _user$project$View$mainStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
@@ -10827,7 +11075,7 @@ var _user$project$Main$mainStyle = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
-var _user$project$Main$showProject = function (project) {
+var _user$project$View$showProject = function (project) {
 	return {
 		ctor: '::',
 		_0: A2(
@@ -10837,7 +11085,7 @@ var _user$project$Main$showProject = function (project) {
 				_0: _elm_lang$html$Html_Attributes$class('project'),
 				_1: {
 					ctor: '::',
-					_0: _user$project$Main$projectStyle,
+					_0: _user$project$View$projectStyle,
 					_1: {ctor: '[]'}
 				}
 			},
@@ -10850,7 +11098,7 @@ var _user$project$Main$showProject = function (project) {
 						_0: _elm_lang$html$Html_Attributes$class('project-content'),
 						_1: {
 							ctor: '::',
-							_0: _user$project$Main$projectContentStyle,
+							_0: _user$project$View$projectContentStyle,
 							_1: {ctor: '[]'}
 						}
 					},
@@ -10860,7 +11108,7 @@ var _user$project$Main$showProject = function (project) {
 							_elm_lang$html$Html$h2,
 							{
 								ctor: '::',
-								_0: _user$project$Main$h2Style,
+								_0: _user$project$View$h2Style,
 								_1: {ctor: '[]'}
 							},
 							{
@@ -10922,7 +11170,7 @@ var _user$project$Main$showProject = function (project) {
 		_1: {ctor: '[]'}
 	};
 };
-var _user$project$Main$content = function (model) {
+var _user$project$View$content = function (model) {
 	var _p2 = model.route;
 	switch (_p2.ctor) {
 		case 'AboutRoute':
@@ -10933,7 +11181,7 @@ var _user$project$Main$content = function (model) {
 					_0: _elm_lang$html$Html_Attributes$class('content'),
 					_1: {
 						ctor: '::',
-						_0: _user$project$Main$contentStyle,
+						_0: _user$project$View$contentStyle,
 						_1: {ctor: '[]'}
 					}
 				},
@@ -10979,7 +11227,7 @@ var _user$project$Main$content = function (model) {
 					_0: _elm_lang$html$Html_Attributes$class('content'),
 					_1: {
 						ctor: '::',
-						_0: _user$project$Main$contentStyle,
+						_0: _user$project$View$contentStyle,
 						_1: {ctor: '[]'}
 					}
 				},
@@ -11142,11 +11390,11 @@ var _user$project$Main$content = function (model) {
 					_0: _elm_lang$html$Html_Attributes$class('content'),
 					_1: {
 						ctor: '::',
-						_0: _user$project$Main$contentStyle,
+						_0: _user$project$View$contentStyle,
 						_1: {ctor: '[]'}
 					}
 				},
-				A2(_elm_lang$core$List$concatMap, _user$project$Main$showProject, model.projectDescriptions));
+				A2(_elm_lang$core$List$concatMap, _user$project$View$showProject, model.projectDescriptions));
 		case 'ContactRoute':
 			return A2(
 				_elm_lang$html$Html$div,
@@ -11155,7 +11403,7 @@ var _user$project$Main$content = function (model) {
 					_0: _elm_lang$html$Html_Attributes$class('content'),
 					_1: {
 						ctor: '::',
-						_0: _user$project$Main$contentStyle,
+						_0: _user$project$View$contentStyle,
 						_1: {ctor: '[]'}
 					}
 				},
@@ -11284,7 +11532,7 @@ var _user$project$Main$content = function (model) {
 					_0: _elm_lang$html$Html_Attributes$class('content'),
 					_1: {
 						ctor: '::',
-						_0: _user$project$Main$contentStyle,
+						_0: _user$project$View$contentStyle,
 						_1: {ctor: '[]'}
 					}
 				},
@@ -11295,375 +11543,111 @@ var _user$project$Main$content = function (model) {
 				});
 	}
 };
-var _user$project$Main$headerNav = function (model) {
+var _user$project$View$headerNav = function (model) {
 	var navItemStyle = function (bool) {
-		return bool ? _user$project$Main$activeButtonStyle : _user$project$Main$buttonStyle;
+		return bool ? _user$project$View$activeButtonStyle : _user$project$View$buttonStyle;
 	};
 	return A2(
-		_elm_lang$html$Html$nav,
-		{ctor: '[]'},
-		A2(
-			_elm_lang$core$List$intersperse,
-			_elm_lang$html$Html$text(' | '),
-			A2(
-				_elm_lang$core$List$concatMap,
-				function (_p9) {
-					var _p10 = _p9;
-					var _p11 = _p10._2;
-					return {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$button,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$type_('button'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onClick(_p10._1),
-									_1: {
-										ctor: '::',
-										_0: _tesk9$elm_html_a11y$Html_Attributes_A11y$pressed(
-											_elm_lang$core$Maybe$Just(
-												_elm_lang$core$Native_Utils.eq(model.route, _p11))),
-										_1: {
-											ctor: '::',
-											_0: navItemStyle(
-												_elm_lang$core$Native_Utils.eq(model.route, _p11)),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(_p10._0),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					};
-				},
-				model.nav)));
-};
-var _user$project$Main$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$body,
+		_elm_lang$html$Html$header,
 		{
 			ctor: '::',
-			_0: _user$project$Main$mainStyle,
-			_1: {ctor: '[]'}
+			_0: _elm_lang$html$Html_Attributes$class('header'),
+			_1: {
+				ctor: '::',
+				_0: _user$project$View$headerStyle,
+				_1: {ctor: '[]'}
+			}
 		},
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$header,
+				_elm_lang$html$Html$h1,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('header'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$headerStyle,
-						_1: {ctor: '[]'}
-					}
+					_0: _user$project$View$h1Style,
+					_1: {ctor: '[]'}
 				},
 				{
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$h1,
-						{
-							ctor: '::',
-							_0: _user$project$Main$h1Style,
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('Willis Plummer'),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$headerNav(model),
-						_1: {ctor: '[]'}
-					}
+					_0: _elm_lang$html$Html$text('Willis Plummer'),
+					_1: {ctor: '[]'}
 				}),
 			_1: {
 				ctor: '::',
-				_0: _user$project$Main$content(model),
+				_0: A2(
+					_elm_lang$html$Html$nav,
+					{ctor: '[]'},
+					A2(
+						_elm_lang$core$List$intersperse,
+						_elm_lang$html$Html$text(' | '),
+						A2(
+							_elm_lang$core$List$concatMap,
+							function (_p9) {
+								var _p10 = _p9;
+								var _p11 = _p10._2;
+								return {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$button,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$type_('button'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(_p10._1),
+												_1: {
+													ctor: '::',
+													_0: _tesk9$elm_html_a11y$Html_Attributes_A11y$pressed(
+														_elm_lang$core$Maybe$Just(
+															_elm_lang$core$Native_Utils.eq(model.route, _p11))),
+													_1: {
+														ctor: '::',
+														_0: navItemStyle(
+															_elm_lang$core$Native_Utils.eq(model.route, _p11)),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(_p10._0),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								};
+							},
+							model.nav))),
 				_1: {ctor: '[]'}
 			}
 		});
 };
-var _user$project$Main$projects = {
-	ctor: '::',
-	_0: {
-		title: 'This Portfolio Site',
-		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
-		links: {
+var _user$project$View$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$body,
+		{
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/elm-personal-website', _1: 'github'},
+			_0: _user$project$View$mainStyle,
 			_1: {ctor: '[]'}
-		}
-	},
-	_1: {
-		ctor: '::',
-		_0: {
-			title: 'MTA Bus Times App for Amazon Echo',
-			description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
-			links: {
+		},
+		{
+			ctor: '::',
+			_0: _user$project$View$headerNav(model),
+			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/mta_alexa_app', _1: 'github'},
+				_0: _user$project$View$content(model),
 				_1: {ctor: '[]'}
 			}
-		},
-		_1: {
-			ctor: '::',
-			_0: {
-				title: 'Western Beefs of North America',
-				description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
-				links: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://westernbeefs.com/', _1: 'site'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/westernbeefs', _1: 'github'},
-						_1: {ctor: '[]'}
-					}
-				}
-			},
-			_1: {ctor: '[]'}
-		}
-	}
+		});
 };
-var _user$project$Main$misc = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'http://westernbeefs.com', _1: 'Western Beefs of North America (editor)'},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'http://dadsofshutterstock.tumblr.com', _1: 'dads of shutterstock'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'http://twitter.com/willisdepressed', _1: '@willisdepressed'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://twitter.com/willisunedited', _1: '@willisunedited'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.twitter1.2012.html', _1: 'selections from willis plummer\'s twitter (edited by mira gonzalez)'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/vt.twitter.2012-13.html', _1: 'selections from victoria trott\'s twitter (edited by willis plummer)'},
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		}
-	}
-};
-var _user$project$Main$prose = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes (the creative independent)'},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything (the creative independent)'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons (kickstarter blog)'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere (thought catalog)'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano (thought catalog)'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/', _1: 'my tweets almost got me sent home from study abroad (thought catalog)'},
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		}
-	}
-};
-var _user$project$Main$poetry = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'https://gumroad.com/l/okoyomon_plummer2017', _1: 'Wild Horse Rappers ebook w/ precious okoyomon (ghost city press)'},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 Year Clock (muumuu house)'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://darkfuckingwizard.com/three-poems/', _1: '3 poems (dark fucking wizard)'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.13nov2014.html', _1: '14 haiku (muumuu house)'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'http://cwp.fas.nyu.edu/object/cwp.ug.lobelprize_plummer', _1: 'good and beautiful (nyu creative writing program)'},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'},
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-};
-var _user$project$Main$Model = F4(
-	function (a, b, c, d) {
-		return {nav: a, writingLinks: b, projectDescriptions: c, route: d};
-	});
-var _user$project$Main$Links = F3(
-	function (a, b, c) {
-		return {poetryLinks: a, proseLinks: b, miscLinks: c};
-	});
-var _user$project$Main$Project = F3(
-	function (a, b, c) {
-		return {title: a, description: b, links: c};
-	});
-var _user$project$Main$UrlChange = function (a) {
-	return {ctor: 'UrlChange', _0: a};
-};
-var _user$project$Main$ShowContact = {ctor: 'ShowContact'};
-var _user$project$Main$ShowPortfolio = {ctor: 'ShowPortfolio'};
-var _user$project$Main$ShowWriting = {ctor: 'ShowWriting'};
-var _user$project$Main$ShowAbout = {ctor: 'ShowAbout'};
-var _user$project$Main$NotFoundRoute = {ctor: 'NotFoundRoute'};
-var _user$project$Main$ContactRoute = {ctor: 'ContactRoute'};
-var _user$project$Main$PortfolioRoute = {ctor: 'PortfolioRoute'};
-var _user$project$Main$WritingRoute = {ctor: 'WritingRoute'};
-var _user$project$Main$AboutRoute = {ctor: 'AboutRoute'};
-var _user$project$Main$initialModel = function (route) {
-	return {
-		nav: {
-			ctor: '::',
-			_0: {ctor: '_Tuple3', _0: 'About', _1: _user$project$Main$ShowAbout, _2: _user$project$Main$AboutRoute},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple3', _0: 'Writing', _1: _user$project$Main$ShowWriting, _2: _user$project$Main$WritingRoute},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple3', _0: 'Projects', _1: _user$project$Main$ShowPortfolio, _2: _user$project$Main$PortfolioRoute},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple3', _0: 'Contact', _1: _user$project$Main$ShowContact, _2: _user$project$Main$ContactRoute},
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		},
-		writingLinks: {poetryLinks: _user$project$Main$poetry, proseLinks: _user$project$Main$prose, miscLinks: _user$project$Main$misc},
-		projectDescriptions: _user$project$Main$projects,
-		route: route
-	};
-};
-var _user$project$Main$route = _evancz$url_parser$UrlParser$oneOf(
-	{
-		ctor: '::',
-		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$Main$AboutRoute, _evancz$url_parser$UrlParser$top),
-		_1: {
-			ctor: '::',
-			_0: A2(
-				_evancz$url_parser$UrlParser$map,
-				_user$project$Main$AboutRoute,
-				_evancz$url_parser$UrlParser$s('about')),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_evancz$url_parser$UrlParser$map,
-					_user$project$Main$WritingRoute,
-					_evancz$url_parser$UrlParser$s('writing')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_evancz$url_parser$UrlParser$map,
-						_user$project$Main$PortfolioRoute,
-						_evancz$url_parser$UrlParser$s('projects')),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_evancz$url_parser$UrlParser$map,
-							_user$project$Main$PortfolioRoute,
-							_evancz$url_parser$UrlParser$s('portfolio')),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_evancz$url_parser$UrlParser$map,
-								_user$project$Main$ContactRoute,
-								_evancz$url_parser$UrlParser$s('contact')),
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			}
-		}
-	});
-var _user$project$Main$parseUrl = function (location) {
-	var parsedURL = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Main$route, location);
-	return A2(_elm_lang$core$Maybe$withDefault, _user$project$Main$NotFoundRoute, parsedURL);
-};
-var _user$project$Main$init = function (location) {
-	return {
-		ctor: '_Tuple2',
-		_0: _user$project$Main$initialModel(
-			_user$project$Main$parseUrl(location)),
-		_1: _elm_lang$core$Platform_Cmd$none
-	};
-};
-var _user$project$Main$update = F2(
-	function (msg, model) {
-		var _p12 = msg;
-		switch (_p12.ctor) {
-			case 'ShowAbout':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _elm_lang$navigation$Navigation$modifyUrl('#about')
-				};
-			case 'ShowWriting':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _elm_lang$navigation$Navigation$modifyUrl('#writing')
-				};
-			case 'ShowPortfolio':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _elm_lang$navigation$Navigation$modifyUrl('#portfolio')
-				};
-			case 'ShowContact':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _elm_lang$navigation$Navigation$modifyUrl('#contact')
-				};
-			default:
-				var currentRoute = _user$project$Main$parseUrl(_p12._0);
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{route: currentRoute}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-		}
-	});
 var _user$project$Main$main = A2(
 	_elm_lang$navigation$Navigation$program,
-	_user$project$Main$UrlChange,
+	_user$project$Types$UrlChange,
 	{
-		init: _user$project$Main$init,
-		view: _user$project$Main$view,
-		update: _user$project$Main$update,
-		subscriptions: function (_p13) {
+		init: _user$project$Model$init,
+		view: _user$project$View$view,
+		update: _user$project$Update$update,
+		subscriptions: function (_p0) {
 			return _elm_lang$core$Platform_Sub$none;
 		}
 	})();
