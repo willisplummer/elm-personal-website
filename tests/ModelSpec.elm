@@ -33,6 +33,6 @@ spec =
                         result =
                             initialModel AboutRoute
                     in
-                    Expect.equal expectation result
+                        Expect.equal expectation result
             ]
         ]

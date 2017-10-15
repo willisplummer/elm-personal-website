@@ -3,7 +3,11 @@
   "summary": "Test Suites",
   "repository": "https://github.com/user/project.git",
   "license": "BSD3",
-  "source-directories": ["..", "."],
+  "source-directories": [
+    "..",
+    ".",
+    "../src"
+  ],
   "exposed-modules": [],
   "dependencies": {
     "eeue56/elm-html-test": "5.1.1 <= v < 6.0.0",
