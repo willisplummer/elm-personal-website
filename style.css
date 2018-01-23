@@ -1,0 +1,11 @@
+:root {
+  font: 500 16px 'Open Sans', sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *after {
+  box-sizing: inherit;
+}

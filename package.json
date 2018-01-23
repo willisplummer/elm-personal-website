@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "http-server": "^0.11.1",
+    "elm-live": "^2.7.5"
+  },
+  "scripts": {
+    "start": "elm-live Main.elm --output elm.js --open",
+    "test": "elm-test"
+  }
+}

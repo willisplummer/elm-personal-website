@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 
-INDEX_FILE = "index.html".freeze
+ELM_JS = "elm.js".freeze
 
 PRIMARY_BRANCH = "gh-pages".freeze
 
@@ -11,9 +11,9 @@ exit(0) if current_branch != PRIMARY_BRANCH
 
 commit_files = %x{git diff --cached --name-only}
 
-committing_index = commit_files.include?(INDEX_FILE)
+committing_elm = commit_files.include?(ELM_JS)
 
-if !committing_index
+if !committing_elm
   puts <<-EOT
 
 ERROR: To commit to gh-pages, run the following command
