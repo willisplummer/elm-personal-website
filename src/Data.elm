@@ -42,7 +42,7 @@ projects =
       , description = """
                         A lightweight landing page for any type of project.
                         Mouseover the squares to change their color and shape.
-                        I used RXJS for managing navigation and cursor events.
+                        I used RXJS for handling navigation and cursor events.
                         """
       , links = [ ( "https://willisplummer.github.io/demo-squares/", "site" ), ( "https://github.com/willisplummer/demo-squares", "github" ) ]
       }

@@ -10749,7 +10749,7 @@ var _user$project$Data$projects = {
 	ctor: '::',
 	_0: {
 		title: 'A Colorful Landing Page',
-		description: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for managing navigation and cursor events.\n                        ',
+		description: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for handling navigation and cursor events.\n                        ',
 		links: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'https://willisplummer.github.io/demo-squares/', _1: 'site'},
