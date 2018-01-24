@@ -16,13 +16,20 @@ html {
 
 body {
   margin: 0 auto;
-  width: 80%;
   min-height: 100vh;
   min-width: 375px;
+  width: 100%;
   max-width: 700px;
   background-color: #FDFAF0;
   padding: 20px;
 }
+
+@media screen and (min-width: 599px) {
+  body {
+    width: 80%;
+  }
+}
+
 
 header {
   text-align: center;
