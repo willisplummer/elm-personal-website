@@ -11583,7 +11583,7 @@ var _user$project$View$headerNav = function (model) {
 };
 var _user$project$View$view = function (model) {
 	return A2(
-		_elm_lang$html$Html$body,
+		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',

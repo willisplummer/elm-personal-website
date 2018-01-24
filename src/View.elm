@@ -9,7 +9,7 @@ import Types exposing (..)
 
 view : Model -> Html Msg
 view model =
-    body
+    div
         []
         [ headerNav model
         , content model
