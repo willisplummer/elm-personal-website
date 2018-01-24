@@ -17,7 +17,9 @@ poetry =
 
 prose : List ( String, String )
 prose =
-    [ ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons" )
+    [ ( "https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/", "precious okoyomon on finding poetry in everything" )
+    , ( "https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/", "tao lin on why he writes" )
+    , ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons" )
     , ( "http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/", "not even doom music: an interview with mat riviere" )
     , ( "http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/", "an interview with giancarlo ditrapano" )
     , ( "http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/", "my tweets almost got me sent home from study abroad" )
@@ -36,7 +38,23 @@ misc =
 
 projects : List Project
 projects =
-    [ { title = "This Portfolio Site"
+    [ { title = "A Colorful Landing Page"
+      , description = """
+                        A lightweight landing page for any type of project.
+                        Mouseover the squares to change their color and shape.
+                        I used RXJS for managing navigation and cursor events.
+                        """
+      , links = [ ( "https://willisplummer.github.io/demo-squares/", "site" ), ( "https://github.com/willisplummer/demo-squares", "github" ) ]
+      }
+    , { title = "Kickstarter Experts"
+      , description = """
+                        A standalone page for Kickstarter's Experts program.
+                        Implemented in React with atomic classes generated via SCSS.
+                        The list of Experts is sourced from a Rails controller.
+                      """
+      , links = [ ( "https://www.kickstarter.com/experts", "site" ) ]
+      }
+    , { title = "This Portfolio Site"
       , description = """
                         This single-page portfolio site was built using Elm.
                         It implements the Navigation and URLparser packages to handle routing.

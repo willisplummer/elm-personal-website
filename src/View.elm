@@ -26,13 +26,13 @@ headerNav model =
                 else
                     buttonStyle
     in
-    header [ class "header", headerStyle ]
-        [ h1 [ h1Style ] [ text "Willis Plummer" ]
-        , nav []
-            (List.intersperse (text " | ")
-                (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), navItemStyle (model.route == route) ] [ text description ] ]) model.nav)
-            )
-        ]
+        header [ class "header", headerStyle ]
+            [ h1 [ h1Style ] [ text "Willis Plummer" ]
+            , nav []
+                (List.intersperse (text " | ")
+                    (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), navItemStyle (model.route == route) ] [ text description ] ]) model.nav)
+                )
+            ]
 
 
 content : Model -> Html Msg
@@ -40,9 +40,19 @@ content model =
     case model.route of
         AboutRoute ->
             div [ class "content", contentStyle ]
-                [ p [] [ text "Hi, I'm Willis" ]
-                , p [] [ text "I'm a software engineer and sometimes poet living in Brooklyn" ]
-                , p [] [ text "I work at Kickstarter" ]
+                [ p [] [ text "Hi, I'm Willis. I'm a software engineer based in Brooklyn." ]
+                , p []
+                    [ text "I build web apps at "
+                    , a [ href "https://computerlab.io/" ] [ text "Computer Lab." ]
+                    ]
+                , p []
+                    [ text " Previously, I was on the front-end team at "
+                    , a [ href "https://kickstarter.com" ] [ text "Kickstarter" ]
+                    ]
+                , p []
+                    [ text "Occasionally, I do interviews at "
+                    , a [ href "https://thecreativeindependent.com/" ] [ text "The Creative Independent" ]
+                    ]
                 ]
 
         WritingRoute ->

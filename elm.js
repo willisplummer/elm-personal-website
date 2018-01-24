@@ -10748,41 +10748,69 @@ var _user$project$Types$ShowAbout = {ctor: 'ShowAbout'};
 var _user$project$Data$projects = {
 	ctor: '::',
 	_0: {
-		title: 'This Portfolio Site',
-		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
+		title: 'A Colorful Landing Page',
+		description: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for managing navigation and cursor events.\n                        ',
 		links: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/elm-personal-website', _1: 'github'},
-			_1: {ctor: '[]'}
+			_0: {ctor: '_Tuple2', _0: 'https://willisplummer.github.io/demo-squares/', _1: 'site'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/demo-squares', _1: 'github'},
+				_1: {ctor: '[]'}
+			}
 		}
 	},
 	_1: {
 		ctor: '::',
 		_0: {
-			title: 'MTA Bus Times App for Amazon Echo',
-			description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
+			title: 'Kickstarter Experts',
+			description: '\n                        A standalone page for Kickstarter\'s Experts program.\n                        Implemented in React with atomic classes generated via SCSS.\n                        The list of Experts is sourced from a Rails controller.\n                      ',
 			links: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/mta_alexa_app', _1: 'github'},
+				_0: {ctor: '_Tuple2', _0: 'https://www.kickstarter.com/experts', _1: 'site'},
 				_1: {ctor: '[]'}
 			}
 		},
 		_1: {
 			ctor: '::',
 			_0: {
-				title: 'Western Beefs of North America',
-				description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
+				title: 'This Portfolio Site',
+				description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
 				links: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://westernbeefs.com/', _1: 'site'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/westernbeefs', _1: 'github'},
-						_1: {ctor: '[]'}
-					}
+					_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/elm-personal-website', _1: 'github'},
+					_1: {ctor: '[]'}
 				}
 			},
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: {
+					title: 'MTA Bus Times App for Amazon Echo',
+					description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
+					links: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/mta_alexa_app', _1: 'github'},
+						_1: {ctor: '[]'}
+					}
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						title: 'Western Beefs of North America',
+						description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
+						links: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'http://westernbeefs.com/', _1: 'site'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'https://github.com/willisplummer/westernbeefs', _1: 'github'},
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					_1: {ctor: '[]'}
+				}
+			}
 		}
 	}
 };
@@ -10809,17 +10837,25 @@ var _user$project$Data$misc = {
 };
 var _user$project$Data$prose = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
+	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
+			_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/', _1: 'my tweets almost got me sent home from study abroad'},
-				_1: {ctor: '[]'}
+				_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/', _1: 'my tweets almost got me sent home from study abroad'},
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		}
 	}
@@ -11248,7 +11284,7 @@ var _user$project$View$content = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Hi, I\'m Willis'),
+							_0: _elm_lang$html$Html$text('Hi, I\'m Willis. I\'m a software engineer based in Brooklyn.'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -11258,8 +11294,23 @@ var _user$project$View$content = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('I\'m a software engineer and sometimes poet living in Brooklyn'),
-								_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html$text('I build web apps at '),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$a,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$href('https://computerlab.io/'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Computer Lab.'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
 							}),
 						_1: {
 							ctor: '::',
@@ -11268,10 +11319,51 @@ var _user$project$View$content = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('I work at Kickstarter'),
-									_1: {ctor: '[]'}
+									_0: _elm_lang$html$Html$text(' Previously, I was on the front-end team at '),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$a,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$href('https://kickstarter.com'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Kickstarter'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
 								}),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$p,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Occasionally, I do interviews at '),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$a,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$href('https://thecreativeindependent.com/'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('The Creative Independent'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				});
