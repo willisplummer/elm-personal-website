@@ -1,11 +1,86 @@
 :root {
-  font: 500 16px 'Open Sans', sans-serif;
-}
-
-html {
-  box-sizing: border-box;
+  font: 500 22px 'Open Sans', sans-serif;
+  color: #5E5D40;
 }
 
 *, *:before, *after {
   box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  background: #EDD6C3;
+  height: 100%;
+  width: 100%
+}
+
+body {
+  margin: 0 auto;
+  width: 80%;
+  height: 100%;
+  min-width: 400px;
+  max-width: 700px;
+  background-color: #FDFAF0;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  color: #333333;
+  padding: 0;
+}
+
+h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 110%;
+}
+
+a {
+  color: #333333;
+}
+
+button {
+  width: 20%;
+  min-width: 55px;
+  border-color: #6B624A;
+  background-color: #EDD6C3;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.active {
+  border-color: #EDD6C3;
+  background-color: #6B624A;
+  color: #EDD6C3;
+  cursor: default;
+}
+
+.content {
+  text-align: left;
+  margin: auto;
+  width: 90%;
+  max-width: 450px;
+}
+
+.project {
+  padding: 15px 3% 2px 3%;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 0px invisible black;
+  background-color: #E4FEFF;
+}
+
+.project-content {
+  padding: 0 1.5%;
+  text-align: left;
 }
