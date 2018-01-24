@@ -9,8 +9,8 @@ import Types exposing (..)
 
 view : Model -> Html Msg
 view model =
-    body
-        [ mainStyle ]
+    div
+        []
         [ headerNav model
         , content model
         ]
@@ -19,18 +19,18 @@ view model =
 headerNav : Model -> Html Msg
 headerNav model =
     let
-        navItemStyle =
+        navItemClass =
             \bool ->
                 if bool then
-                    activeButtonStyle
+                    "active"
                 else
-                    buttonStyle
+                    ""
     in
-        header [ class "header", headerStyle ]
-            [ h1 [ h1Style ] [ text "Willis Plummer" ]
+        header []
+            [ h1 [] [ text "Willis Plummer" ]
             , nav []
                 (List.intersperse (text " | ")
-                    (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), navItemStyle (model.route == route) ] [ text description ] ]) model.nav)
+                    (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), class (navItemClass (model.route == route)) ] [ text description ] ]) model.nav)
                 )
             ]
 
@@ -39,24 +39,27 @@ content : Model -> Html Msg
 content model =
     case model.route of
         AboutRoute ->
-            div [ class "content", contentStyle ]
+            div [ class "content" ]
                 [ p [] [ text "Hi, I'm Willis. I'm a software engineer based in Brooklyn." ]
                 , p []
                     [ text "I build web apps at "
-                    , a [ href "https://computerlab.io/" ] [ text "Computer Lab." ]
+                    , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
+                    , text "."
                     ]
                 , p []
-                    [ text " Previously, I was on the front-end team at "
+                    [ text "I used to work on the front-end team at "
                     , a [ href "https://kickstarter.com" ] [ text "Kickstarter" ]
+                    , text "."
                     ]
                 , p []
-                    [ text "Occasionally, I do interviews at "
+                    [ text "I sometimes do interviews for "
                     , a [ href "https://thecreativeindependent.com/" ] [ text "The Creative Independent" ]
+                    , text "."
                     ]
                 ]
 
         WritingRoute ->
-            div [ class "content", contentStyle ]
+            div [ class "content" ]
                 [ p [] [ text "Poetry:" ]
                 , ul [ class "writing-list" ]
                     (List.concatMap
@@ -78,14 +81,14 @@ content model =
                 ]
 
         PortfolioRoute ->
-            div [ class "content", contentStyle ]
+            div [ class "content" ]
                 (List.concatMap
                     showProject
                     model.projectDescriptions
                 )
 
         ContactRoute ->
-            div [ class "content", contentStyle ]
+            div [ class "content" ]
                 [ p []
                     [ text "You can find me on "
                     , a [ href "https://github.com/willisplummer" ] [ text "Github" ]
@@ -105,14 +108,14 @@ content model =
                 ]
 
         NotFoundRoute ->
-            div [ class "content", contentStyle ] [ text "NOT FOUND" ]
+            div [ class "content" ] [ text "NOT FOUND" ]
 
 
 showProject : Project -> List (Html Msg)
 showProject project =
-    [ div [ class "project", projectStyle ]
-        [ div [ class "project-content", projectContentStyle ]
-            [ h2 [ h2Style ]
+    [ div [ class "project" ]
+        [ div [ class "project-content" ]
+            [ h2 []
                 [ text project.title ]
             , p []
                 [ text project.description ]
@@ -124,92 +127,3 @@ showProject project =
             ]
         ]
     ]
-
-
-mainStyle : Attribute msg
-mainStyle =
-    style
-        [ ( "margin", "auto" )
-        , ( "width", "80%" )
-        , ( "height", "100%" )
-        , ( "min-width", "380px" )
-        , ( "max-width", "625px" )
-        , ( "background-color", "white" )
-        ]
-
-
-headerStyle : Attribute msg
-headerStyle =
-    style
-        [ ( "text-align", "center" )
-        , ( "margin", "20px" )
-        ]
-
-
-contentStyle : Attribute msg
-contentStyle =
-    style
-        [ ( "text-align", "left" )
-        , ( "margin", "auto" )
-        , ( "width", "90%" )
-        , ( "max-width", "450px" )
-        ]
-
-
-activeButtonStyle : Attribute msg
-activeButtonStyle =
-    style
-        [ ( "width", "15%" )
-        , ( "min-width", "55px" )
-        , ( "border-color", "black" )
-        , ( "background-color", "black" )
-        , ( "color", "white" )
-        , ( "border-radius", "5px" )
-        ]
-
-
-buttonStyle : Attribute msg
-buttonStyle =
-    style
-        [ ( "width", "15%" )
-        , ( "min-width", "55px" )
-        , ( "border-color", "black" )
-        , ( "background-color", "white" )
-        , ( "border-radius", "5px" )
-        ]
-
-
-projectStyle : Attribute msg
-projectStyle =
-    style
-        [ ( "padding", "15px 3% 2px 3%" )
-        , ( "margin", "10px 0%" )
-        , ( "border-radius", "10px" )
-        , ( "border", "0px invisible black" )
-        , ( "background-color", "#E4FEFF" )
-        ]
-
-
-projectContentStyle : Attribute msg
-projectContentStyle =
-    style
-        [ ( "padding", "0 1.5%" )
-        , ( "text-align", "left" )
-        ]
-
-
-h2Style : Attribute msg
-h2Style =
-    style
-        [ ( "padding", "0%" )
-        , ( "margin", "0%" )
-        , ( "font-size", "110%" )
-        ]
-
-
-h1Style : Attribute msg
-h1Style =
-    style
-        [ ( "padding", "0%" )
-        , ( "margin", "15px" )
-        ]

@@ -11009,164 +11009,6 @@ var _user$project$Update$update = F2(
 		}
 	});
 
-var _user$project$View$h1Style = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'padding', _1: '0%'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'margin', _1: '15px'},
-			_1: {ctor: '[]'}
-		}
-	});
-var _user$project$View$h2Style = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'padding', _1: '0%'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'margin', _1: '0%'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'font-size', _1: '110%'},
-				_1: {ctor: '[]'}
-			}
-		}
-	});
-var _user$project$View$projectContentStyle = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'padding', _1: '0 1.5%'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'left'},
-			_1: {ctor: '[]'}
-		}
-	});
-var _user$project$View$projectStyle = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'padding', _1: '15px 3% 2px 3%'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 0%'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '10px'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'border', _1: '0px invisible black'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#E4FEFF'},
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		}
-	});
-var _user$project$View$buttonStyle = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'width', _1: '15%'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'min-width', _1: '55px'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'border-color', _1: 'black'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '5px'},
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		}
-	});
-var _user$project$View$activeButtonStyle = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'width', _1: '15%'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'min-width', _1: '55px'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'border-color', _1: 'black'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'black'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '5px'},
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			}
-		}
-	});
-var _user$project$View$contentStyle = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'left'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'width', _1: '90%'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'max-width', _1: '450px'},
-					_1: {ctor: '[]'}
-				}
-			}
-		}
-	});
-var _user$project$View$headerStyle = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'margin', _1: '20px'},
-			_1: {ctor: '[]'}
-		}
-	});
-var _user$project$View$mainStyle = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'width', _1: '80%'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'height', _1: '100%'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'min-width', _1: '380px'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'max-width', _1: '625px'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'white'},
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			}
-		}
-	});
 var _user$project$View$showProject = function (project) {
 	return {
 		ctor: '::',
@@ -11175,11 +11017,7 @@ var _user$project$View$showProject = function (project) {
 			{
 				ctor: '::',
 				_0: _elm_lang$html$Html_Attributes$class('project'),
-				_1: {
-					ctor: '::',
-					_0: _user$project$View$projectStyle,
-					_1: {ctor: '[]'}
-				}
+				_1: {ctor: '[]'}
 			},
 			{
 				ctor: '::',
@@ -11188,21 +11026,13 @@ var _user$project$View$showProject = function (project) {
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html_Attributes$class('project-content'),
-						_1: {
-							ctor: '::',
-							_0: _user$project$View$projectContentStyle,
-							_1: {ctor: '[]'}
-						}
+						_1: {ctor: '[]'}
 					},
 					{
 						ctor: '::',
 						_0: A2(
 							_elm_lang$html$Html$h2,
-							{
-								ctor: '::',
-								_0: _user$project$View$h2Style,
-								_1: {ctor: '[]'}
-							},
+							{ctor: '[]'},
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html$text(project.title),
@@ -11271,11 +11101,7 @@ var _user$project$View$content = function (model) {
 				{
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$View$contentStyle,
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				},
 				{
 					ctor: '::',
@@ -11306,10 +11132,14 @@ var _user$project$View$content = function (model) {
 										},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('Computer Lab.'),
+											_0: _elm_lang$html$Html$text('Computer Lab'),
 											_1: {ctor: '[]'}
 										}),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('.'),
+										_1: {ctor: '[]'}
+									}
 								}
 							}),
 						_1: {
@@ -11319,7 +11149,7 @@ var _user$project$View$content = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text(' Previously, I was on the front-end team at '),
+									_0: _elm_lang$html$Html$text('I used to work on the front-end team at '),
 									_1: {
 										ctor: '::',
 										_0: A2(
@@ -11334,7 +11164,11 @@ var _user$project$View$content = function (model) {
 												_0: _elm_lang$html$Html$text('Kickstarter'),
 												_1: {ctor: '[]'}
 											}),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('.'),
+											_1: {ctor: '[]'}
+										}
 									}
 								}),
 							_1: {
@@ -11344,7 +11178,7 @@ var _user$project$View$content = function (model) {
 									{ctor: '[]'},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('Occasionally, I do interviews at '),
+										_0: _elm_lang$html$Html$text('I sometimes do interviews for '),
 										_1: {
 											ctor: '::',
 											_0: A2(
@@ -11359,7 +11193,11 @@ var _user$project$View$content = function (model) {
 													_0: _elm_lang$html$Html$text('The Creative Independent'),
 													_1: {ctor: '[]'}
 												}),
-											_1: {ctor: '[]'}
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('.'),
+												_1: {ctor: '[]'}
+											}
 										}
 									}),
 								_1: {ctor: '[]'}
@@ -11373,11 +11211,7 @@ var _user$project$View$content = function (model) {
 				{
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$View$contentStyle,
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				},
 				{
 					ctor: '::',
@@ -11536,11 +11370,7 @@ var _user$project$View$content = function (model) {
 				{
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$View$contentStyle,
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				},
 				A2(_elm_lang$core$List$concatMap, _user$project$View$showProject, model.projectDescriptions));
 		case 'ContactRoute':
@@ -11549,11 +11379,7 @@ var _user$project$View$content = function (model) {
 				{
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$View$contentStyle,
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				},
 				{
 					ctor: '::',
@@ -11678,11 +11504,7 @@ var _user$project$View$content = function (model) {
 				{
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$class('content'),
-					_1: {
-						ctor: '::',
-						_0: _user$project$View$contentStyle,
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				},
 				{
 					ctor: '::',
@@ -11692,29 +11514,17 @@ var _user$project$View$content = function (model) {
 	}
 };
 var _user$project$View$headerNav = function (model) {
-	var navItemStyle = function (bool) {
-		return bool ? _user$project$View$activeButtonStyle : _user$project$View$buttonStyle;
+	var navItemClass = function (bool) {
+		return bool ? 'active' : '';
 	};
 	return A2(
 		_elm_lang$html$Html$header,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('header'),
-			_1: {
-				ctor: '::',
-				_0: _user$project$View$headerStyle,
-				_1: {ctor: '[]'}
-			}
-		},
+		{ctor: '[]'},
 		{
 			ctor: '::',
 			_0: A2(
 				_elm_lang$html$Html$h1,
-				{
-					ctor: '::',
-					_0: _user$project$View$h1Style,
-					_1: {ctor: '[]'}
-				},
+				{ctor: '[]'},
 				{
 					ctor: '::',
 					_0: _elm_lang$html$Html$text('Willis Plummer'),
@@ -11750,8 +11560,9 @@ var _user$project$View$headerNav = function (model) {
 															_elm_lang$core$Native_Utils.eq(model.route, _p11))),
 													_1: {
 														ctor: '::',
-														_0: navItemStyle(
-															_elm_lang$core$Native_Utils.eq(model.route, _p11)),
+														_0: _elm_lang$html$Html_Attributes$class(
+															navItemClass(
+																_elm_lang$core$Native_Utils.eq(model.route, _p11))),
 														_1: {ctor: '[]'}
 													}
 												}
@@ -11772,12 +11583,8 @@ var _user$project$View$headerNav = function (model) {
 };
 var _user$project$View$view = function (model) {
 	return A2(
-		_elm_lang$html$Html$body,
-		{
-			ctor: '::',
-			_0: _user$project$View$mainStyle,
-			_1: {ctor: '[]'}
-		},
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
 		{
 			ctor: '::',
 			_0: _user$project$View$headerNav(model),

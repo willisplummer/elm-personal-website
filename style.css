@@ -1,11 +1,93 @@
 :root {
-  font: 500 16px 'Open Sans', sans-serif;
+  font: 500 18px 'Open Sans', sans-serif;
+  color: hsl(58, 19%, 31%);
 }
 
 html {
   box-sizing: border-box;
+  background: #EDD6C3;
+  height: 100%;
+  width: 100%
 }
 
-*, *:before, *after {
+*, *:before, *:after {
   box-sizing: inherit;
+}
+
+body {
+  margin: 0 auto;
+  width: 80%;
+  min-height: 100%;
+  min-width: 400px;
+  max-width: 700px;
+  background-color: #FDFAF0;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 0px 0px 20px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  color: #333333;
+  padding: 0;
+  margin: 10 0;
+}
+
+h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 110%;
+}
+
+a {
+  color: #333333;
+}
+
+button {
+  width: 20%;
+  margin: 0px 10px;
+  min-width: 55px;
+  border-color: #6B624A;
+  background-color: #EDD6C3;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.active {
+  border-color: #EDD6C3;
+  background-color: #6B624A;
+  color: #EDD6C3;
+  cursor: default;
+}
+
+.content {
+  text-align: left;
+  margin: auto;
+  width: 90%;
+  max-width: 450px;
+}
+
+.project {
+  padding: 15px 3% 2px 3%;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 0px invisible black;
+  background-color: #EDD6C2;
+}
+
+.project-content {
+  padding: 0 1.5%;
+  text-align: left;
+}
+
+.project-content h2 {
+  color: #333333;
 }
