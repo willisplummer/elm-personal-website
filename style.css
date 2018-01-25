@@ -59,6 +59,7 @@ a {
 }
 
 button {
+  font-size: .75em;
   width: 20%;
   margin: 0px 10px;
   min-width: 55px;
