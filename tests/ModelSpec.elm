@@ -24,7 +24,6 @@ spec =
                             , writingLinks =
                                 { poetryLinks = poetry
                                 , proseLinks = prose
-                                , miscLinks = misc
                                 }
                             , projectDescriptions = projects
                             , route = AboutRoute

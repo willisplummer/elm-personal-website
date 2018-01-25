@@ -26,7 +26,6 @@ type alias LinksList =
 type alias Links =
     { poetryLinks : LinksList
     , proseLinks : LinksList
-    , miscLinks : LinksList
     }
 
 

@@ -10724,9 +10724,9 @@ var _user$project$Types$Model = F4(
 	function (a, b, c, d) {
 		return {nav: a, writingLinks: b, projectDescriptions: c, route: d};
 	});
-var _user$project$Types$Links = F3(
-	function (a, b, c) {
-		return {poetryLinks: a, proseLinks: b, miscLinks: c};
+var _user$project$Types$Links = F2(
+	function (a, b) {
+		return {poetryLinks: a, proseLinks: b};
 	});
 var _user$project$Types$Project = F3(
 	function (a, b, c) {
@@ -10814,33 +10814,12 @@ var _user$project$Data$projects = {
 		}
 	}
 };
-var _user$project$Data$misc = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'http://dadsofshutterstock.tumblr.com', _1: 'dads of shutterstock'},
-	_1: {
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'http://twitter.com/willisunedited', _1: '@willisunedited'},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'http://twitter.com/willisdepressed', _1: '@willisdepressed'},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.twitter1.2012.html', _1: 'selections from willis plummer\'s twitter (edited by mira gonzalez)'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/vt.twitter.2012-13.html', _1: 'selections from victoria trott\'s twitter (edited by willis plummer)'},
-					_1: {ctor: '[]'}
-				}
-			}
-		}
-	}
-};
 var _user$project$Data$prose = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
+	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
+		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
 		_1: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
@@ -10850,11 +10829,7 @@ var _user$project$Data$prose = {
 				_1: {
 					ctor: '::',
 					_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2012/my-tweets-almost-got-me-sent-home-from-study-abroad/', _1: 'my tweets almost got me sent home from study abroad'},
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				}
 			}
 		}
@@ -10862,7 +10837,7 @@ var _user$project$Data$prose = {
 };
 var _user$project$Data$poetry = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 Year Clock'},
+	_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 year clock (muumuu house)'},
 	_1: {
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
@@ -10955,7 +10930,7 @@ var _user$project$Model$initialModel = function (route) {
 				}
 			}
 		},
-		writingLinks: {poetryLinks: _user$project$Data$poetry, proseLinks: _user$project$Data$prose, miscLinks: _user$project$Data$misc},
+		writingLinks: {poetryLinks: _user$project$Data$poetry, proseLinks: _user$project$Data$prose},
 		projectDescriptions: _user$project$Data$projects,
 		route: route
 	};
@@ -11309,57 +11284,7 @@ var _user$project$View$content = function (model) {
 											};
 										},
 										model.writingLinks.proseLinks)),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$p,
-										{ctor: '[]'},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Misc:'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$ul,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$class('writing-list'),
-												_1: {ctor: '[]'}
-											},
-											A2(
-												_elm_lang$core$List$concatMap,
-												function (_p7) {
-													var _p8 = _p7;
-													return {
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$li,
-															{ctor: '[]'},
-															{
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$a,
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$href(_p8._0),
-																		_1: {ctor: '[]'}
-																	},
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text(_p8._1),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {ctor: '[]'}
-															}),
-														_1: {ctor: '[]'}
-													};
-												},
-												model.writingLinks.miscLinks)),
-										_1: {ctor: '[]'}
-									}
-								}
+								_1: {ctor: '[]'}
 							}
 						}
 					}
@@ -11540,9 +11465,9 @@ var _user$project$View$headerNav = function (model) {
 						_elm_lang$html$Html$text(' | '),
 						A2(
 							_elm_lang$core$List$concatMap,
-							function (_p9) {
-								var _p10 = _p9;
-								var _p11 = _p10._2;
+							function (_p7) {
+								var _p8 = _p7;
+								var _p9 = _p8._2;
 								return {
 									ctor: '::',
 									_0: A2(
@@ -11552,17 +11477,17 @@ var _user$project$View$headerNav = function (model) {
 											_0: _elm_lang$html$Html_Attributes$type_('button'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onClick(_p10._1),
+												_0: _elm_lang$html$Html_Events$onClick(_p8._1),
 												_1: {
 													ctor: '::',
 													_0: _tesk9$elm_html_a11y$Html_Attributes_A11y$pressed(
 														_elm_lang$core$Maybe$Just(
-															_elm_lang$core$Native_Utils.eq(model.route, _p11))),
+															_elm_lang$core$Native_Utils.eq(model.route, _p9))),
 													_1: {
 														ctor: '::',
 														_0: _elm_lang$html$Html_Attributes$class(
 															navItemClass(
-																_elm_lang$core$Native_Utils.eq(model.route, _p11))),
+																_elm_lang$core$Native_Utils.eq(model.route, _p9))),
 														_1: {ctor: '[]'}
 													}
 												}
@@ -11570,7 +11495,7 @@ var _user$project$View$headerNav = function (model) {
 										},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text(_p10._0),
+											_0: _elm_lang$html$Html$text(_p8._0),
 											_1: {ctor: '[]'}
 										}),
 									_1: {ctor: '[]'}

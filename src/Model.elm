@@ -1,6 +1,6 @@
 module Model exposing (..)
 
-import Data exposing (misc, poetry, projects, prose)
+import Data exposing (poetry, projects, prose)
 import Navigation exposing (Location)
 import Routing exposing (parseUrl)
 import Types exposing (..)
@@ -24,7 +24,6 @@ initialModel route =
     , writingLinks =
         { poetryLinks = poetry
         , proseLinks = prose
-        , miscLinks = misc
         }
     , projectDescriptions = projects
     , route = route

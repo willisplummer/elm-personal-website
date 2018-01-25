@@ -72,12 +72,6 @@ content model =
                         (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
                         model.writingLinks.proseLinks
                     )
-                , p [] [ text "Misc:" ]
-                , ul [ class "writing-list" ]
-                    (List.concatMap
-                        (\( url, description ) -> [ li [] [ a [ href url ] [ text description ] ] ])
-                        model.writingLinks.miscLinks
-                    )
                 ]
 
         PortfolioRoute ->
