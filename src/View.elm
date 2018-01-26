@@ -86,18 +86,15 @@ content model =
                 [ p []
                     [ text "You can find me on "
                     , a [ href "https://github.com/willisplummer" ] [ text "Github" ]
-                    , text " and "
+                    , text ", "
                     , a [ href "https://twitter.com/willisplummer" ] [ text "Twitter" ]
-                    ]
-                , p []
-                    [ text "I'm also on "
+                    , text ", and "
                     , a [ href "https://www.linkedin.com/in/willisplummer" ] [ text "LinkedIn" ]
-                    , text " and "
-                    , a [ href "https://willisplummer.tumblr.com" ] [ text "Tumblr" ]
                     ]
                 , p []
-                    [ a [ href "mailto:willisplummer@gmail.com" ] [ text "Email" ]
-                    , text " is the best way to get in touch"
+                    [ text "But "
+                    , a [ href "mailto:willisplummer@gmail.com" ] [ text "Email" ]
+                    , text " is the best way to get in touch."
                     ]
                 ]
 

@@ -11330,7 +11330,7 @@ var _user$project$View$content = function (model) {
 									}),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html$text(' and '),
+									_0: _elm_lang$html$Html$text(', '),
 									_1: {
 										ctor: '::',
 										_0: A2(
@@ -11345,7 +11345,26 @@ var _user$project$View$content = function (model) {
 												_0: _elm_lang$html$Html$text('Twitter'),
 												_1: {ctor: '[]'}
 											}),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(', and '),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$a,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('LinkedIn'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										}
 									}
 								}
 							}
@@ -11357,49 +11376,8 @@ var _user$project$View$content = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('I\'m also on '),
+								_0: _elm_lang$html$Html$text('But '),
 								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$a,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('LinkedIn'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(' and '),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$a,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$href('https://willisplummer.tumblr.com'),
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Tumblr'),
-													_1: {ctor: '[]'}
-												}),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$p,
-								{ctor: '[]'},
-								{
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$a,
@@ -11415,12 +11393,12 @@ var _user$project$View$content = function (model) {
 										}),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$html$Html$text(' is the best way to get in touch'),
+										_0: _elm_lang$html$Html$text(' is the best way to get in touch.'),
 										_1: {ctor: '[]'}
 									}
-								}),
-							_1: {ctor: '[]'}
-						}
+								}
+							}),
+						_1: {ctor: '[]'}
 					}
 				});
 		default:
