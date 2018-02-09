@@ -5,7 +5,8 @@ import Types exposing (Project)
 
 poetry : List ( String, String )
 poetry =
-    [ ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 year clock (muumuu house)" )
+    [ ( "http://www.newestyork.co/14-flossing", "i'm getting into flossing lately (newest york)" )
+    , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 year clock (muumuu house)" )
     , ( "http://www.bodegamag.com/articles/172-bros", "bros (bodega mag)" )
     , ( "http://darkfuckingwizard.com/three-poems/", "3 poems (dark fucking wizard)" )
     , ( "http://muumuuhouse.com/wp.13nov2014.html", "14 haiku (muumuu house)" )
