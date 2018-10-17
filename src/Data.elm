@@ -18,7 +18,8 @@ poetry =
 
 prose : List ( String, String )
 prose =
-    [ ( "https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/", "tao lin on why he writes" )
+    [ ( "https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/", "megan boyle on documenting your entire life in your creative work" )
+    , ( "https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/", "tao lin on why he writes" )
     , ( "https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/", "precious okoyomon on finding poetry in everything" )
     , ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons" )
     , ( "http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/", "not even doom music: an interview with mat riviere" )

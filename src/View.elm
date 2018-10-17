@@ -42,12 +42,14 @@ content model =
             div [ class "content" ]
                 [ p [] [ text "Hi, I'm Willis. I'm a software engineer based in Brooklyn." ]
                 , p []
-                    [ text "I build web apps at "
-                    , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
+                    [ text "I work at "
+                    , a [ href "https://www.hiclark.com/" ] [ text "Hi Clark" ]
                     , text "."
                     ]
                 , p []
-                    [ text "I used to work on the front-end team at "
+                    [ text "Previously, I freelanced with "
+                    , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
+                    , text " and worked on the front-end team at "
                     , a [ href "https://kickstarter.com" ] [ text "Kickstarter" ]
                     , text "."
                     ]
