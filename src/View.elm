@@ -88,9 +88,7 @@ content model =
                 [ p []
                     [ text "You can find me on "
                     , a [ href "https://github.com/willisplummer" ] [ text "Github" ]
-                    , text ", "
-                    , a [ href "https://twitter.com/willisplummer" ] [ text "Twitter" ]
-                    , text ", and "
+                    , text " and "
                     , a [ href "https://www.linkedin.com/in/willisplummer" ] [ text "LinkedIn" ]
                     ]
                 , p []
