@@ -6,9 +6,11 @@ This means that changes to the elm code will only be reflected if the latest bui
 
 If you haven't already, install the [Elm Command Line Tools](https://guide.elm-lang.org/install.html)
 
-Then run `elm-make Main.elm` and commit the new `index.html` file.
+Then run `elm make Main.elm --output=elm.js` and commit the new `elm.js` file.
 
-The latest should be reflected at [willisplummer.com](http://willisplummer.com)
+Test the changes locally by running `open index.html`
+
+Once you've pushed your changes, the latest should be reflected at [willisplummer.com](http://willisplummer.com)
 
 ## PRE-COMMIT HOOK
 
