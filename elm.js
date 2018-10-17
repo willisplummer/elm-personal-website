@@ -10816,20 +10816,24 @@ var _user$project$Data$projects = {
 };
 var _user$project$Data$prose = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
+	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/', _1: 'megan boyle on documenting your entire life in your creative work'},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
+		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
+			_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+				_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
-					_1: {ctor: '[]'}
+					_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		}
@@ -10840,26 +10844,30 @@ var _user$project$Data$poetry = {
 	_0: {ctor: '_Tuple2', _0: 'http://www.newestyork.co/14-flossing', _1: 'i\'m getting into flossing lately (newest york)'},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 year clock (muumuu house)'},
+		_0: {ctor: '_Tuple2', _0: 'https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers', _1: 'wild horse rappers (with precious okoyomon)'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
+			_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 year clock (muumuu house)'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://darkfuckingwizard.com/three-poems/', _1: '3 poems (dark fucking wizard)'},
+				_0: {ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.13nov2014.html', _1: '14 haiku (muumuu house)'},
+					_0: {ctor: '_Tuple2', _0: 'http://darkfuckingwizard.com/three-poems/', _1: '3 poems (dark fucking wizard)'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
+						_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.13nov2014.html', _1: '14 haiku (muumuu house)'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'http://cwp.fas.nyu.edu/object/cwp.ug.lobelprize_plummer', _1: 'good and beautiful (nyu creative writing program)'},
+							_0: {ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'},
-								_1: {ctor: '[]'}
+								_0: {ctor: '_Tuple2', _0: 'http://cwp.fas.nyu.edu/object/cwp.ug.lobelprize_plummer', _1: 'good and beautiful (nyu creative writing program)'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'},
+									_1: {ctor: '[]'}
+								}
 							}
 						}
 					}
@@ -11099,19 +11107,19 @@ var _user$project$View$content = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('I build web apps at '),
+								_0: _elm_lang$html$Html$text('I work at '),
 								_1: {
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$a,
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$href('https://computerlab.io/'),
+											_0: _elm_lang$html$Html_Attributes$href('https://www.hiclark.com/'),
 											_1: {ctor: '[]'}
 										},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('Computer Lab'),
+											_0: _elm_lang$html$Html$text('Hi Clark'),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -11128,25 +11136,44 @@ var _user$project$View$content = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('I used to work on the front-end team at '),
+									_0: _elm_lang$html$Html$text('Previously, I freelanced with '),
 									_1: {
 										ctor: '::',
 										_0: A2(
 											_elm_lang$html$Html$a,
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$href('https://kickstarter.com'),
+												_0: _elm_lang$html$Html_Attributes$href('https://computerlab.io/'),
 												_1: {ctor: '[]'}
 											},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('Kickstarter'),
+												_0: _elm_lang$html$Html$text('Computer Lab'),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('.'),
-											_1: {ctor: '[]'}
+											_0: _elm_lang$html$Html$text(' and worked on the front-end team at '),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$a,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$href('https://kickstarter.com'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Kickstarter'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('.'),
+													_1: {ctor: '[]'}
+												}
+											}
 										}
 									}
 								}),
@@ -11334,41 +11361,22 @@ var _user$project$View$content = function (model) {
 									}),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html$text(', '),
+									_0: _elm_lang$html$Html$text(' and '),
 									_1: {
 										ctor: '::',
 										_0: A2(
 											_elm_lang$html$Html$a,
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$href('https://twitter.com/willisplummer'),
+												_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
 												_1: {ctor: '[]'}
 											},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('Twitter'),
+												_0: _elm_lang$html$Html$text('LinkedIn'),
 												_1: {ctor: '[]'}
 											}),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html$text(', and '),
-											_1: {
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$a,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
-														_1: {ctor: '[]'}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('LinkedIn'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}
-										}
+										_1: {ctor: '[]'}
 									}
 								}
 							}
