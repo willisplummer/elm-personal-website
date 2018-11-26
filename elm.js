@@ -10816,23 +10816,31 @@ var _user$project$Data$projects = {
 };
 var _user$project$Data$prose = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/', _1: 'megan boyle on documenting your entire life in your creative work'},
+	_0: {ctor: '_Tuple2', _0: 'http://thenervousbreakdown.com/willisplummer/2018/11/two-stories/', _1: 'two stories (the nervous breakdown)'},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
+		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/', _1: 'megan boyle on documenting your entire life in your creative work'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
+			_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/poet-andrew-weatherhead-on-hijacking-language/', _1: 'andrew weatherhead on hijacking language'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
+				_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+					_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
-						_1: {ctor: '[]'}
+						_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
+								_1: {ctor: '[]'}
+							}
+						}
 					}
 				}
 			}
