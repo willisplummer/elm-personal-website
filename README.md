@@ -4,9 +4,9 @@ This website is hosted on github pages, so only the static index.html file is ac
 
 This means that changes to the elm code will only be reflected if the latest build is pushed to the `gh-pages` branch
 
-If you haven't already, install the [Elm Command Line Tools](https://guide.elm-lang.org/install.html)
+install everything by running `yarn`
 
-Then run `elm make Main.elm --output=elm.js` and commit the new `elm.js` file.
+Then run `yarn build` and commit the new `elm.js` file along with your changes.
 
 Test the changes locally by running `open index.html`
 
