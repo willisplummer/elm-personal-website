@@ -11,21 +11,22 @@ poetry =
     , ( "http://darkfuckingwizard.com/three-poems/", "3 poems (dark fucking wizard)" )
     , ( "http://muumuuhouse.com/wp.13nov2014.html", "14 haiku (muumuu house)" )
     , ( "https://preludemag.com/contributors/willis-plummer/", "3 poems (prelude magazine)" )
-    , ( "http://cwp.fas.nyu.edu/object/cwp.ug.lobelprize_plummer", "good and beautiful (nyu creative writing program)" )
+    , ( "https://genius.com/Willis-plummer-good-and-beautiful-annotated", "good and beautiful (2014 judith lobel arkin prize honorable mention)" )
     , ( "http://www.hobartpulp.com/web_features/5-poems--8", "5 poems (hobartpulp)" )
     ]
 
 
 prose : List ( String, String )
 prose =
-    [ ( "http://thenervousbreakdown.com/willisplummer/2018/11/two-stories/", "two stories (the nervous breakdown)" )
+    [ ( "https://thecreativeindependent.com/people/poet-matthew-rohrer-on-challenging-your-own-process/", "matthew rohrer on challenging your own process" )
+    , ( "http://thenervousbreakdown.com/willisplummer/2018/11/two-stories/", "two stories (the nervous breakdown)" )
     , ( "https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/", "megan boyle on documenting your entire life in your creative work" )
     , ( "https://thecreativeindependent.com/people/poet-andrew-weatherhead-on-hijacking-language/", "andrew weatherhead on hijacking language" )
     , ( "https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/", "tao lin on why he writes" )
     , ( "https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/", "precious okoyomon on finding poetry in everything" )
     , ( "https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl", "total party kill: the architects of dungeons and dragons" )
     , ( "http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/", "not even doom music: an interview with mat riviere" )
-    , ( "http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/", "an interview with giancarlo ditrapano" )
+    , ( "http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/", "an interview with ny tyrant in four parts" )
     ]
 
 

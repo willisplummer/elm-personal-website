@@ -10816,29 +10816,33 @@ var _user$project$Data$projects = {
 };
 var _user$project$Data$prose = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'http://thenervousbreakdown.com/willisplummer/2018/11/two-stories/', _1: 'two stories (the nervous breakdown)'},
+	_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/poet-matthew-rohrer-on-challenging-your-own-process/', _1: 'matthew rohrer on challenging your own process'},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/', _1: 'megan boyle on documenting your entire life in your creative work'},
+		_0: {ctor: '_Tuple2', _0: 'http://thenervousbreakdown.com/willisplummer/2018/11/two-stories/', _1: 'two stories (the nervous breakdown)'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/poet-andrew-weatherhead-on-hijacking-language/', _1: 'andrew weatherhead on hijacking language'},
+			_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/', _1: 'megan boyle on documenting your entire life in your creative work'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
+				_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/poet-andrew-weatherhead-on-hijacking-language/', _1: 'andrew weatherhead on hijacking language'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
+					_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', _1: 'tao lin on why he writes'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
+						_0: {ctor: '_Tuple2', _0: 'https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', _1: 'precious okoyomon on finding poetry in everything'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+							_0: {ctor: '_Tuple2', _0: 'https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', _1: 'total party kill: the architects of dungeons and dragons'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with giancarlo ditrapano'},
-								_1: {ctor: '[]'}
+								_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', _1: 'not even doom music: an interview with mat riviere'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', _1: 'an interview with ny tyrant in four parts'},
+									_1: {ctor: '[]'}
+								}
 							}
 						}
 					}
@@ -10867,7 +10871,7 @@ var _user$project$Data$poetry = {
 						_0: {ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'http://cwp.fas.nyu.edu/object/cwp.ug.lobelprize_plummer', _1: 'good and beautiful (nyu creative writing program)'},
+							_0: {ctor: '_Tuple2', _0: 'https://genius.com/Willis-plummer-good-and-beautiful-annotated', _1: 'good and beautiful (2014 judith lobel arkin prize honorable mention)'},
 							_1: {
 								ctor: '::',
 								_0: {ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'},
