@@ -5,7 +5,8 @@ import Types exposing (Project)
 
 poetry : List ( String, String )
 poetry =
-    [ ( "https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers", "wild horse rappers (with precious okoyomon)" )
+    [ ( "http://quick-books.biz/", "The Book of Judith (quickbooks, pamphlet, ltd run of 100)" )
+    , ( "https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers", "wild horse rappers (with precious okoyomon)" )
     , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 year clock (muumuu house)" )
     , ( "http://www.bodegamag.com/articles/172-bros", "bros (bodega mag)" )
     , ( "http://darkfuckingwizard.com/three-poems/", "3 poems (dark fucking wizard)" )
