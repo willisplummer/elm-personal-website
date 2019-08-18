@@ -1,6 +1,6 @@
 module Model exposing (..)
 
-import Data exposing (poetry, projects, prose)
+import Data exposing (poetry, projects, prose, reading)
 import Navigation exposing (Location)
 import Routing exposing (parseUrl)
 import Types exposing (..)
@@ -19,12 +19,13 @@ initialModel route =
         [ ( "About", ShowAbout, AboutRoute )
         , ( "Writing", ShowWriting, WritingRoute )
         , ( "Projects", ShowPortfolio, PortfolioRoute )
-        , ( "Contact", ShowContact, ContactRoute )
+        , ( "Reading", ShowReadingList, ReadingListRoute )
         ]
     , writingLinks =
         { poetryLinks = poetry
         , proseLinks = prose
         }
+    , readingList = reading
     , projectDescriptions = projects
     , route = route
     }

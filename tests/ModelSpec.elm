@@ -19,7 +19,7 @@ spec =
                                 [ ( "About", ShowAbout, AboutRoute )
                                 , ( "Writing", ShowWriting, WritingRoute )
                                 , ( "Projects", ShowPortfolio, PortfolioRoute )
-                                , ( "Contact", ShowContact, ContactRoute )
+                                , ( "Reading", ShowReadingList, ReadingListRoute )
                                 ]
                             , writingLinks =
                                 { poetryLinks = poetry

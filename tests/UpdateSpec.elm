@@ -24,7 +24,7 @@ spec =
                         result =
                             update ShowAbout model
                     in
-                    Expect.equal expectation result
+                        Expect.equal expectation result
             ]
         , describe "with ShowWriting msg"
             [ test "returns the correct state and side effects" <|
@@ -39,7 +39,7 @@ spec =
                         result =
                             update ShowWriting model
                     in
-                    Expect.equal expectation result
+                        Expect.equal expectation result
             ]
         , describe "with ShowPortfolio msg"
             [ test "returns the correct state and side effects" <|
@@ -54,7 +54,7 @@ spec =
                         result =
                             update ShowPortfolio model
                     in
-                    Expect.equal expectation result
+                        Expect.equal expectation result
             ]
         , describe "with ShowContact msg"
             [ test "returns the correct state and side effects" <|
@@ -64,12 +64,12 @@ spec =
                             initialModel WritingRoute
 
                         expectation =
-                            ( model, Navigation.modifyUrl "#contact" )
+                            ( model, Navigation.modifyUrl "#reading-list" )
 
                         result =
-                            update ShowContact model
+                            update ShowReadingList model
                     in
-                    Expect.equal expectation result
+                        Expect.equal expectation result
             ]
         , describe "with UrlChange msg"
             [ test "returns the correct state and side effects" <|
@@ -98,6 +98,6 @@ spec =
                         result =
                             update (UrlChange location) model
                     in
-                    Expect.equal expectation result
+                        Expect.equal expectation result
             ]
         ]

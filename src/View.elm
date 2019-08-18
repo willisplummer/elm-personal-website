@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Attributes.A11y exposing (pressed)
 import Html.Events exposing (..)
 import Types exposing (..)
+import Dict exposing (..)
 
 
 view : Model -> Html Msg
@@ -40,23 +41,32 @@ content model =
     case model.route of
         AboutRoute ->
             div [ class "content" ]
-                [ p [] [ text "Hi, I'm Willis. I'm a software engineer based in Brooklyn." ]
+                [ p [] [ text "Hi, I'm Willis. I live in Brookyln. I write code, poetry, and fiction." ]
                 , p []
-                    [ text "I work at "
-                    , a [ href "https://www.hiclark.com/" ] [ text "Hi Clark" ]
+                    [ text "Most recently I was the lead engineer at "
+                    , a [ href "https://www.hiclark.com/" ] [ text "Clark" ]
                     , text "."
                     ]
                 , p []
-                    [ text "Previously, I freelanced with "
+                    [ text "Before that, I freelanced with "
                     , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
                     , text " and worked on the front-end team at "
                     , a [ href "https://kickstarter.com" ] [ text "Kickstarter" ]
                     , text "."
                     ]
                 , p []
-                    [ text "I sometimes do interviews for "
+                    [ text "I sometimes contribute interviews to "
                     , a [ href "https://thecreativeindependent.com/" ] [ text "The Creative Independent" ]
                     , text "."
+                    ]
+                , p []
+                    [ text "You can find me on "
+                    , a [ href "https://github.com/willisplummer" ] [ text "GitHub" ]
+                    , text " and "
+                    , a [ href "https://www.linkedin.com/in/willisplummer" ] [ text "LinkedIn" ]
+                    , text ", but "
+                    , a [ href "mailto:willisplummer@gmail.com" ] [ text "email" ]
+                    , text " is the best way to get in touch."
                     ]
                 ]
 
@@ -83,23 +93,32 @@ content model =
                     model.projectDescriptions
                 )
 
-        ContactRoute ->
+        ReadingListRoute ->
             div [ class "content" ]
-                [ p []
-                    [ text "You can find me on "
-                    , a [ href "https://github.com/willisplummer" ] [ text "Github" ]
-                    , text " and "
-                    , a [ href "https://www.linkedin.com/in/willisplummer" ] [ text "LinkedIn" ]
-                    ]
-                , p []
-                    [ text "But "
-                    , a [ href "mailto:willisplummer@gmail.com" ] [ text "Email" ]
-                    , text " is the best way to get in touch."
-                    ]
-                ]
+                (Dict.foldl
+                    showBooksByYear
+                    []
+                    model.readingList
+                )
 
         NotFoundRoute ->
             div [ class "content" ] [ text "NOT FOUND" ]
+
+
+showBook : Book -> Html Msg
+showBook ( title, author ) =
+    ul [] [ li [] [ em [] [ text title ], text (", " ++ author) ] ]
+
+
+showBooksByYear : Int -> BookList -> List (Html Msg) -> List (Html Msg)
+showBooksByYear year books acc =
+    List.append
+        [ div []
+            [ h2 [] [ text (toString year) ]
+            , div [] (List.map showBook books)
+            ]
+        ]
+        acc
 
 
 showProject : Project -> List (Html Msg)

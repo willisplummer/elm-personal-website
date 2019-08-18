@@ -11,7 +11,7 @@ parseUrl location =
         parsedURL =
             parseHash route location
     in
-    Maybe.withDefault NotFoundRoute parsedURL
+        Maybe.withDefault NotFoundRoute parsedURL
 
 
 route : Parser (Route -> a) a
@@ -22,5 +22,5 @@ route =
         , map WritingRoute (s "writing")
         , map PortfolioRoute (s "projects")
         , map PortfolioRoute (s "portfolio")
-        , map ContactRoute (s "contact")
+        , map ReadingListRoute (s "reading-list")
         ]

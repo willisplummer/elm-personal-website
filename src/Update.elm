@@ -17,12 +17,12 @@ update msg model =
         ShowPortfolio ->
             ( model, modifyUrl "#portfolio" )
 
-        ShowContact ->
-            ( model, modifyUrl "#contact" )
+        ShowReadingList ->
+            ( model, modifyUrl "#reading-list" )
 
         UrlChange location ->
             let
                 currentRoute =
                     parseUrl location
             in
-            ( { model | route = currentRoute }, Cmd.none )
+                ( { model | route = currentRoute }, Cmd.none )
