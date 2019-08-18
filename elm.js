@@ -11463,10 +11463,10 @@ var _user$project$Model$initialModel = function (route) {
 				_0: {ctor: '_Tuple3', _0: 'Writing', _1: _user$project$Types$ShowWriting, _2: _user$project$Types$WritingRoute},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple3', _0: 'Projects', _1: _user$project$Types$ShowPortfolio, _2: _user$project$Types$PortfolioRoute},
+					_0: {ctor: '_Tuple3', _0: 'Reading', _1: _user$project$Types$ShowReadingList, _2: _user$project$Types$ReadingListRoute},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple3', _0: 'Reading', _1: _user$project$Types$ShowReadingList, _2: _user$project$Types$ReadingListRoute},
+						_0: {ctor: '_Tuple3', _0: 'Projects', _1: _user$project$Types$ShowPortfolio, _2: _user$project$Types$PortfolioRoute},
 						_1: {ctor: '[]'}
 					}
 				}

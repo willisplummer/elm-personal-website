@@ -18,8 +18,8 @@ initialModel route =
     { nav =
         [ ( "About", ShowAbout, AboutRoute )
         , ( "Writing", ShowWriting, WritingRoute )
-        , ( "Projects", ShowPortfolio, PortfolioRoute )
         , ( "Reading", ShowReadingList, ReadingListRoute )
+        , ( "Projects", ShowPortfolio, PortfolioRoute )
         ]
     , writingLinks =
         { poetryLinks = poetry
