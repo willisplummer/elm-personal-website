@@ -8,7 +8,9 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2019
-          , [ ( "the poems of alfred starr hamilton", "alfred starr hamilton" )
+          , [ ( "was this man a genius? talks with andy kaufman", "julie hecht" )
+            , ( "the brothers", "frederick barthelme" )
+            , ( "the poems of alfred starr hamilton", "alfred starr hamilton" )
             , ( "the last samurai", "helen dewitt" )
             , ( "natural selection", "frederick barthelme" )
             , ( "conversations with friends", "sally rooney" )
