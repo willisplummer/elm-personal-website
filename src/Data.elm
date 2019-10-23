@@ -8,7 +8,11 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2019
-          , [ ( "was this man a genius? talks with andy kaufman", "julie hecht" )
+          , [ ( "lightning rods", "helen dewitt" )
+            , ( "painted desert", "frederick barthelme" )
+            , ( "fathers day", "matthew zapruder" )
+            , ( "rabbit redux", "john updike" )
+            , ( "was this man a genius? talks with andy kaufman", "julie hecht" )
             , ( "the brothers", "frederick barthelme" )
             , ( "the poems of alfred starr hamilton", "alfred starr hamilton" )
             , ( "the last samurai", "helen dewitt" )
