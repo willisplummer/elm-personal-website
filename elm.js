@@ -11725,19 +11725,19 @@ var _user$project$View$content = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('Most recently I was the lead engineer at '),
+								_0: _elm_lang$html$Html$text('I\'m a senior software engineer at '),
 								_1: {
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$a,
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$href('https://www.hiclark.com/'),
+											_0: _elm_lang$html$Html_Attributes$href('https://odeko.com'),
 											_1: {ctor: '[]'}
 										},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('Clark'),
+											_0: _elm_lang$html$Html$text('Odeko'),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -11754,42 +11754,65 @@ var _user$project$View$content = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Before that, I freelanced with '),
+									_0: _elm_lang$html$Html$text('Before that I was the lead engineer at '),
 									_1: {
 										ctor: '::',
 										_0: A2(
 											_elm_lang$html$Html$a,
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$href('https://computerlab.io/'),
+												_0: _elm_lang$html$Html_Attributes$href('https://www.hiclark.com/'),
 												_1: {ctor: '[]'}
 											},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('Computer Lab'),
+												_0: _elm_lang$html$Html$text('Clark'),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html$text(' and worked on the front-end team at '),
+											_0: _elm_lang$html$Html$text('. '),
 											_1: {
 												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$a,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$href('https://kickstarter.com'),
-														_1: {ctor: '[]'}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('Kickstarter'),
-														_1: {ctor: '[]'}
-													}),
+												_0: _elm_lang$html$Html$text('I\'ve also freelanced through '),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('.'),
-													_1: {ctor: '[]'}
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href('https://computerlab.io/'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Computer Lab'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(' and worked on the front-end team at '),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$a,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$href('https://kickstarter.com'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('Kickstarter'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('.'),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
 												}
 											}
 										}
