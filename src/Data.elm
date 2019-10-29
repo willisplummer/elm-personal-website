@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2019
-          , [ ( "lightning rods", "helen dewitt" )
+          , [ ( "revolutionary road", "richard yates" )
+            , ( "lightning rods", "helen dewitt" )
             , ( "painted desert", "frederick barthelme" )
             , ( "fathers day", "matthew zapruder" )
             , ( "rabbit redux", "john updike" )
