@@ -8,7 +8,10 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2019
-          , [ ( "revolutionary road", "richard yates" )
+          , [ ( "elroy nights", "frederick barthelme" )
+            , ( "catching the big fish", "david lynch" )
+            , ( "why did i ever", "mary robison" )
+            , ( "revolutionary road", "richard yates" )
             , ( "lightning rods", "helen dewitt" )
             , ( "painted desert", "frederick barthelme" )
             , ( "fathers day", "matthew zapruder" )
