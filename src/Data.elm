@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "normal people", "sally rooney" )
+          , [ ( "the lichtenberg figures", "ben lerner" )
+            , ( "normal people", "sally rooney" )
             , ( "the topeka school", "ben lerner" )
             ]
           )
