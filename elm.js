@@ -10900,14 +10900,18 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 			_0: 2020,
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'the lichtenberg figures', _1: 'ben lerner'},
+				_0: {ctor: '_Tuple2', _0: 'sam the cat and other stories', _1: 'matthew klam'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'normal people', _1: 'sally rooney'},
+					_0: {ctor: '_Tuple2', _0: 'the lichtenberg figures', _1: 'ben lerner'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'the topeka school', _1: 'ben lerner'},
-						_1: {ctor: '[]'}
+						_0: {ctor: '_Tuple2', _0: 'normal people', _1: 'sally rooney'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'the topeka school', _1: 'ben lerner'},
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
