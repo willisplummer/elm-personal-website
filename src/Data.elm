@@ -8,7 +8,17 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "sam the cat and other stories", "matthew klam" )
+          , [ ( "77 dream songs", "john berryman" )
+            , ( "preliminary materials for a theory of the young-girl", "tiqqun" )
+            , ( "hamburger in the archive", "jen calleja" )
+            , ( "footballers who rhyme", "audun mortensen" )
+            , ( "i love my job", "sam weselowski" )
+            , ( "into longing vast rose", "mai ivfjäll" )
+            , ( "time and materials", "robert hass" )
+            , ( "poet in new york", "federico garcía lorca" )
+            , ( "the woodlands", "cate peebles" )
+            , ( "who is rich", "matthew klam" )
+            , ( "sam the cat and other stories", "matthew klam" )
             , ( "the lichtenberg figures", "ben lerner" )
             , ( "normal people", "sally rooney" )
             , ( "the topeka school", "ben lerner" )
