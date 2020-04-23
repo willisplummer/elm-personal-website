@@ -43,23 +43,37 @@ content model =
             div [ class "content" ]
                 [ p [] [ text "Hi, I'm Willis. I live in Brookyln. I write code, poetry, and fiction." ]
                 , p []
-                    [ text "I'm a senior software engineer at "
-                    , a [ href "https://odeko.com" ] [ text "Odeko" ]
-                    , text "."
+                    [ text "I'm currently freelancing."
                     ]
                 , p []
-                    [ text "Before that I was the lead engineer at "
-                    , a [ href "https://www.hiclark.com/" ] [ text "Clark" ]
-                    , text ". "
-                    , text "I've also freelanced through "
-                    , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
-                    , text " and worked on the front-end team at "
-                    , a [ href "https://kickstarter.com" ] [ text "Kickstarter" ]
-                    , text "."
+                    [ text "Previously, I've been:"
+                    , ul []
+                      [ li []
+                        [ text "A senior engineer at "
+                        , a [ href "https://odeko.com" ] [ text "Odeko" ]
+                        ]
+                      , li []
+                        [ text "The lead engineer at "
+                        , a [ href "https://www.hiclark.com" ] [ text "Clark" ]
+                        ]
+                      , li []
+                        [ text "A freelancer through "
+                        , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
+                        ]
+                      , li []
+                        [ text "A front-end engineer at "
+                        , a [ href "https://www.hiclark.com" ] [ text "Kickstarter" ]
+                        ]
+                      ]
                     ]
                 , p []
-                    [ text "I sometimes contribute interviews to "
+                    [ text "For a while, I contributed interviews to "
                     , a [ href "https://thecreativeindependent.com/" ] [ text "The Creative Independent" ]
+                    , text "."
+                    ]
+                , p []
+                    [ text "I co-host a weekly podcast called "
+                    , a [ href "https://podcasts.apple.com/us/podcast/the-crapshoot-with-jock-and-willis/id1508432973" ] [ text "The Crapshoot with Jock and Willis" ]
                     , text "."
                     ]
                 , p []

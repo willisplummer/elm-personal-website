@@ -11813,27 +11813,8 @@ var _user$project$View$content = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('I\'m a senior software engineer at '),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$a,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$href('https://odeko.com'),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Odeko'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('.'),
-										_1: {ctor: '[]'}
-									}
-								}
+								_0: _elm_lang$html$Html$text('I\'m currently freelancing.'),
+								_1: {ctor: '[]'}
 							}),
 						_1: {
 							ctor: '::',
@@ -11842,68 +11823,118 @@ var _user$project$View$content = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Before that I was the lead engineer at '),
+									_0: _elm_lang$html$Html$text('Previously, I\'ve been:'),
 									_1: {
 										ctor: '::',
 										_0: A2(
-											_elm_lang$html$Html$a,
+											_elm_lang$html$Html$ul,
+											{ctor: '[]'},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$href('https://www.hiclark.com/'),
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('Clark'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('. '),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('I\'ve also freelanced through '),
-												_1: {
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$a,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$href('https://computerlab.io/'),
-															_1: {ctor: '[]'}
-														},
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html$text('Computer Lab'),
-															_1: {ctor: '[]'}
-														}),
-													_1: {
+												_0: A2(
+													_elm_lang$html$Html$li,
+													{ctor: '[]'},
+													{
 														ctor: '::',
-														_0: _elm_lang$html$Html$text(' and worked on the front-end team at '),
+														_0: _elm_lang$html$Html$text('A senior engineer at '),
 														_1: {
 															ctor: '::',
 															_0: A2(
 																_elm_lang$html$Html$a,
 																{
 																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$href('https://kickstarter.com'),
+																	_0: _elm_lang$html$Html_Attributes$href('https://odeko.com'),
 																	_1: {ctor: '[]'}
 																},
 																{
 																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('Kickstarter'),
+																	_0: _elm_lang$html$Html$text('Odeko'),
 																	_1: {ctor: '[]'}
 																}),
+															_1: {ctor: '[]'}
+														}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$li,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('The lead engineer at '),
 															_1: {
 																ctor: '::',
-																_0: _elm_lang$html$Html$text('.'),
+																_0: A2(
+																	_elm_lang$html$Html$a,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$href('https://www.hiclark.com'),
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text('Clark'),
+																		_1: {ctor: '[]'}
+																	}),
 																_1: {ctor: '[]'}
 															}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$li,
+															{ctor: '[]'},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('A freelancer through '),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$a,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$href('https://computerlab.io/'),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('Computer Lab'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
+																}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$li,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('A front-end engineer at '),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$a,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$href('https://www.hiclark.com'),
+																				_1: {ctor: '[]'}
+																			},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text('Kickstarter'),
+																				_1: {ctor: '[]'}
+																			}),
+																		_1: {ctor: '[]'}
+																	}
+																}),
+															_1: {ctor: '[]'}
 														}
 													}
 												}
-											}
-										}
+											}),
+										_1: {ctor: '[]'}
 									}
 								}),
 							_1: {
@@ -11913,7 +11944,7 @@ var _user$project$View$content = function (model) {
 									{ctor: '[]'},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('I sometimes contribute interviews to '),
+										_0: _elm_lang$html$Html$text('For a while, I contributed interviews to '),
 										_1: {
 											ctor: '::',
 											_0: A2(
@@ -11942,67 +11973,97 @@ var _user$project$View$content = function (model) {
 										{ctor: '[]'},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('You can find me on '),
+											_0: _elm_lang$html$Html$text('I co-host a weekly podcast called '),
 											_1: {
 												ctor: '::',
 												_0: A2(
 													_elm_lang$html$Html$a,
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$href('https://github.com/willisplummer'),
+														_0: _elm_lang$html$Html_Attributes$href('https://podcasts.apple.com/us/podcast/the-crapshoot-with-jock-and-willis/id1508432973'),
 														_1: {ctor: '[]'}
 													},
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html$text('GitHub'),
+														_0: _elm_lang$html$Html$text('The Crapshoot with Jock and Willis'),
 														_1: {ctor: '[]'}
 													}),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html$text(' and '),
+													_0: _elm_lang$html$Html$text('.'),
+													_1: {ctor: '[]'}
+												}
+											}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$p,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('You can find me on '),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href('https://github.com/willisplummer'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('GitHub'),
+															_1: {ctor: '[]'}
+														}),
 													_1: {
 														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$a,
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
-																_1: {ctor: '[]'}
-															},
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html$text('LinkedIn'),
-																_1: {ctor: '[]'}
-															}),
+														_0: _elm_lang$html$Html$text(' and '),
 														_1: {
 															ctor: '::',
-															_0: _elm_lang$html$Html$text(', but '),
+															_0: A2(
+																_elm_lang$html$Html$a,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('LinkedIn'),
+																	_1: {ctor: '[]'}
+																}),
 															_1: {
 																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$a,
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$href('mailto:willisplummer@gmail.com'),
-																		_1: {ctor: '[]'}
-																	},
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('email'),
-																		_1: {ctor: '[]'}
-																	}),
+																_0: _elm_lang$html$Html$text(', but '),
 																_1: {
 																	ctor: '::',
-																	_0: _elm_lang$html$Html$text(' is the best way to get in touch.'),
-																	_1: {ctor: '[]'}
+																	_0: A2(
+																		_elm_lang$html$Html$a,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$href('mailto:willisplummer@gmail.com'),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('email'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text(' is the best way to get in touch.'),
+																		_1: {ctor: '[]'}
+																	}
 																}
 															}
 														}
 													}
 												}
-											}
-										}),
-									_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						}
