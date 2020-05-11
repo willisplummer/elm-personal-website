@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "days", "mary robison" )
+          , [ ( "remainder", "tom mccarthy" )
+            , ( "days", "mary robison" )
             , ( "77 dream songs", "john berryman" )
             , ( "preliminary materials for a theory of the young-girl", "tiqqun" )
             , ( "hamburger in the archive", "jen calleja" )
