@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "the lunatic", "charles simic" )
+          , [ ( "trout fishing in america", "richard brautigan" )
+            , ( "the lunatic", "charles simic" )
             , ( "remainder", "tom mccarthy" )
             , ( "days", "mary robison" )
             , ( "77 dream songs", "john berryman" )
