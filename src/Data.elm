@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "trout fishing in america", "richard brautigan" )
+          , [ ( "my struggle: book 1", "karl ove knausgård" )
+            , ( "trout fishing in america", "richard brautigan" )
             , ( "the lunatic", "charles simic" )
             , ( "remainder", "tom mccarthy" )
             , ( "days", "mary robison" )
