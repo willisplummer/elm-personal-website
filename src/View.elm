@@ -48,32 +48,27 @@ content model =
                 , p []
                     [ text "Previously, I've been:"
                     , ul []
-                      [ li []
-                        [ text "A senior engineer at "
-                        , a [ href "https://odeko.com" ] [ text "Odeko" ]
+                        [ li []
+                            [ text "A senior engineer at "
+                            , a [ href "https://odeko.com" ] [ text "Odeko" ]
+                            ]
+                        , li []
+                            [ text "The lead engineer at "
+                            , a [ href "https://www.hiclark.com" ] [ text "Clark" ]
+                            ]
+                        , li []
+                            [ text "A freelancer through "
+                            , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
+                            ]
+                        , li []
+                            [ text "A front-end engineer at "
+                            , a [ href "https://www.hiclark.com" ] [ text "Kickstarter" ]
+                            ]
                         ]
-                      , li []
-                        [ text "The lead engineer at "
-                        , a [ href "https://www.hiclark.com" ] [ text "Clark" ]
-                        ]
-                      , li []
-                        [ text "A freelancer through "
-                        , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
-                        ]
-                      , li []
-                        [ text "A front-end engineer at "
-                        , a [ href "https://www.hiclark.com" ] [ text "Kickstarter" ]
-                        ]
-                      ]
                     ]
                 , p []
                     [ text "For a while, I contributed interviews to "
                     , a [ href "https://thecreativeindependent.com/" ] [ text "The Creative Independent" ]
-                    , text "."
-                    ]
-                , p []
-                    [ text "I co-host a weekly podcast called "
-                    , a [ href "https://podcasts.apple.com/us/podcast/the-crapshoot-with-jock-and-willis/id1508432973" ] [ text "The Crapshoot with Jock and Willis" ]
                     , text "."
                     ]
                 , p []
