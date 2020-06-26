@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "some trick", "helen dewitt" )
+          , [ ( "franny and zooey", "jd salinger" )
+            , ( "some trick", "helen dewitt" )
             , ( "dog of the south", "charles portis" )
             , ( "my struggle: book 1", "karl ove knausgård" )
             , ( "trout fishing in america", "richard brautigan" )
