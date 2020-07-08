@@ -8,7 +8,9 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "actual air (reread)", "david berman" )
+          , [ ( "$50,000", "andrew weatherhead" )
+            , ( "poker", "tomaž šalamun" )
+            , ( "actual air (reread)", "david berman" )
             , ( "franny and zooey", "jd salinger" )
             , ( "some trick", "helen dewitt" )
             , ( "dog of the south", "charles portis" )
