@@ -9,6 +9,8 @@ reading =
     fromList
         [ ( 2020
           , [ ( "alien abduction", "lewis warsh" )
+            , ( "$50,000", "andrew weatherhead" )
+            , ( "poker", "tomaž šalamun" )
             , ( "actual air (reread)", "david berman" )
             , ( "franny and zooey", "jd salinger" )
             , ( "some trick", "helen dewitt" )
