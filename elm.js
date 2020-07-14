@@ -10857,32 +10857,36 @@ var _user$project$Data$prose = {
 };
 var _user$project$Data$poetry = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'http://quick-books.biz/', _1: 'The Book of Judith (quickbooks, pamphlet, ltd run of 100)'},
+	_0: {ctor: '_Tuple2', _0: 'http://www.afvpress.com/utgivelser/ny-serie/', _1: 'mons pubis (afv, chapbook, ltd run of 70)'},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers', _1: 'wild horse rappers (with precious okoyomon)'},
+		_0: {ctor: '_Tuple2', _0: 'http://quick-books.biz/', _1: 'The Book of Judith (quickbooks, pamphlet, ltd run of 100)'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 year clock (muumuu house)'},
+			_0: {ctor: '_Tuple2', _0: 'https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers', _1: 'wild horse rappers (with precious okoyomon)'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
+				_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.22may2017.html', _1: '10,000 year clock (muumuu house)'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'http://darkfuckingwizard.com/three-poems/', _1: '3 poems (dark fucking wizard)'},
+					_0: {ctor: '_Tuple2', _0: 'http://www.bodegamag.com/articles/172-bros', _1: 'bros (bodega mag)'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.13nov2014.html', _1: '14 haiku (muumuu house)'},
+						_0: {ctor: '_Tuple2', _0: 'http://darkfuckingwizard.com/three-poems/', _1: '3 poems (dark fucking wizard)'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
+							_0: {ctor: '_Tuple2', _0: 'http://muumuuhouse.com/wp.13nov2014.html', _1: '14 haiku (muumuu house)'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'https://genius.com/Willis-plummer-good-and-beautiful-annotated', _1: 'good and beautiful (2014 judith lobel arkin prize honorable mention)'},
+								_0: {ctor: '_Tuple2', _0: 'https://preludemag.com/contributors/willis-plummer/', _1: '3 poems (prelude magazine)'},
 								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'},
-									_1: {ctor: '[]'}
+									_0: {ctor: '_Tuple2', _0: 'https://genius.com/Willis-plummer-good-and-beautiful-annotated', _1: 'good and beautiful (2014 judith lobel arkin prize honorable mention)'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'http://www.hobartpulp.com/web_features/5-poems--8', _1: '5 poems (hobartpulp)'},
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						}

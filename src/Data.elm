@@ -184,7 +184,8 @@ reading =
 
 poetry : List ( String, String )
 poetry =
-    [ ( "http://quick-books.biz/", "The Book of Judith (quickbooks, pamphlet, ltd run of 100)" )
+    [ ( "http://www.afvpress.com/utgivelser/ny-serie/", "mons pubis (afv, chapbook, ltd run of 70)")
+    , ( "http://quick-books.biz/", "The Book of Judith (quickbooks, pamphlet, ltd run of 100)" )
     , ( "https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers", "wild horse rappers (with precious okoyomon)" )
     , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 year clock (muumuu house)" )
     , ( "http://www.bodegamag.com/articles/172-bros", "bros (bodega mag)" )
