@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "alien abduction", "lewis warsh" )
+          , [ ( "microaggressions", "erik stinson" )
+            , ( "alien abduction", "lewis warsh" )
             , ( "$50,000", "andrew weatherhead" )
             , ( "poker", "tomaž šalamun" )
             , ( "actual air (reread)", "david berman" )
