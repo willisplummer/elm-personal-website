@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "microaggressions", "erik stinson" )
+          , [ ( "like life", "lorrie moore" )
+            , ( "microaggressions", "erik stinson" )
             , ( "alien abduction", "lewis warsh" )
             , ( "$50,000", "andrew weatherhead" )
             , ( "poker", "tomaž šalamun" )
@@ -185,7 +186,7 @@ reading =
 
 poetry : List ( String, String )
 poetry =
-    [ ( "http://www.afvpress.com/utgivelser/ny-serie/", "mons pubis (afv, chapbook, ltd run of 70)")
+    [ ( "http://www.afvpress.com/utgivelser/ny-serie/", "mons pubis (afv, chapbook, ltd run of 70)" )
     , ( "http://quick-books.biz/", "The Book of Judith (quickbooks, pamphlet, ltd run of 100)" )
     , ( "https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers", "wild horse rappers (with precious okoyomon)" )
     , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 year clock (muumuu house)" )
