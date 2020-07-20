@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "like life", "lorrie moore" )
+          , [ ( "king of a hundred horsemen", "marie etienne" )
+            , ( "like life", "lorrie moore" )
             , ( "microaggressions", "erik stinson" )
             , ( "alien abduction", "lewis warsh" )
             , ( "$50,000", "andrew weatherhead" )
