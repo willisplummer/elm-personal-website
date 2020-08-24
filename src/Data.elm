@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "leave society (second draft)", "tao lin" )
+          , [ ( "100 poems from the chinese", "kenneth rexroth" )
+            , ( "leave society (second draft)", "tao lin" )
             , ( "king of a hundred horsemen", "marie etienne" )
             , ( "like life", "lorrie moore" )
             , ( "microaggressions", "erik stinson" )
