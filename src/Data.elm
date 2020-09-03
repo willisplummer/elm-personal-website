@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "beauty was the case that they gave me (reread)", "mark leidner" )
+          , [ ( "arkansas", "john brandon" )
+            , ( "beauty was the case that they gave me (reread)", "mark leidner" )
             , ( "100 poems from the chinese", "kenneth rexroth" )
             , ( "leave society (second draft)", "tao lin" )
             , ( "king of a hundred horsemen", "marie etienne" )
