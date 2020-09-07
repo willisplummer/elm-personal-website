@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "arkansas", "john brandon" )
+          , [ ( "fake accounts (galley)", "lauren oyler" )
+            , ( "arkansas", "john brandon" )
             , ( "beauty was the case that they gave me (reread)", "mark leidner" )
             , ( "100 poems from the chinese", "kenneth rexroth" )
             , ( "leave society (second draft)", "tao lin" )
