@@ -10857,7 +10857,7 @@ var _user$project$Data$prose = {
 };
 var _user$project$Data$poetry = {
 	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 'http://www.afvpress.com/utgivelser/ny-serie/', _1: 'mons pubis (afv, chapbook, ltd run of 70)'},
+	_0: {ctor: '_Tuple2', _0: 'http://thenervousbreakdown.com/willisplummer/2020/10/three-poems-from-mons-pubis/', _1: 'Three Poems From MONS PUBIS (The Nervous Breakdown)'},
 	_1: {
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'http://quick-books.biz/', _1: 'The Book of Judith (quickbooks, pamphlet, ltd run of 100)'},
@@ -10904,107 +10904,111 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 			_0: 2020,
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'fake accounts (galley)', _1: 'lauren oyler'},
+				_0: {ctor: '_Tuple2', _0: 'gould', _1: 'stephen dixon'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'arkansas', _1: 'john brandon'},
+					_0: {ctor: '_Tuple2', _0: 'fake accounts (galley)', _1: 'lauren oyler'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'beauty was the case that they gave me (reread)', _1: 'mark leidner'},
+						_0: {ctor: '_Tuple2', _0: 'arkansas', _1: 'john brandon'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: '100 poems from the chinese', _1: 'kenneth rexroth'},
+							_0: {ctor: '_Tuple2', _0: 'beauty was the case that they gave me (reread)', _1: 'mark leidner'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'leave society (second draft)', _1: 'tao lin'},
+								_0: {ctor: '_Tuple2', _0: '100 poems from the chinese', _1: 'kenneth rexroth'},
 								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'king of a hundred horsemen', _1: 'marie etienne'},
+									_0: {ctor: '_Tuple2', _0: 'leave society (second draft)', _1: 'tao lin'},
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'like life', _1: 'lorrie moore'},
+										_0: {ctor: '_Tuple2', _0: 'king of a hundred horsemen', _1: 'marie etienne'},
 										_1: {
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'microaggressions', _1: 'erik stinson'},
+											_0: {ctor: '_Tuple2', _0: 'like life', _1: 'lorrie moore'},
 											_1: {
 												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'alien abduction', _1: 'lewis warsh'},
+												_0: {ctor: '_Tuple2', _0: 'microaggressions', _1: 'erik stinson'},
 												_1: {
 													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: '$50,000', _1: 'andrew weatherhead'},
+													_0: {ctor: '_Tuple2', _0: 'alien abduction', _1: 'lewis warsh'},
 													_1: {
 														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'poker', _1: 'tomaž šalamun'},
+														_0: {ctor: '_Tuple2', _0: '$50,000', _1: 'andrew weatherhead'},
 														_1: {
 															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'actual air (reread)', _1: 'david berman'},
+															_0: {ctor: '_Tuple2', _0: 'poker', _1: 'tomaž šalamun'},
 															_1: {
 																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'franny and zooey', _1: 'jd salinger'},
+																_0: {ctor: '_Tuple2', _0: 'actual air (reread)', _1: 'david berman'},
 																_1: {
 																	ctor: '::',
-																	_0: {ctor: '_Tuple2', _0: 'some trick', _1: 'helen dewitt'},
+																	_0: {ctor: '_Tuple2', _0: 'franny and zooey', _1: 'jd salinger'},
 																	_1: {
 																		ctor: '::',
-																		_0: {ctor: '_Tuple2', _0: 'dog of the south', _1: 'charles portis'},
+																		_0: {ctor: '_Tuple2', _0: 'some trick', _1: 'helen dewitt'},
 																		_1: {
 																			ctor: '::',
-																			_0: {ctor: '_Tuple2', _0: 'my struggle: book 1', _1: 'karl ove knausgård'},
+																			_0: {ctor: '_Tuple2', _0: 'dog of the south', _1: 'charles portis'},
 																			_1: {
 																				ctor: '::',
-																				_0: {ctor: '_Tuple2', _0: 'trout fishing in america', _1: 'richard brautigan'},
+																				_0: {ctor: '_Tuple2', _0: 'my struggle: book 1', _1: 'karl ove knausgård'},
 																				_1: {
 																					ctor: '::',
-																					_0: {ctor: '_Tuple2', _0: 'the lunatic', _1: 'charles simic'},
+																					_0: {ctor: '_Tuple2', _0: 'trout fishing in america', _1: 'richard brautigan'},
 																					_1: {
 																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'remainder', _1: 'tom mccarthy'},
+																						_0: {ctor: '_Tuple2', _0: 'the lunatic', _1: 'charles simic'},
 																						_1: {
 																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'days', _1: 'mary robison'},
+																							_0: {ctor: '_Tuple2', _0: 'remainder', _1: 'tom mccarthy'},
 																							_1: {
 																								ctor: '::',
-																								_0: {ctor: '_Tuple2', _0: '77 dream songs', _1: 'john berryman'},
+																								_0: {ctor: '_Tuple2', _0: 'days', _1: 'mary robison'},
 																								_1: {
 																									ctor: '::',
-																									_0: {ctor: '_Tuple2', _0: 'preliminary materials for a theory of the young-girl', _1: 'tiqqun'},
+																									_0: {ctor: '_Tuple2', _0: '77 dream songs', _1: 'john berryman'},
 																									_1: {
 																										ctor: '::',
-																										_0: {ctor: '_Tuple2', _0: 'hamburger in the archive', _1: 'jen calleja'},
+																										_0: {ctor: '_Tuple2', _0: 'preliminary materials for a theory of the young-girl', _1: 'tiqqun'},
 																										_1: {
 																											ctor: '::',
-																											_0: {ctor: '_Tuple2', _0: 'footballers who rhyme', _1: 'audun mortensen'},
+																											_0: {ctor: '_Tuple2', _0: 'hamburger in the archive', _1: 'jen calleja'},
 																											_1: {
 																												ctor: '::',
-																												_0: {ctor: '_Tuple2', _0: 'i love my job', _1: 'sam weselowski'},
+																												_0: {ctor: '_Tuple2', _0: 'footballers who rhyme', _1: 'audun mortensen'},
 																												_1: {
 																													ctor: '::',
-																													_0: {ctor: '_Tuple2', _0: 'into longing vast rose', _1: 'mai ivfjäll'},
+																													_0: {ctor: '_Tuple2', _0: 'i love my job', _1: 'sam weselowski'},
 																													_1: {
 																														ctor: '::',
-																														_0: {ctor: '_Tuple2', _0: 'time and materials', _1: 'robert hass'},
+																														_0: {ctor: '_Tuple2', _0: 'into longing vast rose', _1: 'mai ivfjäll'},
 																														_1: {
 																															ctor: '::',
-																															_0: {ctor: '_Tuple2', _0: 'poet in new york', _1: 'federico garcía lorca'},
+																															_0: {ctor: '_Tuple2', _0: 'time and materials', _1: 'robert hass'},
 																															_1: {
 																																ctor: '::',
-																																_0: {ctor: '_Tuple2', _0: 'the woodlands', _1: 'cate peebles'},
+																																_0: {ctor: '_Tuple2', _0: 'poet in new york', _1: 'federico garcía lorca'},
 																																_1: {
 																																	ctor: '::',
-																																	_0: {ctor: '_Tuple2', _0: 'who is rich', _1: 'matthew klam'},
+																																	_0: {ctor: '_Tuple2', _0: 'the woodlands', _1: 'cate peebles'},
 																																	_1: {
 																																		ctor: '::',
-																																		_0: {ctor: '_Tuple2', _0: 'sam the cat and other stories', _1: 'matthew klam'},
+																																		_0: {ctor: '_Tuple2', _0: 'who is rich', _1: 'matthew klam'},
 																																		_1: {
 																																			ctor: '::',
-																																			_0: {ctor: '_Tuple2', _0: 'the lichtenberg figures', _1: 'ben lerner'},
+																																			_0: {ctor: '_Tuple2', _0: 'sam the cat and other stories', _1: 'matthew klam'},
 																																			_1: {
 																																				ctor: '::',
-																																				_0: {ctor: '_Tuple2', _0: 'normal people', _1: 'sally rooney'},
+																																				_0: {ctor: '_Tuple2', _0: 'the lichtenberg figures', _1: 'ben lerner'},
 																																				_1: {
 																																					ctor: '::',
-																																					_0: {ctor: '_Tuple2', _0: 'the topeka school', _1: 'ben lerner'},
-																																					_1: {ctor: '[]'}
+																																					_0: {ctor: '_Tuple2', _0: 'normal people', _1: 'sally rooney'},
+																																					_1: {
+																																						ctor: '::',
+																																						_0: {ctor: '_Tuple2', _0: 'the topeka school', _1: 'ben lerner'},
+																																						_1: {ctor: '[]'}
+																																					}
 																																				}
 																																			}
 																																		}
@@ -12057,67 +12061,116 @@ var _user$project$View$content = function (model) {
 										{ctor: '[]'},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('You can find me on '),
+											_0: _elm_lang$html$Html$text('My chapbook MONS PUBIS is available from '),
 											_1: {
 												ctor: '::',
 												_0: A2(
 													_elm_lang$html$Html$a,
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$href('https://github.com/willisplummer'),
+														_0: _elm_lang$html$Html_Attributes$href('http://stupendous.cc/'),
 														_1: {ctor: '[]'}
 													},
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html$text('GitHub'),
+														_0: _elm_lang$html$Html$text('STUPENDOUS'),
 														_1: {ctor: '[]'}
 													}),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html$text(' and '),
+													_0: _elm_lang$html$Html$text(' and was published as a limited run by '),
 													_1: {
 														ctor: '::',
 														_0: A2(
 															_elm_lang$html$Html$a,
 															{
 																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
+																_0: _elm_lang$html$Html_Attributes$href('http://www.afvpress.com/utgivelser/ny-serie/'),
 																_1: {ctor: '[]'}
 															},
 															{
 																ctor: '::',
-																_0: _elm_lang$html$Html$text('LinkedIn'),
+																_0: _elm_lang$html$Html$text('AFV'),
 																_1: {ctor: '[]'}
 															}),
 														_1: {
 															ctor: '::',
-															_0: _elm_lang$html$Html$text(', but '),
-															_1: {
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$a,
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$href('mailto:willisplummer@gmail.com'),
-																		_1: {ctor: '[]'}
-																	},
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('email'),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text(' is the best way to get in touch.'),
-																	_1: {ctor: '[]'}
-																}
-															}
+															_0: _elm_lang$html$Html$text(' in Norway.'),
+															_1: {ctor: '[]'}
 														}
 													}
 												}
 											}
 										}),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$p,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('You can find me on '),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href('https://github.com/willisplummer'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('GitHub'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(' and '),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$a,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/willisplummer'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('LinkedIn'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html$text(', but '),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$a,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$href('mailto:willisplummer@gmail.com'),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('email'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text(' is the best way to get in touch.'),
+																		_1: {ctor: '[]'}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}),
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						}

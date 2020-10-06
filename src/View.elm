@@ -72,6 +72,13 @@ content model =
                     , text "."
                     ]
                 , p []
+                    [ text "My chapbook MONS PUBIS is available from "
+                    , a [ href "http://stupendous.cc/" ] [ text "STUPENDOUS" ]
+                    , text " and was published as a limited run by "
+                    , a [ href "http://www.afvpress.com/utgivelser/ny-serie/" ] [ text "AFV" ]
+                    , text " in Norway."
+                    ]
+                , p []
                     [ text "You can find me on "
                     , a [ href "https://github.com/willisplummer" ] [ text "GitHub" ]
                     , text " and "

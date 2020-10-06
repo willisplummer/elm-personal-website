@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "fake accounts (galley)", "lauren oyler" )
+          , [ ( "gould", "stephen dixon" )
+            , ( "fake accounts (galley)", "lauren oyler" )
             , ( "arkansas", "john brandon" )
             , ( "beauty was the case that they gave me (reread)", "mark leidner" )
             , ( "100 poems from the chinese", "kenneth rexroth" )
@@ -192,7 +193,7 @@ reading =
 
 poetry : List ( String, String )
 poetry =
-    [ ( "http://www.afvpress.com/utgivelser/ny-serie/", "mons pubis (afv, chapbook, ltd run of 70)" )
+    [ ( "http://thenervousbreakdown.com/willisplummer/2020/10/three-poems-from-mons-pubis/", "Three Poems From MONS PUBIS (The Nervous Breakdown)" )
     , ( "http://quick-books.biz/", "The Book of Judith (quickbooks, pamphlet, ltd run of 100)" )
     , ( "https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers", "wild horse rappers (with precious okoyomon)" )
     , ( "http://muumuuhouse.com/wp.22may2017.html", "10,000 year clock (muumuu house)" )
