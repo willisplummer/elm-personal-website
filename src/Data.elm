@@ -8,7 +8,9 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2020
-          , [ ( "call me by your name", "andré aciman" )
+          , [ ( "the martian", "andy weir" )
+            , ( "meyer", "stephen dixon" )
+            , ( "call me by your name", "andré aciman" )
             , ( "gould", "stephen dixon" )
             , ( "fake accounts (galley)", "lauren oyler" )
             , ( "arkansas", "john brandon" )
