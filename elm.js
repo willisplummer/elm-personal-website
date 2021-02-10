@@ -10901,332 +10901,136 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
-			_0: 2020,
+			_0: 2021,
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'the lying lives of adults', _1: 'elena ferrante'},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'the martian', _1: 'andy weir'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'meyer', _1: 'stephen dixon'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'call me by your name', _1: 'andré aciman'},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'gould', _1: 'stephen dixon'},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'fake accounts (galley)', _1: 'lauren oyler'},
-									_1: {
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'arkansas', _1: 'john brandon'},
-										_1: {
-											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'beauty was the case that they gave me (reread)', _1: 'mark leidner'},
-											_1: {
-												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: '100 poems from the chinese', _1: 'kenneth rexroth'},
-												_1: {
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'leave society (second draft)', _1: 'tao lin'},
-													_1: {
-														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'king of a hundred horsemen', _1: 'marie etienne'},
-														_1: {
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'like life', _1: 'lorrie moore'},
-															_1: {
-																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'microaggressions', _1: 'erik stinson'},
-																_1: {
-																	ctor: '::',
-																	_0: {ctor: '_Tuple2', _0: 'alien abduction', _1: 'lewis warsh'},
-																	_1: {
-																		ctor: '::',
-																		_0: {ctor: '_Tuple2', _0: '$50,000', _1: 'andrew weatherhead'},
-																		_1: {
-																			ctor: '::',
-																			_0: {ctor: '_Tuple2', _0: 'poker', _1: 'tomaž šalamun'},
-																			_1: {
-																				ctor: '::',
-																				_0: {ctor: '_Tuple2', _0: 'actual air (reread)', _1: 'david berman'},
-																				_1: {
-																					ctor: '::',
-																					_0: {ctor: '_Tuple2', _0: 'franny and zooey', _1: 'jd salinger'},
-																					_1: {
-																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'some trick', _1: 'helen dewitt'},
-																						_1: {
-																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'dog of the south', _1: 'charles portis'},
-																							_1: {
-																								ctor: '::',
-																								_0: {ctor: '_Tuple2', _0: 'my struggle: book 1', _1: 'karl ove knausgård'},
-																								_1: {
-																									ctor: '::',
-																									_0: {ctor: '_Tuple2', _0: 'trout fishing in america', _1: 'richard brautigan'},
-																									_1: {
-																										ctor: '::',
-																										_0: {ctor: '_Tuple2', _0: 'the lunatic', _1: 'charles simic'},
-																										_1: {
-																											ctor: '::',
-																											_0: {ctor: '_Tuple2', _0: 'remainder', _1: 'tom mccarthy'},
-																											_1: {
-																												ctor: '::',
-																												_0: {ctor: '_Tuple2', _0: 'days', _1: 'mary robison'},
-																												_1: {
-																													ctor: '::',
-																													_0: {ctor: '_Tuple2', _0: '77 dream songs', _1: 'john berryman'},
-																													_1: {
-																														ctor: '::',
-																														_0: {ctor: '_Tuple2', _0: 'preliminary materials for a theory of the young-girl', _1: 'tiqqun'},
-																														_1: {
-																															ctor: '::',
-																															_0: {ctor: '_Tuple2', _0: 'hamburger in the archive', _1: 'jen calleja'},
-																															_1: {
-																																ctor: '::',
-																																_0: {ctor: '_Tuple2', _0: 'footballers who rhyme', _1: 'audun mortensen'},
-																																_1: {
-																																	ctor: '::',
-																																	_0: {ctor: '_Tuple2', _0: 'i love my job', _1: 'sam weselowski'},
-																																	_1: {
-																																		ctor: '::',
-																																		_0: {ctor: '_Tuple2', _0: 'into longing vast rose', _1: 'mai ivfjäll'},
-																																		_1: {
-																																			ctor: '::',
-																																			_0: {ctor: '_Tuple2', _0: 'time and materials', _1: 'robert hass'},
-																																			_1: {
-																																				ctor: '::',
-																																				_0: {ctor: '_Tuple2', _0: 'poet in new york', _1: 'federico garcía lorca'},
-																																				_1: {
-																																					ctor: '::',
-																																					_0: {ctor: '_Tuple2', _0: 'the woodlands', _1: 'cate peebles'},
-																																					_1: {
-																																						ctor: '::',
-																																						_0: {ctor: '_Tuple2', _0: 'who is rich', _1: 'matthew klam'},
-																																						_1: {
-																																							ctor: '::',
-																																							_0: {ctor: '_Tuple2', _0: 'sam the cat and other stories', _1: 'matthew klam'},
-																																							_1: {
-																																								ctor: '::',
-																																								_0: {ctor: '_Tuple2', _0: 'the lichtenberg figures', _1: 'ben lerner'},
-																																								_1: {
-																																									ctor: '::',
-																																									_0: {ctor: '_Tuple2', _0: 'normal people', _1: 'sally rooney'},
-																																									_1: {
-																																										ctor: '::',
-																																										_0: {ctor: '_Tuple2', _0: 'the topeka school', _1: 'ben lerner'},
-																																										_1: {ctor: '[]'}
-																																									}
-																																								}
-																																							}
-																																						}
-																																					}
-																																				}
-																																			}
-																																		}
-																																	}
-																																}
-																															}
-																														}
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+				_0: {ctor: '_Tuple2', _0: 'kook', _1: 'peter heller'},
+				_1: {ctor: '[]'}
 			}
 		},
 		_1: {
 			ctor: '::',
 			_0: {
 				ctor: '_Tuple2',
-				_0: 2019,
+				_0: 2020,
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'there must be some mistake', _1: 'frederick barthelme'},
+					_0: {ctor: '_Tuple2', _0: 'the lying lives of adults', _1: 'elena ferrante'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'waveland', _1: 'frederick barthelme'},
+						_0: {ctor: '_Tuple2', _0: 'the martian', _1: 'andy weir'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'elroy nights', _1: 'frederick barthelme'},
+							_0: {ctor: '_Tuple2', _0: 'meyer', _1: 'stephen dixon'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'catching the big fish', _1: 'david lynch'},
+								_0: {ctor: '_Tuple2', _0: 'call me by your name', _1: 'andré aciman'},
 								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'why did i ever', _1: 'mary robison'},
+									_0: {ctor: '_Tuple2', _0: 'gould', _1: 'stephen dixon'},
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'revolutionary road', _1: 'richard yates'},
+										_0: {ctor: '_Tuple2', _0: 'fake accounts (galley)', _1: 'lauren oyler'},
 										_1: {
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'lightning rods', _1: 'helen dewitt'},
+											_0: {ctor: '_Tuple2', _0: 'arkansas', _1: 'john brandon'},
 											_1: {
 												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'painted desert', _1: 'frederick barthelme'},
+												_0: {ctor: '_Tuple2', _0: 'beauty was the case that they gave me (reread)', _1: 'mark leidner'},
 												_1: {
 													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'fathers day', _1: 'matthew zapruder'},
+													_0: {ctor: '_Tuple2', _0: '100 poems from the chinese', _1: 'kenneth rexroth'},
 													_1: {
 														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'rabbit redux', _1: 'john updike'},
+														_0: {ctor: '_Tuple2', _0: 'leave society (second draft)', _1: 'tao lin'},
 														_1: {
 															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'was this man a genius? talks with andy kaufman', _1: 'julie hecht'},
+															_0: {ctor: '_Tuple2', _0: 'king of a hundred horsemen', _1: 'marie etienne'},
 															_1: {
 																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'the brothers', _1: 'frederick barthelme'},
+																_0: {ctor: '_Tuple2', _0: 'like life', _1: 'lorrie moore'},
 																_1: {
 																	ctor: '::',
-																	_0: {ctor: '_Tuple2', _0: 'the poems of alfred starr hamilton', _1: 'alfred starr hamilton'},
+																	_0: {ctor: '_Tuple2', _0: 'microaggressions', _1: 'erik stinson'},
 																	_1: {
 																		ctor: '::',
-																		_0: {ctor: '_Tuple2', _0: 'the last samurai', _1: 'helen dewitt'},
+																		_0: {ctor: '_Tuple2', _0: 'alien abduction', _1: 'lewis warsh'},
 																		_1: {
 																			ctor: '::',
-																			_0: {ctor: '_Tuple2', _0: 'natural selection', _1: 'frederick barthelme'},
+																			_0: {ctor: '_Tuple2', _0: '$50,000', _1: 'andrew weatherhead'},
 																			_1: {
 																				ctor: '::',
-																				_0: {ctor: '_Tuple2', _0: 'conversations with friends', _1: 'sally rooney'},
+																				_0: {ctor: '_Tuple2', _0: 'poker', _1: 'tomaž šalamun'},
 																				_1: {
 																					ctor: '::',
-																					_0: {ctor: '_Tuple2', _0: 'temple of the golden pavilion', _1: 'yukio mishima'},
+																					_0: {ctor: '_Tuple2', _0: 'actual air (reread)', _1: 'david berman'},
 																					_1: {
 																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'tom sawyer', _1: 'joey grantham'},
+																						_0: {ctor: '_Tuple2', _0: 'franny and zooey', _1: 'jd salinger'},
 																						_1: {
 																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'magical negro', _1: 'morgan parker'},
+																							_0: {ctor: '_Tuple2', _0: 'some trick', _1: 'helen dewitt'},
 																							_1: {
 																								ctor: '::',
-																								_0: {ctor: '_Tuple2', _0: 'there are more beautiful things than beyoncé', _1: 'morgan parker'},
+																								_0: {ctor: '_Tuple2', _0: 'dog of the south', _1: 'charles portis'},
 																								_1: {
 																									ctor: '::',
-																									_0: {ctor: '_Tuple2', _0: 'woods and clouds interchangeable', _1: 'michael earl craig'},
+																									_0: {ctor: '_Tuple2', _0: 'my struggle: book 1', _1: 'karl ove knausgård'},
 																									_1: {
 																										ctor: '::',
-																										_0: {ctor: '_Tuple2', _0: 'chroma', _1: 'frederick barthelme'},
+																										_0: {ctor: '_Tuple2', _0: 'trout fishing in america', _1: 'richard brautigan'},
 																										_1: {
 																											ctor: '::',
-																											_0: {ctor: '_Tuple2', _0: 'the secret history', _1: 'donna tartt'},
+																											_0: {ctor: '_Tuple2', _0: 'the lunatic', _1: 'charles simic'},
 																											_1: {
 																												ctor: '::',
-																												_0: {ctor: '_Tuple2', _0: 'an amateur\'s guide to the night', _1: 'mary robison'},
+																												_0: {ctor: '_Tuple2', _0: 'remainder', _1: 'tom mccarthy'},
 																												_1: {
 																													ctor: '::',
-																													_0: {ctor: '_Tuple2', _0: 'tracer', _1: 'frederick barthelme'},
+																													_0: {ctor: '_Tuple2', _0: 'days', _1: 'mary robison'},
 																													_1: {
 																														ctor: '::',
-																														_0: {ctor: '_Tuple2', _0: 'second marriage', _1: 'frederick barthelme'},
+																														_0: {ctor: '_Tuple2', _0: '77 dream songs', _1: 'john berryman'},
 																														_1: {
 																															ctor: '::',
-																															_0: {ctor: '_Tuple2', _0: 'the ghost soldiers', _1: 'james tate'},
+																															_0: {ctor: '_Tuple2', _0: 'preliminary materials for a theory of the young-girl', _1: 'tiqqun'},
 																															_1: {
 																																ctor: '::',
-																																_0: {ctor: '_Tuple2', _0: 'wittgenstein\'s mistress', _1: 'david markson'},
+																																_0: {ctor: '_Tuple2', _0: 'hamburger in the archive', _1: 'jen calleja'},
 																																_1: {
 																																	ctor: '::',
-																																	_0: {ctor: '_Tuple2', _0: 'death\'s end', _1: 'liu cixin'},
+																																	_0: {ctor: '_Tuple2', _0: 'footballers who rhyme', _1: 'audun mortensen'},
 																																	_1: {
 																																		ctor: '::',
-																																		_0: {ctor: '_Tuple2', _0: 'arm of the sphinx', _1: 'josiah bancroft'},
+																																		_0: {ctor: '_Tuple2', _0: 'i love my job', _1: 'sam weselowski'},
 																																		_1: {
 																																			ctor: '::',
-																																			_0: {ctor: '_Tuple2', _0: 'senlin ascends', _1: 'josiah bancroft'},
+																																			_0: {ctor: '_Tuple2', _0: 'into longing vast rose', _1: 'mai ivfjäll'},
 																																			_1: {
 																																				ctor: '::',
-																																				_0: {ctor: '_Tuple2', _0: 'the new old paint', _1: 'susie timmons'},
+																																				_0: {ctor: '_Tuple2', _0: 'time and materials', _1: 'robert hass'},
 																																				_1: {
 																																					ctor: '::',
-																																					_0: {ctor: '_Tuple2', _0: 'the lost pilot', _1: 'james tate'},
+																																					_0: {ctor: '_Tuple2', _0: 'poet in new york', _1: 'federico garcía lorca'},
 																																					_1: {
 																																						ctor: '::',
-																																						_0: {ctor: '_Tuple2', _0: 'locked from the outside', _1: 'susie timmons'},
+																																						_0: {ctor: '_Tuple2', _0: 'the woodlands', _1: 'cate peebles'},
 																																						_1: {
 																																							ctor: '::',
-																																							_0: {ctor: '_Tuple2', _0: 'starship troopers', _1: 'robert a heinlein'},
+																																							_0: {ctor: '_Tuple2', _0: 'who is rich', _1: 'matthew klam'},
 																																							_1: {
 																																								ctor: '::',
-																																								_0: {ctor: '_Tuple2', _0: 'joy of missing out', _1: 'ana bozicevic'},
+																																								_0: {ctor: '_Tuple2', _0: 'sam the cat and other stories', _1: 'matthew klam'},
 																																								_1: {
 																																									ctor: '::',
-																																									_0: {ctor: '_Tuple2', _0: '24 pages and other poems', _1: 'lisa fishman'},
+																																									_0: {ctor: '_Tuple2', _0: 'the lichtenberg figures', _1: 'ben lerner'},
 																																									_1: {
 																																										ctor: '::',
-																																										_0: {ctor: '_Tuple2', _0: 'hog wild', _1: 'susie timmons'},
+																																										_0: {ctor: '_Tuple2', _0: 'normal people', _1: 'sally rooney'},
 																																										_1: {
 																																											ctor: '::',
-																																											_0: {ctor: '_Tuple2', _0: 'dungeon world', _1: 'sage latorra and adam koebel'},
-																																											_1: {
-																																												ctor: '::',
-																																												_0: {ctor: '_Tuple2', _0: 'autobiography of death', _1: 'kim hyesoon'},
-																																												_1: {
-																																													ctor: '::',
-																																													_0: {ctor: '_Tuple2', _0: 'touché', _1: 'rod smith'},
-																																													_1: {
-																																														ctor: '::',
-																																														_0: {ctor: '_Tuple2', _0: 'a roll of the dice will never abolish chance', _1: 'stéphane mallarmé'},
-																																														_1: {
-																																															ctor: '::',
-																																															_0: {ctor: '_Tuple2', _0: 'spring and all', _1: 'william carlos williams'},
-																																															_1: {
-																																																ctor: '::',
-																																																_0: {ctor: '_Tuple2', _0: 'childhood\'s end', _1: 'arthur c clarke'},
-																																																_1: {
-																																																	ctor: '::',
-																																																	_0: {ctor: '_Tuple2', _0: 'happy trails to you', _1: 'julie hecht'},
-																																																	_1: {
-																																																		ctor: '::',
-																																																		_0: {ctor: '_Tuple2', _0: 'the unprofessionals', _1: 'julie hecht'},
-																																																		_1: {
-																																																			ctor: '::',
-																																																			_0: {ctor: '_Tuple2', _0: 'moon deluxe', _1: 'frederick barthelme'},
-																																																			_1: {
-																																																				ctor: '::',
-																																																				_0: {ctor: '_Tuple2', _0: '& the real stormy daniels band', _1: 'rebecca r. peel'},
-																																																				_1: {
-																																																					ctor: '::',
-																																																					_0: {ctor: '_Tuple2', _0: 'the days of abandonment', _1: 'elena ferrante'},
-																																																					_1: {
-																																																						ctor: '::',
-																																																						_0: {ctor: '_Tuple2', _0: 'do the windows open', _1: 'julie hecht'},
-																																																						_1: {ctor: '[]'}
-																																																					}
-																																																				}
-																																																			}
-																																																		}
-																																																	}
-																																																}
-																																															}
-																																														}
-																																													}
-																																												}
-																																											}
+																																											_0: {ctor: '_Tuple2', _0: 'the topeka school', _1: 'ben lerner'},
+																																											_1: {ctor: '[]'}
 																																										}
 																																									}
 																																								}
@@ -11271,157 +11075,157 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: 2018,
+					_0: 2019,
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'rabbit, run', _1: 'john updike'},
+						_0: {ctor: '_Tuple2', _0: 'there must be some mistake', _1: 'frederick barthelme'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'liveblog (didnt finish)', _1: 'megan boyle'},
+							_0: {ctor: '_Tuple2', _0: 'waveland', _1: 'frederick barthelme'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'reveries of a solitary walker', _1: 'jean-jacques rousseau'},
+								_0: {ctor: '_Tuple2', _0: 'elroy nights', _1: 'frederick barthelme'},
 								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'sometimes a great notion', _1: 'ken kesey'},
+									_0: {ctor: '_Tuple2', _0: 'catching the big fish', _1: 'david lynch'},
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'reasons to live', _1: 'amy hempel'},
+										_0: {ctor: '_Tuple2', _0: 'why did i ever', _1: 'mary robison'},
 										_1: {
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'the contemporary short story packet', _1: 'ed. tao lin for course at sarah lawrence'},
+											_0: {ctor: '_Tuple2', _0: 'revolutionary road', _1: 'richard yates'},
 											_1: {
 												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'i love dick', _1: 'chris kraus'},
+												_0: {ctor: '_Tuple2', _0: 'lightning rods', _1: 'helen dewitt'},
 												_1: {
 													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'harry potter and the sorcerer\'s stone', _1: 'jk rowling'},
+													_0: {ctor: '_Tuple2', _0: 'painted desert', _1: 'frederick barthelme'},
 													_1: {
 														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'the dark forest', _1: 'liu cixin'},
+														_0: {ctor: '_Tuple2', _0: 'fathers day', _1: 'matthew zapruder'},
 														_1: {
 															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'the three-body problem', _1: 'liu cixin'},
+															_0: {ctor: '_Tuple2', _0: 'rabbit redux', _1: 'john updike'},
 															_1: {
 																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'at the gates of the animal kingdom', _1: 'amy hempel'},
+																_0: {ctor: '_Tuple2', _0: 'was this man a genius? talks with andy kaufman', _1: 'julie hecht'},
 																_1: {
 																	ctor: '::',
-																	_0: {ctor: '_Tuple2', _0: 'wapshot scandal', _1: 'donald cheever'},
+																	_0: {ctor: '_Tuple2', _0: 'the brothers', _1: 'frederick barthelme'},
 																	_1: {
 																		ctor: '::',
-																		_0: {ctor: '_Tuple2', _0: 'the passion according to g.h.', _1: 'clarice lispector'},
+																		_0: {ctor: '_Tuple2', _0: 'the poems of alfred starr hamilton', _1: 'alfred starr hamilton'},
 																		_1: {
 																			ctor: '::',
-																			_0: {ctor: '_Tuple2', _0: 'reasons to live', _1: 'amy hempel'},
+																			_0: {ctor: '_Tuple2', _0: 'the last samurai', _1: 'helen dewitt'},
 																			_1: {
 																				ctor: '::',
-																				_0: {ctor: '_Tuple2', _0: 'bob the gambler', _1: 'frederick barthelme'},
+																				_0: {ctor: '_Tuple2', _0: 'natural selection', _1: 'frederick barthelme'},
 																				_1: {
 																					ctor: '::',
-																					_0: {ctor: '_Tuple2', _0: 'in the belly of the beast', _1: 'jack abbot'},
+																					_0: {ctor: '_Tuple2', _0: 'conversations with friends', _1: 'sally rooney'},
 																					_1: {
 																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'journals', _1: 'paul blackburn'},
+																						_0: {ctor: '_Tuple2', _0: 'temple of the golden pavilion', _1: 'yukio mishima'},
 																						_1: {
 																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'jesus\' son', _1: 'dennis johnson'},
+																							_0: {ctor: '_Tuple2', _0: 'tom sawyer', _1: 'joey grantham'},
 																							_1: {
 																								ctor: '::',
-																								_0: {ctor: '_Tuple2', _0: '(american short story anthology i don\'t remember the name of, read about a third, anne beattie bio inaccurately described falling in place as a short story collection)', _1: 'unsure'},
+																								_0: {ctor: '_Tuple2', _0: 'magical negro', _1: 'morgan parker'},
 																								_1: {
 																									ctor: '::',
-																									_0: {ctor: '_Tuple2', _0: 'subtraction', _1: 'mary robison'},
+																									_0: {ctor: '_Tuple2', _0: 'there are more beautiful things than beyoncé', _1: 'morgan parker'},
 																									_1: {
 																										ctor: '::',
-																										_0: {ctor: '_Tuple2', _0: 'the quick and the dead', _1: 'joy williams'},
+																										_0: {ctor: '_Tuple2', _0: 'woods and clouds interchangeable', _1: 'michael earl craig'},
 																										_1: {
 																											ctor: '::',
-																											_0: {ctor: '_Tuple2', _0: 'oh!', _1: 'mary robison'},
+																											_0: {ctor: '_Tuple2', _0: 'chroma', _1: 'frederick barthelme'},
 																											_1: {
 																												ctor: '::',
-																												_0: {ctor: '_Tuple2', _0: 'the cows', _1: 'lydia davis'},
+																												_0: {ctor: '_Tuple2', _0: 'the secret history', _1: 'donna tartt'},
 																												_1: {
 																													ctor: '::',
-																													_0: {ctor: '_Tuple2', _0: 'life is with people (drawings)', _1: 'atticus lish'},
+																													_0: {ctor: '_Tuple2', _0: 'an amateur\'s guide to the night', _1: 'mary robison'},
 																													_1: {
 																														ctor: '::',
-																														_0: {ctor: '_Tuple2', _0: 'dubliners', _1: 'james joyce'},
+																														_0: {ctor: '_Tuple2', _0: 'tracer', _1: 'frederick barthelme'},
 																														_1: {
 																															ctor: '::',
-																															_0: {ctor: '_Tuple2', _0: 'i await the devil\'s coming', _1: 'mary maclane'},
+																															_0: {ctor: '_Tuple2', _0: 'second marriage', _1: 'frederick barthelme'},
 																															_1: {
 																																ctor: '::',
-																																_0: {ctor: '_Tuple2', _0: 'two against one', _1: 'frederick barthelme'},
+																																_0: {ctor: '_Tuple2', _0: 'the ghost soldiers', _1: 'james tate'},
 																																_1: {
 																																	ctor: '::',
-																																	_0: {ctor: '_Tuple2', _0: 'a streetcar named desire', _1: 'tennessee williams'},
+																																	_0: {ctor: '_Tuple2', _0: 'wittgenstein\'s mistress', _1: 'david markson'},
 																																	_1: {
 																																		ctor: '::',
-																																		_0: {ctor: '_Tuple2', _0: 'breaking open the head', _1: 'daniel pinchbeck'},
+																																		_0: {ctor: '_Tuple2', _0: 'death\'s end', _1: 'liu cixin'},
 																																		_1: {
 																																			ctor: '::',
-																																			_0: {ctor: '_Tuple2', _0: 'three talks', _1: 'joshua beckman'},
+																																			_0: {ctor: '_Tuple2', _0: 'arm of the sphinx', _1: 'josiah bancroft'},
 																																			_1: {
 																																				ctor: '::',
-																																				_0: {ctor: '_Tuple2', _0: 'the lives of the poems', _1: 'joshua beckman'},
+																																				_0: {ctor: '_Tuple2', _0: 'senlin ascends', _1: 'josiah bancroft'},
 																																				_1: {
 																																					ctor: '::',
-																																					_0: {ctor: '_Tuple2', _0: 'ii cybernetic frontiers', _1: 'stewart brand'},
+																																					_0: {ctor: '_Tuple2', _0: 'the new old paint', _1: 'susie timmons'},
 																																					_1: {
 																																						ctor: '::',
-																																						_0: {ctor: '_Tuple2', _0: 'the others', _1: 'matthew rohrer'},
+																																						_0: {ctor: '_Tuple2', _0: 'the lost pilot', _1: 'james tate'},
 																																						_1: {
 																																							ctor: '::',
-																																							_0: {ctor: '_Tuple2', _0: 'motherhood', _1: 'sheila heti'},
+																																							_0: {ctor: '_Tuple2', _0: 'locked from the outside', _1: 'susie timmons'},
 																																							_1: {
 																																								ctor: '::',
-																																								_0: {ctor: '_Tuple2', _0: 'the homesick diner', _1: 'anne tyler'},
+																																								_0: {ctor: '_Tuple2', _0: 'starship troopers', _1: 'robert a heinlein'},
 																																								_1: {
 																																									ctor: '::',
-																																									_0: {ctor: '_Tuple2', _0: 'ties', _1: 'domenico starnone'},
+																																									_0: {ctor: '_Tuple2', _0: 'joy of missing out', _1: 'ana bozicevic'},
 																																									_1: {
 																																										ctor: '::',
-																																										_0: {ctor: '_Tuple2', _0: 'fuck seth price', _1: 'seth price'},
+																																										_0: {ctor: '_Tuple2', _0: '24 pages and other poems', _1: 'lisa fishman'},
 																																										_1: {
 																																											ctor: '::',
-																																											_0: {ctor: '_Tuple2', _0: 'the bell jar', _1: 'sylvia plath'},
+																																											_0: {ctor: '_Tuple2', _0: 'hog wild', _1: 'susie timmons'},
 																																											_1: {
 																																												ctor: '::',
-																																												_0: {ctor: '_Tuple2', _0: 'tell me a riddle', _1: 'tillie olsen'},
+																																												_0: {ctor: '_Tuple2', _0: 'dungeon world', _1: 'sage latorra and adam koebel'},
 																																												_1: {
 																																													ctor: '::',
-																																													_0: {ctor: '_Tuple2', _0: 'chilly scenes of winter', _1: 'ann beattie'},
+																																													_0: {ctor: '_Tuple2', _0: 'autobiography of death', _1: 'kim hyesoon'},
 																																													_1: {
 																																														ctor: '::',
-																																														_0: {ctor: '_Tuple2', _0: 'trip (galley)', _1: 'tao lin'},
+																																														_0: {ctor: '_Tuple2', _0: 'touché', _1: 'rod smith'},
 																																														_1: {
 																																															ctor: '::',
-																																															_0: {ctor: '_Tuple2', _0: 'god box', _1: 'mallory whitten'},
+																																															_0: {ctor: '_Tuple2', _0: 'a roll of the dice will never abolish chance', _1: 'stéphane mallarmé'},
 																																															_1: {
 																																																ctor: '::',
-																																																_0: {ctor: '_Tuple2', _0: 'milk and henny', _1: 'peter bd'},
+																																																_0: {ctor: '_Tuple2', _0: 'spring and all', _1: 'william carlos williams'},
 																																																_1: {
 																																																	ctor: '::',
-																																																	_0: {ctor: '_Tuple2', _0: 'the wapshot chronicle', _1: 'john cheever'},
+																																																	_0: {ctor: '_Tuple2', _0: 'childhood\'s end', _1: 'arthur c clarke'},
 																																																	_1: {
 																																																		ctor: '::',
-																																																		_0: {ctor: '_Tuple2', _0: 'todd', _1: 'andrew james weatherhead'},
+																																																		_0: {ctor: '_Tuple2', _0: 'happy trails to you', _1: 'julie hecht'},
 																																																		_1: {
 																																																			ctor: '::',
-																																																			_0: {ctor: '_Tuple2', _0: 'thin kimono', _1: 'michael earl craig'},
+																																																			_0: {ctor: '_Tuple2', _0: 'the unprofessionals', _1: 'julie hecht'},
 																																																			_1: {
 																																																				ctor: '::',
-																																																				_0: {ctor: '_Tuple2', _0: 'talkativeness', _1: 'michael earl craig'},
+																																																				_0: {ctor: '_Tuple2', _0: 'moon deluxe', _1: 'frederick barthelme'},
 																																																				_1: {
 																																																					ctor: '::',
-																																																					_0: {ctor: '_Tuple2', _0: 'the girls', _1: 'emma cline'},
+																																																					_0: {ctor: '_Tuple2', _0: '& the real stormy daniels band', _1: 'rebecca r. peel'},
 																																																					_1: {
 																																																						ctor: '::',
-																																																						_0: {ctor: '_Tuple2', _0: 'i would do anything for love', _1: 'al bedell'},
+																																																						_0: {ctor: '_Tuple2', _0: 'the days of abandonment', _1: 'elena ferrante'},
 																																																						_1: {
 																																																							ctor: '::',
-																																																							_0: {ctor: '_Tuple2', _0: 'true hallucinations', _1: 'terence mckenna'},
+																																																							_0: {ctor: '_Tuple2', _0: 'do the windows open', _1: 'julie hecht'},
 																																																							_1: {ctor: '[]'}
 																																																						}
 																																																					}
@@ -11478,110 +11282,174 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: 2017,
+						_0: 2018,
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'the invisible landscape (didn\'t finish)', _1: 'terence mckenna'},
+							_0: {ctor: '_Tuple2', _0: 'rabbit, run', _1: 'john updike'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'the old man and the sea', _1: 'ernest hemingway'},
+								_0: {ctor: '_Tuple2', _0: 'liveblog (didnt finish)', _1: 'megan boyle'},
 								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'northern california haiku', _1: 'mallory whitten'},
+									_0: {ctor: '_Tuple2', _0: 'reveries of a solitary walker', _1: 'jean-jacques rousseau'},
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'the psychedelic explorer\'s guide', _1: 'james fadiman'},
+										_0: {ctor: '_Tuple2', _0: 'sometimes a great notion', _1: 'ken kesey'},
 										_1: {
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'play it as it lays', _1: 'joan didion'},
+											_0: {ctor: '_Tuple2', _0: 'reasons to live', _1: 'amy hempel'},
 											_1: {
 												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'a sleep and a forgetting', _1: 'william dean howell'},
+												_0: {ctor: '_Tuple2', _0: 'the contemporary short story packet', _1: 'ed. tao lin for course at sarah lawrence'},
 												_1: {
 													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'falling in place', _1: 'ann beattie'},
+													_0: {ctor: '_Tuple2', _0: 'i love dick', _1: 'chris kraus'},
 													_1: {
 														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'do androids dream of electric sheep', _1: 'philip k dick'},
+														_0: {ctor: '_Tuple2', _0: 'harry potter and the sorcerer\'s stone', _1: 'jk rowling'},
 														_1: {
 															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'taipei  (re-read)', _1: 'tao lin'},
+															_0: {ctor: '_Tuple2', _0: 'the dark forest', _1: 'liu cixin'},
 															_1: {
 																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'junky', _1: 'william burroughs'},
+																_0: {ctor: '_Tuple2', _0: 'the three-body problem', _1: 'liu cixin'},
 																_1: {
 																	ctor: '::',
-																	_0: {ctor: '_Tuple2', _0: 'eileen', _1: 'otessa moshfegh'},
+																	_0: {ctor: '_Tuple2', _0: 'at the gates of the animal kingdom', _1: 'amy hempel'},
 																	_1: {
 																		ctor: '::',
-																		_0: {ctor: '_Tuple2', _0: 'thanks', _1: 'zachary german'},
+																		_0: {ctor: '_Tuple2', _0: 'wapshot scandal', _1: 'donald cheever'},
 																		_1: {
 																			ctor: '::',
-																			_0: {ctor: '_Tuple2', _0: 'you got to burn to shine', _1: 'john giorno'},
+																			_0: {ctor: '_Tuple2', _0: 'the passion according to g.h.', _1: 'clarice lispector'},
 																			_1: {
 																				ctor: '::',
-																				_0: {ctor: '_Tuple2', _0: 'new yorker stories (didnt finish)', _1: 'ann beattie'},
+																				_0: {ctor: '_Tuple2', _0: 'reasons to live', _1: 'amy hempel'},
 																				_1: {
 																					ctor: '::',
-																					_0: {ctor: '_Tuple2', _0: 'honored guest (didnt finish)', _1: 'joy williams'},
+																					_0: {ctor: '_Tuple2', _0: 'bob the gambler', _1: 'frederick barthelme'},
 																					_1: {
 																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'jesus\' son (didnt finish)', _1: 'denis johnson'},
+																						_0: {ctor: '_Tuple2', _0: 'in the belly of the beast', _1: 'jack abbot'},
 																						_1: {
 																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'the contemporary short story packet (didnt finish)', _1: 'ed. tao lin'},
+																							_0: {ctor: '_Tuple2', _0: 'journals', _1: 'paul blackburn'},
 																							_1: {
 																								ctor: '::',
-																								_0: {ctor: '_Tuple2', _0: 'homesick for another planet', _1: 'otessa moshfegh'},
+																								_0: {ctor: '_Tuple2', _0: 'jesus\' son', _1: 'dennis johnson'},
 																								_1: {
 																									ctor: '::',
-																									_0: {ctor: '_Tuple2', _0: 'elbowing the seducer', _1: 't. gertler'},
+																									_0: {ctor: '_Tuple2', _0: '(american short story anthology i don\'t remember the name of, read about a third, anne beattie bio inaccurately described falling in place as a short story collection)', _1: 'unsure'},
 																									_1: {
 																										ctor: '::',
-																										_0: {ctor: '_Tuple2', _0: 'literally show me a healthy person', _1: 'darcie wilder'},
+																										_0: {ctor: '_Tuple2', _0: 'subtraction', _1: 'mary robison'},
 																										_1: {
 																											ctor: '::',
-																											_0: {ctor: '_Tuple2', _0: 'falconer', _1: 'john cheever'},
+																											_0: {ctor: '_Tuple2', _0: 'the quick and the dead', _1: 'joy williams'},
 																											_1: {
 																												ctor: '::',
-																												_0: {ctor: '_Tuple2', _0: 'ajebota', _1: 'precious okoyomon'},
+																												_0: {ctor: '_Tuple2', _0: 'oh!', _1: 'mary robison'},
 																												_1: {
 																													ctor: '::',
-																													_0: {ctor: '_Tuple2', _0: 'a little life (didnt finish)', _1: 'hanya yanagihara'},
+																													_0: {ctor: '_Tuple2', _0: 'the cows', _1: 'lydia davis'},
 																													_1: {
 																														ctor: '::',
-																														_0: {ctor: '_Tuple2', _0: '[assorted zines]', _1: 'rebecca warlick'},
+																														_0: {ctor: '_Tuple2', _0: 'life is with people (drawings)', _1: 'atticus lish'},
 																														_1: {
 																															ctor: '::',
-																															_0: {ctor: '_Tuple2', _0: 'junky II', _1: 'peter bd'},
+																															_0: {ctor: '_Tuple2', _0: 'dubliners', _1: 'james joyce'},
 																															_1: {
 																																ctor: '::',
-																																_0: {ctor: '_Tuple2', _0: 'the story of the lost child', _1: 'elena ferrante'},
+																																_0: {ctor: '_Tuple2', _0: 'i await the devil\'s coming', _1: 'mary maclane'},
 																																_1: {
 																																	ctor: '::',
-																																	_0: {ctor: '_Tuple2', _0: 'those who leave and those who stay', _1: 'elena ferrante'},
+																																	_0: {ctor: '_Tuple2', _0: 'two against one', _1: 'frederick barthelme'},
 																																	_1: {
 																																		ctor: '::',
-																																		_0: {ctor: '_Tuple2', _0: 'cool girls hate their bodies', _1: 'david fishkind'},
+																																		_0: {ctor: '_Tuple2', _0: 'a streetcar named desire', _1: 'tennessee williams'},
 																																		_1: {
 																																			ctor: '::',
-																																			_0: {ctor: '_Tuple2', _0: 'the story of a new name', _1: 'elena ferrante'},
+																																			_0: {ctor: '_Tuple2', _0: 'breaking open the head', _1: 'daniel pinchbeck'},
 																																			_1: {
 																																				ctor: '::',
-																																				_0: {ctor: '_Tuple2', _0: 'o.k. (didnt finish)', _1: 'kool a.d.'},
+																																				_0: {ctor: '_Tuple2', _0: 'three talks', _1: 'joshua beckman'},
 																																				_1: {
 																																					ctor: '::',
-																																					_0: {ctor: '_Tuple2', _0: 'memory foam', _1: 'adam soldofsky'},
+																																					_0: {ctor: '_Tuple2', _0: 'the lives of the poems', _1: 'joshua beckman'},
 																																					_1: {
 																																						ctor: '::',
-																																						_0: {ctor: '_Tuple2', _0: 'loving the ocean wont keep it from killing you', _1: 'rachel bell'},
+																																						_0: {ctor: '_Tuple2', _0: 'ii cybernetic frontiers', _1: 'stewart brand'},
 																																						_1: {
 																																							ctor: '::',
-																																							_0: {ctor: '_Tuple2', _0: 'my brilliant friend', _1: 'elena ferrante'},
+																																							_0: {ctor: '_Tuple2', _0: 'the others', _1: 'matthew rohrer'},
 																																							_1: {
 																																								ctor: '::',
-																																								_0: {ctor: '_Tuple2', _0: 'the big u', _1: 'neal stephenson'},
-																																								_1: {ctor: '[]'}
+																																								_0: {ctor: '_Tuple2', _0: 'motherhood', _1: 'sheila heti'},
+																																								_1: {
+																																									ctor: '::',
+																																									_0: {ctor: '_Tuple2', _0: 'the homesick diner', _1: 'anne tyler'},
+																																									_1: {
+																																										ctor: '::',
+																																										_0: {ctor: '_Tuple2', _0: 'ties', _1: 'domenico starnone'},
+																																										_1: {
+																																											ctor: '::',
+																																											_0: {ctor: '_Tuple2', _0: 'fuck seth price', _1: 'seth price'},
+																																											_1: {
+																																												ctor: '::',
+																																												_0: {ctor: '_Tuple2', _0: 'the bell jar', _1: 'sylvia plath'},
+																																												_1: {
+																																													ctor: '::',
+																																													_0: {ctor: '_Tuple2', _0: 'tell me a riddle', _1: 'tillie olsen'},
+																																													_1: {
+																																														ctor: '::',
+																																														_0: {ctor: '_Tuple2', _0: 'chilly scenes of winter', _1: 'ann beattie'},
+																																														_1: {
+																																															ctor: '::',
+																																															_0: {ctor: '_Tuple2', _0: 'trip (galley)', _1: 'tao lin'},
+																																															_1: {
+																																																ctor: '::',
+																																																_0: {ctor: '_Tuple2', _0: 'god box', _1: 'mallory whitten'},
+																																																_1: {
+																																																	ctor: '::',
+																																																	_0: {ctor: '_Tuple2', _0: 'milk and henny', _1: 'peter bd'},
+																																																	_1: {
+																																																		ctor: '::',
+																																																		_0: {ctor: '_Tuple2', _0: 'the wapshot chronicle', _1: 'john cheever'},
+																																																		_1: {
+																																																			ctor: '::',
+																																																			_0: {ctor: '_Tuple2', _0: 'todd', _1: 'andrew james weatherhead'},
+																																																			_1: {
+																																																				ctor: '::',
+																																																				_0: {ctor: '_Tuple2', _0: 'thin kimono', _1: 'michael earl craig'},
+																																																				_1: {
+																																																					ctor: '::',
+																																																					_0: {ctor: '_Tuple2', _0: 'talkativeness', _1: 'michael earl craig'},
+																																																					_1: {
+																																																						ctor: '::',
+																																																						_0: {ctor: '_Tuple2', _0: 'the girls', _1: 'emma cline'},
+																																																						_1: {
+																																																							ctor: '::',
+																																																							_0: {ctor: '_Tuple2', _0: 'i would do anything for love', _1: 'al bedell'},
+																																																							_1: {
+																																																								ctor: '::',
+																																																								_0: {ctor: '_Tuple2', _0: 'true hallucinations', _1: 'terence mckenna'},
+																																																								_1: {ctor: '[]'}
+																																																							}
+																																																						}
+																																																					}
+																																																				}
+																																																			}
+																																																		}
+																																																	}
+																																																}
+																																															}
+																																														}
+																																													}
+																																												}
+																																											}
+																																										}
+																																									}
+																																								}
 																																							}
 																																						}
 																																					}
@@ -11617,7 +11485,151 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 							}
 						}
 					},
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 2017,
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'the invisible landscape (didn\'t finish)', _1: 'terence mckenna'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'the old man and the sea', _1: 'ernest hemingway'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'northern california haiku', _1: 'mallory whitten'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'the psychedelic explorer\'s guide', _1: 'james fadiman'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'play it as it lays', _1: 'joan didion'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'a sleep and a forgetting', _1: 'william dean howell'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'falling in place', _1: 'ann beattie'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'do androids dream of electric sheep', _1: 'philip k dick'},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'taipei  (re-read)', _1: 'tao lin'},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: 'junky', _1: 'william burroughs'},
+																	_1: {
+																		ctor: '::',
+																		_0: {ctor: '_Tuple2', _0: 'eileen', _1: 'otessa moshfegh'},
+																		_1: {
+																			ctor: '::',
+																			_0: {ctor: '_Tuple2', _0: 'thanks', _1: 'zachary german'},
+																			_1: {
+																				ctor: '::',
+																				_0: {ctor: '_Tuple2', _0: 'you got to burn to shine', _1: 'john giorno'},
+																				_1: {
+																					ctor: '::',
+																					_0: {ctor: '_Tuple2', _0: 'new yorker stories (didnt finish)', _1: 'ann beattie'},
+																					_1: {
+																						ctor: '::',
+																						_0: {ctor: '_Tuple2', _0: 'honored guest (didnt finish)', _1: 'joy williams'},
+																						_1: {
+																							ctor: '::',
+																							_0: {ctor: '_Tuple2', _0: 'jesus\' son (didnt finish)', _1: 'denis johnson'},
+																							_1: {
+																								ctor: '::',
+																								_0: {ctor: '_Tuple2', _0: 'the contemporary short story packet (didnt finish)', _1: 'ed. tao lin'},
+																								_1: {
+																									ctor: '::',
+																									_0: {ctor: '_Tuple2', _0: 'homesick for another planet', _1: 'otessa moshfegh'},
+																									_1: {
+																										ctor: '::',
+																										_0: {ctor: '_Tuple2', _0: 'elbowing the seducer', _1: 't. gertler'},
+																										_1: {
+																											ctor: '::',
+																											_0: {ctor: '_Tuple2', _0: 'literally show me a healthy person', _1: 'darcie wilder'},
+																											_1: {
+																												ctor: '::',
+																												_0: {ctor: '_Tuple2', _0: 'falconer', _1: 'john cheever'},
+																												_1: {
+																													ctor: '::',
+																													_0: {ctor: '_Tuple2', _0: 'ajebota', _1: 'precious okoyomon'},
+																													_1: {
+																														ctor: '::',
+																														_0: {ctor: '_Tuple2', _0: 'a little life (didnt finish)', _1: 'hanya yanagihara'},
+																														_1: {
+																															ctor: '::',
+																															_0: {ctor: '_Tuple2', _0: '[assorted zines]', _1: 'rebecca warlick'},
+																															_1: {
+																																ctor: '::',
+																																_0: {ctor: '_Tuple2', _0: 'junky II', _1: 'peter bd'},
+																																_1: {
+																																	ctor: '::',
+																																	_0: {ctor: '_Tuple2', _0: 'the story of the lost child', _1: 'elena ferrante'},
+																																	_1: {
+																																		ctor: '::',
+																																		_0: {ctor: '_Tuple2', _0: 'those who leave and those who stay', _1: 'elena ferrante'},
+																																		_1: {
+																																			ctor: '::',
+																																			_0: {ctor: '_Tuple2', _0: 'cool girls hate their bodies', _1: 'david fishkind'},
+																																			_1: {
+																																				ctor: '::',
+																																				_0: {ctor: '_Tuple2', _0: 'the story of a new name', _1: 'elena ferrante'},
+																																				_1: {
+																																					ctor: '::',
+																																					_0: {ctor: '_Tuple2', _0: 'o.k. (didnt finish)', _1: 'kool a.d.'},
+																																					_1: {
+																																						ctor: '::',
+																																						_0: {ctor: '_Tuple2', _0: 'memory foam', _1: 'adam soldofsky'},
+																																						_1: {
+																																							ctor: '::',
+																																							_0: {ctor: '_Tuple2', _0: 'loving the ocean wont keep it from killing you', _1: 'rachel bell'},
+																																							_1: {
+																																								ctor: '::',
+																																								_0: {ctor: '_Tuple2', _0: 'my brilliant friend', _1: 'elena ferrante'},
+																																								_1: {
+																																									ctor: '::',
+																																									_0: {ctor: '_Tuple2', _0: 'the big u', _1: 'neal stephenson'},
+																																									_1: {ctor: '[]'}
+																																								}
+																																							}
+																																						}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						},
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		}
