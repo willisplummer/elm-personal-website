@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2021
-          , [ ( "barbarian days: a surfing life", "william finnegan" )
+          , [ ( "returning the sword to the stone", "mark leidner" )
+            , ( "barbarian days: a surfing life", "william finnegan" )
             , ( "kook", "peter heller" )
             ]
           )
