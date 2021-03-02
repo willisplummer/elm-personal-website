@@ -43,7 +43,9 @@ content model =
             div [ class "content" ]
                 [ p [] [ text "Hi, I'm Willis. I live in Brookyln. I write code, poetry, and fiction." ]
                 , p []
-                    [ text "I'm currently freelancing."
+                    [ text "I'm currently contracting for "
+                    , a [ href "https://www.wavepaths.com" ] [ text "Wavepaths" ]
+                    , text "."
                     ]
                 , p []
                     [ text "Previously, I've been:"

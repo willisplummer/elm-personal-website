@@ -10904,14 +10904,18 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 			_0: 2021,
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'returning the sword to the stone', _1: 'mark leidner'},
+				_0: {ctor: '_Tuple2', _0: 'gringos', _1: 'charles portis'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'barbarian days: a surfing life', _1: 'william finnegan'},
+					_0: {ctor: '_Tuple2', _0: 'returning the sword to the stone', _1: 'mark leidner'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'kook', _1: 'peter heller'},
-						_1: {ctor: '[]'}
+						_0: {ctor: '_Tuple2', _0: 'barbarian days: a surfing life', _1: 'william finnegan'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'kook', _1: 'peter heller'},
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
@@ -11937,8 +11941,27 @@ var _user$project$View$content = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('I\'m currently freelancing.'),
-								_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html$text('I\'m currently contracting for '),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$a,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$href('https://www.wavepaths.com'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Wavepaths'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('.'),
+										_1: {ctor: '[]'}
+									}
+								}
 							}),
 						_1: {
 							ctor: '::',
