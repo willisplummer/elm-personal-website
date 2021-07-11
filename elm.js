@@ -10904,20 +10904,24 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 			_0: 2021,
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'the art of raising a puppy', _1: 'the monks of new skete'},
+				_0: {ctor: '_Tuple2', _0: 'norwood', _1: 'charles portis'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'gringos', _1: 'charles portis'},
+					_0: {ctor: '_Tuple2', _0: 'the art of raising a puppy', _1: 'the monks of new skete'},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'returning the sword to the stone', _1: 'mark leidner'},
+						_0: {ctor: '_Tuple2', _0: 'gringos', _1: 'charles portis'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'barbarian days: a surfing life', _1: 'william finnegan'},
+							_0: {ctor: '_Tuple2', _0: 'returning the sword to the stone', _1: 'mark leidner'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'kook', _1: 'peter heller'},
-								_1: {ctor: '[]'}
+								_0: {ctor: '_Tuple2', _0: 'barbarian days: a surfing life', _1: 'william finnegan'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'kook', _1: 'peter heller'},
+									_1: {ctor: '[]'}
+								}
 							}
 						}
 					}
