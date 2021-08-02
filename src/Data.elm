@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2021
-          , [ ( "true grit", "charles portis" )
+          , [ ( "masters of atlantis", "charles portis" )
+            , ( "true grit", "charles portis" )
             , ( "norwood", "charles portis" )
             , ( "the art of raising a puppy", "the monks of new skete" )
             , ( "gringos", "charles portis" )
