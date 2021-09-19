@@ -67,6 +67,8 @@ button {
   background-color: #EDD6C3;
   border-radius: 5px;
   cursor: pointer;
+  padding: 0px;
+  text-align: center;
 }
 
 button.active {
