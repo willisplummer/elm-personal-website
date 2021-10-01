@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2021
-          , [ ( "cats cradle", "kurt vonnegut")
+          , [ ( "the dead do not improve", "jay caspian kang")
+            , ( "cats cradle", "kurt vonnegut")
             , ( "masters of atlantis", "charles portis" )
             , ( "true grit", "charles portis" )
             , ( "norwood", "charles portis" )
