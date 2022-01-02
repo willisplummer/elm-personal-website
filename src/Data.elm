@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2021
-          , [ ("even two hands pressed together are split", "sarah o'neal")
+          , [ ("we die in italy", "sarah jean alexander")
+            , ("even two hands pressed together are split", "sarah o'neal")
             , ( "rock wagram", "william saroyan")
             , ( "the dead do not improve", "jay caspian kang")
             , ( "cats cradle", "kurt vonnegut")
