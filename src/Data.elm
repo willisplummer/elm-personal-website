@@ -7,7 +7,12 @@ import Types exposing (Project, ReadingList)
 reading : ReadingList
 reading =
     fromList
-        [ ( 2021
+        [ 
+          ( 2022,
+            [ ("cold spring harbor", "richard yates")
+            ]
+          )
+        , ( 2021
           , [ ("we die in italy", "sarah jean alexander")
             , ("even two hands pressed together are split", "sarah o'neal")
             , ( "rock wagram", "william saroyan")
