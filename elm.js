@@ -10904,8 +10904,12 @@ var _user$project$Data$reading = _elm_lang$core$Dict$fromList(
 			_0: 2022,
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'cold spring harbor', _1: 'richard yates'},
-				_1: {ctor: '[]'}
+				_0: {ctor: '_Tuple2', _0: 'vintage sadness', _1: 'hanif willis abduraqib'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'cold spring harbor', _1: 'richard yates'},
+					_1: {ctor: '[]'}
+				}
 			}
 		},
 		_1: {

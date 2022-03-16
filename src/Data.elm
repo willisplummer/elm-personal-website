@@ -9,7 +9,8 @@ reading =
     fromList
         [ 
           ( 2022,
-            [ ("cold spring harbor", "richard yates")
+            [ ( "vintage sadness", "hanif willis abduraqib")
+            , ("cold spring harbor", "richard yates")
             ]
           )
         , ( 2021
