@@ -9,7 +9,9 @@ reading =
     fromList
         [ 
           ( 2022,
-            [ ( "vintage sadness", "hanif willis abduraqib")
+            [ ( "on earth we're briefly gorgeous", "ocean vuong")
+            , ( "waking up in the sea", "derek dunfee")
+            , ( "vintage sadness", "hanif willis abduraqib")
             , ("cold spring harbor", "richard yates")
             ]
           )
