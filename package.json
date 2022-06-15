@@ -9,6 +9,6 @@
     "build": "elm make Main.elm --output=elm.js"
   },
   "dependencies": {
-    "elm": "0.18.0"
+    "elm": "0.18.0-exp5"
   }
 }
