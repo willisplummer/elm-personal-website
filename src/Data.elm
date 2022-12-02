@@ -9,7 +9,8 @@ reading =
     fromList
         [ 
           ( 2022,
-            [ ( "convenience store woman", "sayaka murata")
+            [ ( "moon witch, spider king", "marlon james")
+            , ( "convenience store woman", "sayaka murata")
             , ( "black leopard, red wolf", "marlon james")
             , ( "on earth we're briefly gorgeous", "ocean vuong")
             , ( "waking up in the sea", "derek dunfee")
