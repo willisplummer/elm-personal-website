@@ -9,7 +9,8 @@ reading =
     fromList
         [ 
           ( 2022,
-            [ ( "moon witch, spider king", "marlon james")
+            [ ( "blood meridian", "cormac mccarthy")
+            , ( "moon witch, spider king", "marlon james")
             , ( "convenience store woman", "sayaka murata")
             , ( "black leopard, red wolf", "marlon james")
             , ( "on earth we're briefly gorgeous", "ocean vuong")
