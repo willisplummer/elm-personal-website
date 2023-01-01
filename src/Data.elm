@@ -7,16 +7,19 @@ import Types exposing (Project, ReadingList)
 reading : ReadingList
 reading =
     fromList
-        [ 
-          ( 2022,
-            [ ( "blood meridian", "cormac mccarthy")
+        [ ( 2023,
+            [ ( "the twilight world", "werner herzog")
+            ]
+          ), ( 2022,
+            [ ( "pure colour", "sheila heti")
+            , ( "blood meridian", "cormac mccarthy")
             , ( "moon witch, spider king", "marlon james")
             , ( "convenience store woman", "sayaka murata")
             , ( "black leopard, red wolf", "marlon james")
             , ( "on earth we're briefly gorgeous", "ocean vuong")
             , ( "waking up in the sea", "derek dunfee")
             , ( "vintage sadness", "hanif willis abduraqib")
-            , ("cold spring harbor", "richard yates")
+            , ( "cold spring harbor", "richard yates")
             ]
           )
         , ( 2021
