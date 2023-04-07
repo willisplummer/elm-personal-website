@@ -1,7 +1,8 @@
 module Update exposing (..)
 
-import Navigation exposing (modifyUrl)
+import Browser.Navigation exposing (pushUrl)
 import Routing exposing (parseUrl)
+import Url.Builder exposing (relative)
 import Types exposing (..)
 
 
@@ -9,16 +10,19 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ShowAbout ->
-            ( model, modifyUrl "#about" )
+            ( model, pushUrl model.key "#about" )
 
         ShowWriting ->
-            ( model, modifyUrl "#writing" )
+            ( model, pushUrl model.key "#writing")
 
         ShowPortfolio ->
-            ( model, modifyUrl "#portfolio" )
+            ( model, pushUrl model.key "#portfolio" )
 
         ShowReadingList ->
-            ( model, modifyUrl "#reading-list" )
+            ( model, pushUrl model.key "#reading-list" )
+
+        Noop ->
+            ( model, Cmd.none )
 
         UrlChange location ->
             let

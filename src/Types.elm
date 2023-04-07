@@ -1,8 +1,9 @@
 module Types exposing (..)
 
-import Navigation exposing (Location)
+import Browser.Navigation exposing (Key)
 import Dict exposing (Dict)
-
+import Browser.Navigation exposing (Key)
+import Url exposing (Url)
 
 type Route
     = AboutRoute
@@ -18,6 +19,7 @@ type alias Model =
     , projectDescriptions : List Project
     , readingList : ReadingList
     , route : Route
+    , key : Key
     }
 
 
@@ -63,4 +65,5 @@ type Msg
     | ShowWriting
     | ShowPortfolio
     | ShowReadingList
-    | UrlChange Location
+    | UrlChange Url
+    | Noop

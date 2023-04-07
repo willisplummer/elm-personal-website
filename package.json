@@ -1,14 +1,18 @@
 {
-  "devDependencies": {
-    "elm-live": "^2.7.5",
-    "http-server": "^0.11.1"
-  },
   "scripts": {
-    "start": "elm-live Main.elm --output elm.js --open",
+    "start": "elm-live Main.elm -- --output=elm.js",
     "test": "elm-test",
+    "upgrade": "elm upgrade",
     "build": "elm make Main.elm --output=elm.js"
   },
   "dependencies": {
-    "elm": "0.18.0-exp5"
+    "elm": "0.19.1-5"
+  },
+  "devDependencies": {
+    "elm-live": "^4.0.2",
+    "http-server": "^0.11.1"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.10"
   }
 }

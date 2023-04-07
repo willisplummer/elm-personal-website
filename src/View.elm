@@ -2,19 +2,24 @@ module View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Attributes.A11y exposing (pressed)
+import Accessibility.Aria exposing (pressed)
 import Html.Events exposing (..)
 import Types exposing (..)
 import Dict exposing (..)
+import Browser exposing (Document)
 
-
-view : Model -> Html Msg
+view : Model -> Document Msg
 view model =
-    div
+  { title = "Willis Plummer Personal Website"
+  , body =
+      [ div
         []
         [ headerNav model
         , content model
         ]
+      ]
+  }
+
 
 
 headerNav : Model -> Html Msg
@@ -43,12 +48,30 @@ content model =
             div [ class "content" ]
                 [ p [] [ text "Hi, I'm Willis. I live in Brookyln. I write code, poetry, and fiction." ]
                 , p []
-                    [ text "I'm currently contracting for "
-                    , a [ href "https://www.wavepaths.com" ] [ text "Wavepaths" ]
-                    , text "."
+                    [ text "Since 2020, I've been doing project based consulting for a bunch of companies including:"
+                    , ul []
+                        [ li []
+                            [ a [ href "https://www.meredithmonk.org/" ] [ text "The House Foundation" ]
+                            ]
+                        , li []
+                            [ a [ href "https://photoassist.com/" ] [ text "PhotoAssist" ]
+                            ]
+                        , li []
+                            [ a [ href "https://vidvox.com/" ] [ text "VidVox" ]
+                            ]
+                        , li []
+                            [ a [ href "https://app.awkwardquestiongame.com/" ] [ text "AwkwardQuestionGame" ]
+                            ]
+                        , li []
+                            [ a [ href "https://accesskit.media/" ] [ text "AccessKit" ]
+                            ]
+                        , li []
+                            [ a [ href "http://www.wavepaths.com" ] [ text "Wavepaths" ]
+                            ]
+                        ]
                     ]
                 , p []
-                    [ text "Previously, I've been:"
+                    [ text "Previously, I worked full-time as:"
                     , ul []
                         [ li []
                             [ text "A senior engineer at "
@@ -59,7 +82,7 @@ content model =
                             , a [ href "https://www.hiclark.com" ] [ text "Clark" ]
                             ]
                         , li []
-                            [ text "A freelancer through "
+                            [ text "A consultant at "
                             , a [ href "https://computerlab.io/" ] [ text "Computer Lab" ]
                             ]
                         , li []
@@ -135,7 +158,7 @@ showBooksByYear : Int -> BookList -> List (Html Msg) -> List (Html Msg)
 showBooksByYear year books acc =
     List.append
         [ div []
-            [ h2 [] [ text (toString year) ]
+            [ h2 [] [ text (String.fromInt year) ]
             , div [] (List.map showBook books)
             ]
         ]
