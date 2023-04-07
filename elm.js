@@ -6644,7 +6644,7 @@ var $author$project$View$content = function (model) {
 						_List_Nil,
 						_List_fromArray(
 							[
-								$elm$html$Html$text('My chapbook MONS PUBIS is available from '),
+								$elm$html$Html$text('My chapbooks MONS PUBIS and L-THEANINE are available from '),
 								A2(
 								$elm$html$Html$a,
 								_List_fromArray(
@@ -6655,7 +6655,7 @@ var $author$project$View$content = function (model) {
 									[
 										$elm$html$Html$text('STUPENDOUS')
 									])),
-								$elm$html$Html$text(' and was published as a limited run by '),
+								$elm$html$Html$text(' and MONS PUBIS was published as a limited run by '),
 								A2(
 								$elm$html$Html$a,
 								_List_fromArray(

@@ -97,9 +97,9 @@ content model =
                     , text "."
                     ]
                 , p []
-                    [ text "My chapbook MONS PUBIS is available from "
+                    [ text "My chapbooks MONS PUBIS and L-THEANINE are available from "
                     , a [ href "http://stupendous.cc/" ] [ text "STUPENDOUS" ]
-                    , text " and was published as a limited run by "
+                    , text " and MONS PUBIS was published as a limited run by "
                     , a [ href "http://www.afvpress.com/utgivelser/ny-serie/" ] [ text "AFV" ]
                     , text " in Norway."
                     ]
