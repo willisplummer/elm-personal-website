@@ -975,6 +975,11 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.5.tgz"
   integrity sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==
 
+uglify-js@^3:
+  version "3.17.4"
+  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.17.4.tgz"
+  integrity sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==
+
 union@~0.4.3:
   version "0.4.6"
   resolved "https://registry.npmjs.org/union/-/union-0.4.6.tgz"

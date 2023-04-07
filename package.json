@@ -3,14 +3,15 @@
     "start": "elm-live Main.elm -- --output=elm.js",
     "test": "elm-test",
     "upgrade": "elm upgrade",
-    "build": "elm make Main.elm --output=elm.js"
+    "build": "./build.sh"
   },
   "dependencies": {
     "elm": "0.19.1-5"
   },
   "devDependencies": {
     "elm-live": "^4.0.2",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "uglify-js": "^3"
   },
   "resolutions": {
     "graceful-fs": "^4.2.10"
