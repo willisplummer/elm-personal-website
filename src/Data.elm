@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2023,
-            [ ( "whites", "norman rush")
+            [ ( "mating", "norman rush")
+            , ( "whites", "norman rush")
             , ( "the pillowman", "martin mcdonagh")
             , ( "the twilight world", "werner herzog")
             ]
