@@ -5299,6 +5299,8 @@ var $author$project$Data$reading = $elm$core$Dict$fromList(
 			2023,
 			_List_fromArray(
 				[
+					_Utils_Tuple2('the ministry for the future', 'kim stanley robinson'),
+					_Utils_Tuple2('rainwater harvesting for drylands and beyond vol. 1', 'brad lancaster'),
 					_Utils_Tuple2('mating', 'norman rush'),
 					_Utils_Tuple2('whites', 'norman rush'),
 					_Utils_Tuple2('the pillowman', 'martin mcdonagh'),
