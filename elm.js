@@ -770,11 +770,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.R.E === region.W.E)
+	if (region.R.G === region.W.G)
 	{
-		return 'on line ' + region.R.E;
+		return 'on line ' + region.R.G;
 	}
-	return 'on lines ' + region.R.E + ' through ' + region.W.E;
+	return 'on lines ' + region.R.G + ' through ' + region.W.G;
 }
 
 
@@ -2643,7 +2643,7 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		n: func(record.n),
+		q: func(record.q),
 		S: record.S,
 		P: record.P
 	}
@@ -2913,7 +2913,7 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.n;
+		var message = !tag ? value : tag < 3 ? value.a : value.q;
 		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.S;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
@@ -3917,7 +3917,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.I) && (_VirtualDom_doc.title = title = doc.I);
+				(title !== doc.n) && (_VirtualDom_doc.title = title = doc.n);
 			});
 		}
 	);
@@ -4071,17 +4071,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { at: 'hidden', C: 'visibilitychange' }
+		? { at: 'hidden', F: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { at: 'mozHidden', C: 'mozvisibilitychange' }
+		? { at: 'mozHidden', F: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { at: 'msHidden', C: 'msvisibilitychange' }
+		? { at: 'msHidden', F: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { at: 'webkitHidden', C: 'webkitvisibilitychange' }
-		: { at: 'hidden', C: 'visibilitychange' };
+		? { at: 'webkitHidden', F: 'webkitvisibilitychange' }
+		: { at: 'hidden', F: 'visibilitychange' };
 }
 
 
@@ -4166,8 +4166,8 @@ function _Browser_getViewport()
 		am: {
 			L: _Browser_window.pageXOffset,
 			M: _Browser_window.pageYOffset,
-			A: _Browser_doc.documentElement.clientWidth,
-			v: _Browser_doc.documentElement.clientHeight
+			D: _Browser_doc.documentElement.clientWidth,
+			y: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4177,8 +4177,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		A: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		v: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		D: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		y: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4202,14 +4202,14 @@ function _Browser_getViewportOf(id)
 	{
 		return {
 			aj: {
-				A: node.scrollWidth,
-				v: node.scrollHeight
+				D: node.scrollWidth,
+				y: node.scrollHeight
 			},
 			am: {
 				L: node.scrollLeft,
 				M: node.scrollTop,
-				A: node.clientWidth,
-				v: node.clientHeight
+				D: node.clientWidth,
+				y: node.clientHeight
 			}
 		};
 	});
@@ -4243,14 +4243,14 @@ function _Browser_getElement(id)
 			am: {
 				L: x,
 				M: y,
-				A: _Browser_doc.documentElement.clientWidth,
-				v: _Browser_doc.documentElement.clientHeight
+				D: _Browser_doc.documentElement.clientWidth,
+				y: _Browser_doc.documentElement.clientHeight
 			},
 			ar: {
 				L: x + rect.left,
 				M: y + rect.top,
-				A: rect.width,
-				v: rect.height
+				D: rect.width,
+				y: rect.height
 			}
 		};
 	});
@@ -5114,46 +5114,79 @@ var $author$project$Data$poetry = _List_fromArray(
 var $author$project$Data$projects = _List_fromArray(
 	[
 		{
-		D: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for handling navigation and cursor events.\n                        ',
-		F: _List_fromArray(
+		k: '\n        My latest gamedev project has been implementing Tetris in my Swift-Metal \'framework\'.\n        So far, I\'m around 80% fidelity. It\'s been a lot of fun learning how Tetris really works.\n        Did you know that on initial release, every country\'s version had slightly different rules\n        and functionality?\n    ',
+		l: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/metal-tetris', 'github')
+			]),
+		n: 'Tetris on Metal'
+	},
+		{
+		k: '\n                        In an effort to learn video game development I reimplemented Snake\n                        in Godot. Then I wrote it again in Swift using Metal to interface\n                        directly with the GPU.\n                      ',
+		l: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/godot-snake', 'godot implementation'),
+				_Utils_Tuple2('https://github.com/willisplummer/metal-snake', 'swift + metal')
+			]),
+		n: 'Two Implementations of Snake'
+	},
+		{
+		k: '\n                       A small nodejs application to enable public interviews performed via SMS.\n                       Participants generate a proxy number via Twilio and then send message there.\n                       The messages are forwarded back and forth like a normal text conversation and appear on the site as well.\n                        ',
+		l: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/public-texting', 'github')
+			]),
+		n: 'Public Texting'
+	},
+		{
+		k: '\n                        A Tic Tac Toe API that recurses through every possible move and chooses the option with the most winning outcomes.\n                        Written as an opportunity to experiment with ReasonML.\n                      ',
+		l: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/reason-react-tictac', 'github')
+			]),
+		n: 'Tic Tac Toe AI'
+	},
+		{
+		k: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for handling navigation and cursor events.\n                        ',
+		l: _List_fromArray(
 			[
 				_Utils_Tuple2('https://willisplummer.github.io/demo-squares/', 'site'),
 				_Utils_Tuple2('https://github.com/willisplummer/demo-squares', 'github')
 			]),
-		I: 'A Colorful Landing Page'
+		n: 'A Colorful Landing Page'
 	},
 		{
-		D: '\n                        A standalone page for Kickstarter\'s Experts program.\n                        Implemented in React with atomic classes generated via SCSS.\n                        The list of Experts is sourced from a Rails controller.\n                      ',
-		F: _List_fromArray(
+		k: '\n                        A standalone page for Kickstarter\'s Experts program.\n                        Implemented in React with atomic classes generated via SCSS.\n                        The list of Experts is sourced from a Rails controller.\n                      ',
+		l: _List_fromArray(
 			[
 				_Utils_Tuple2('https://www.kickstarter.com/experts', 'site')
 			]),
-		I: 'Kickstarter Experts'
+		n: 'Kickstarter Experts'
 	},
 		{
-		D: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
-		F: _List_fromArray(
+		k: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
+		l: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/elm-personal-website', 'github')
 			]),
-		I: 'This Portfolio Site'
+		n: 'This Portfolio Site'
 	},
 		{
-		D: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
-		F: _List_fromArray(
+		k: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
+		l: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/mta_alexa_app', 'github')
 			]),
-		I: 'MTA Bus Times App for Amazon Echo'
+		n: 'MTA Bus Times App for Amazon Echo'
 	},
 		{
-		D: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
-		F: _List_fromArray(
+		k: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
+		l: _List_fromArray(
 			[
 				_Utils_Tuple2('http://westernbeefs.com/', 'site'),
 				_Utils_Tuple2('https://github.com/willisplummer/westernbeefs', 'github')
 			]),
-		I: 'Western Beefs of North America'
+		n: 'Western Beefs of North America'
 	}
 	]);
 var $author$project$Data$prose = _List_fromArray(
@@ -5554,7 +5587,7 @@ var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Types$NotFoundRoute = 4;
 var $elm$url$Url$Parser$State = F5(
 	function (visited, unvisited, params, frag, value) {
-		return {q: frag, s: params, p: unvisited, l: value, t: visited};
+		return {t: frag, v: params, s: unvisited, o: value, w: visited};
 	});
 var $elm$url$Url$Parser$getFirstMatch = function (states) {
 	getFirstMatch:
@@ -5564,12 +5597,12 @@ var $elm$url$Url$Parser$getFirstMatch = function (states) {
 		} else {
 			var state = states.a;
 			var rest = states.b;
-			var _v1 = state.p;
+			var _v1 = state.s;
 			if (!_v1.b) {
-				return $elm$core$Maybe$Just(state.l);
+				return $elm$core$Maybe$Just(state.o);
 			} else {
 				if ((_v1.a === '') && (!_v1.b.b)) {
-					return $elm$core$Maybe$Just(state.l);
+					return $elm$core$Maybe$Just(state.o);
 				} else {
 					var $temp$states = rest;
 					states = $temp$states;
@@ -6078,11 +6111,11 @@ var $elm$url$Url$Parser$parse = F2(
 var $elm$url$Url$Parser$Parser = $elm$core$Basics$identity;
 var $elm$url$Url$Parser$mapState = F2(
 	function (func, _v0) {
-		var visited = _v0.t;
-		var unvisited = _v0.p;
-		var params = _v0.s;
-		var frag = _v0.q;
-		var value = _v0.l;
+		var visited = _v0.w;
+		var unvisited = _v0.s;
+		var params = _v0.v;
+		var frag = _v0.t;
+		var value = _v0.o;
 		return A5(
 			$elm$url$Url$Parser$State,
 			visited,
@@ -6095,11 +6128,11 @@ var $elm$url$Url$Parser$map = F2(
 	function (subValue, _v0) {
 		var parseArg = _v0;
 		return function (_v1) {
-			var visited = _v1.t;
-			var unvisited = _v1.p;
-			var params = _v1.s;
-			var frag = _v1.q;
-			var value = _v1.l;
+			var visited = _v1.w;
+			var unvisited = _v1.s;
+			var params = _v1.v;
+			var frag = _v1.t;
+			var value = _v1.o;
 			return A2(
 				$elm$core$List$map,
 				$elm$url$Url$Parser$mapState(value),
@@ -6136,11 +6169,11 @@ var $elm$url$Url$Parser$oneOf = function (parsers) {
 };
 var $elm$url$Url$Parser$s = function (str) {
 	return function (_v0) {
-		var visited = _v0.t;
-		var unvisited = _v0.p;
-		var params = _v0.s;
-		var frag = _v0.q;
-		var value = _v0.l;
+		var visited = _v0.w;
+		var unvisited = _v0.s;
+		var params = _v0.v;
+		var frag = _v0.t;
+		var value = _v0.o;
 		if (!unvisited.b) {
 			return _List_Nil;
 		} else {
@@ -6378,14 +6411,14 @@ var $author$project$View$showProject = function (project) {
 							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$text(project.I)
+									$elm$html$Html$text(project.n)
 								])),
 							A2(
 							$elm$html$Html$p,
 							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$text(project.D)
+									$elm$html$Html$text(project.k)
 								])),
 							A2(
 							$elm$html$Html$p,
@@ -6411,7 +6444,7 @@ var $author$project$View$showProject = function (project) {
 											$elm$html$Html$text(')')
 										]);
 								},
-								project.F))
+								project.l))
 						]))
 				]))
 		]);
@@ -6973,7 +7006,7 @@ var $author$project$View$view = function (model) {
 						$author$project$View$content(model)
 					]))
 			]),
-		I: 'Willis Plummer Personal Website'
+		n: 'Willis Plummer Personal Website'
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$application(
