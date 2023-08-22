@@ -264,7 +264,41 @@ prose =
 
 projects : List Project
 projects =
-    [ { title = "A Colorful Landing Page"
+    [ {
+       title = "Tetris on Metal"
+    , description = """
+        My latest gamedev project has been implementing Tetris in my Swift-Metal 'framework'.
+        So far, I'm around 80% fidelity. It's been a lot of fun learning how Tetris really works.
+        Did you know that on initial release, every country's version had slightly different rules
+        and functionality?
+    """
+     , links = [("https://github.com/willisplummer/metal-tetris", "github")] } 
+      , {
+        title = "Two Implementations of Snake"
+      , description = """
+                        In an effort to learn video game development I reimplemented Snake
+                        in Godot. Then I wrote it again in Swift using Metal to interface
+                        directly with the GPU.
+                      """ 
+      , links = [( "https://github.com/willisplummer/godot-snake", "godot implementation"), ( "https://github.com/willisplummer/metal-snake", "swift + metal")]
+      }
+      ,{
+        title = "Public Texting"
+      , description = """
+                       A small nodejs application to enable public interviews performed via SMS.
+                       Participants generate a proxy number via Twilio and then send message there.
+                       The messages are forwarded back and forth like a normal text conversation and appear on the site as well.
+                        """
+      , links = [( "https://github.com/willisplummer/public-texting", "github")]
+      }
+     ,{ title = "Tic Tac Toe AI" 
+      , description = """
+                        A Tic Tac Toe API that recurses through every possible move and chooses the option with the most winning outcomes.
+                        Written as an opportunity to experiment with ReasonML.
+                      """
+      , links = [ ("https://github.com/willisplummer/reason-react-tictac", "github")]
+      }
+      ,{ title = "A Colorful Landing Page"
       , description = """
                         A lightweight landing page for any type of project.
                         Mouseover the squares to change their color and shape.
