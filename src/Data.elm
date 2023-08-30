@@ -8,7 +8,8 @@ reading : ReadingList
 reading =
     fromList
         [ ( 2023,
-            [ ( "the ministry for the future", "kim stanley robinson" )
+            [ ( "the hod king", "josiah bancroft" )
+            , ( "the ministry for the future", "kim stanley robinson" )
             , ( "rainwater harvesting for drylands and beyond vol. 1", "brad lancaster")
             , ( "mating", "norman rush")
             , ( "whites", "norman rush")
