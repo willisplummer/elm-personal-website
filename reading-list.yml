@@ -1,13 +1,4 @@
 ---
-- title: and title
-  author: another author
+- title: the pragmatic programmer 20th anniversary edition 
+  author: andy hunt and dave thomas 
   year: 2023
-- title: book title
-  author: heres author
-  year: 2023
-- title: How to write Rust
-  author: Willis Plummer
-  year: 2023
-- title: How to quit your job
-  author: Deirdre Johnson
-  year: 2024
