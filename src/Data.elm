@@ -2,7 +2,24 @@ module Data exposing (..)
 
 import Dict exposing (fromList)
 import Types exposing (Project, ReadingList)
+import Yaml.Decode exposing (..)
 
+type alias Book =
+  { title: String
+  , author: String
+  , year: Int
+  }
+
+decoder : Decoder Book
+decoder =
+  map3 Book
+    (field "title" string)
+    (field "author" string)
+    (field "year" int)
+
+decodeReadingList : String -> Result Error (List Book)
+decodeReadingList =
+  fromString (list decoder) 
 
 reading : ReadingList
 reading =

@@ -6,6 +6,7 @@
     "elm-version": "0.19.1",
     "dependencies": {
         "direct": {
+            "MaybeJustJames/yaml": "2.1.4",
             "elm/browser": "1.0.0",
             "elm/core": "1.0.0",
             "elm/html": "1.0.0",
@@ -14,6 +15,8 @@
             "tesk9/accessible-html": "6.1.0"
         },
         "indirect": {
+            "elm/parser": "1.1.0",
+            "elm/regex": "1.0.0",
             "elm/time": "1.0.0",
             "elm/virtual-dom": "1.0.0"
         }

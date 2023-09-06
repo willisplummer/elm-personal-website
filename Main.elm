@@ -7,7 +7,7 @@ import Types exposing (..)
 import Update exposing (update)
 import View exposing (view)
 
-
+ 
 main : Program () Model Msg
 main =
     application
