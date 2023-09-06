@@ -1,25 +1,41 @@
 module Data exposing (..)
 
 import Dict exposing (fromList)
-import Types exposing (Project, ReadingList)
+import Types exposing (Project, ReadingList, BookList, Book)
 import Yaml.Decode exposing (..)
+import Result exposing (Result)
 
-type alias Book =
+type alias BookEntry =
   { title: String
   , author: String
   , year: Int
   }
 
-decoder : Decoder Book
+decoder : Decoder BookEntry
 decoder =
-  map3 Book
+  map3 BookEntry
     (field "title" string)
     (field "author" string)
     (field "year" int)
 
-decodeReadingList : String -> Result Error (List Book)
+decodeReadingList : String -> Result Error (List BookEntry)
 decodeReadingList =
   fromString (list decoder) 
+
+mkReadingList: String -> ReadingList
+mkReadingList ymlString =
+  let
+      list : List BookEntry
+      list = Result.withDefault [] <| decodeReadingList ymlString
+
+
+      addEntryToList : BookEntry -> ReadingList -> ReadingList
+      addEntryToList book acc = Dict.update book.year (\entries -> Just <| ( book.title, book.author) :: Maybe.withDefault [] entries) acc
+
+      readingList: ReadingList 
+      readingList= List.foldr addEntryToList reading list
+  in
+    readingList     
 
 reading : ReadingList
 reading =
@@ -354,4 +370,4 @@ projects =
                         """
       , links = [ ( "http://westernbeefs.com/", "site" ), ( "https://github.com/willisplummer/westernbeefs", "github" ) ]
       }
-    ]
+    ] 

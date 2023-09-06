@@ -4287,6 +4287,237 @@ function _Browser_load(url)
 }
 
 
+
+
+// STRINGS
+
+
+var _Parser_isSubString = F5(function(smallString, offset, row, col, bigString)
+{
+	var smallLength = smallString.length;
+	var isGood = offset + smallLength <= bigString.length;
+
+	for (var i = 0; isGood && i < smallLength; )
+	{
+		var code = bigString.charCodeAt(offset);
+		isGood =
+			smallString[i++] === bigString[offset++]
+			&& (
+				code === 0x000A /* \n */
+					? ( row++, col=1 )
+					: ( col++, (code & 0xF800) === 0xD800 ? smallString[i++] === bigString[offset++] : 1 )
+			)
+	}
+
+	return _Utils_Tuple3(isGood ? offset : -1, row, col);
+});
+
+
+
+// CHARS
+
+
+var _Parser_isSubChar = F3(function(predicate, offset, string)
+{
+	return (
+		string.length <= offset
+			? -1
+			:
+		(string.charCodeAt(offset) & 0xF800) === 0xD800
+			? (predicate(_Utils_chr(string.substr(offset, 2))) ? offset + 2 : -1)
+			:
+		(predicate(_Utils_chr(string[offset]))
+			? ((string[offset] === '\n') ? -2 : (offset + 1))
+			: -1
+		)
+	);
+});
+
+
+var _Parser_isAsciiCode = F3(function(code, offset, string)
+{
+	return string.charCodeAt(offset) === code;
+});
+
+
+
+// NUMBERS
+
+
+var _Parser_chompBase10 = F2(function(offset, string)
+{
+	for (; offset < string.length; offset++)
+	{
+		var code = string.charCodeAt(offset);
+		if (code < 0x30 || 0x39 < code)
+		{
+			return offset;
+		}
+	}
+	return offset;
+});
+
+
+var _Parser_consumeBase = F3(function(base, offset, string)
+{
+	for (var total = 0; offset < string.length; offset++)
+	{
+		var digit = string.charCodeAt(offset) - 0x30;
+		if (digit < 0 || base <= digit) break;
+		total = base * total + digit;
+	}
+	return _Utils_Tuple2(offset, total);
+});
+
+
+var _Parser_consumeBase16 = F2(function(offset, string)
+{
+	for (var total = 0; offset < string.length; offset++)
+	{
+		var code = string.charCodeAt(offset);
+		if (0x30 <= code && code <= 0x39)
+		{
+			total = 16 * total + code - 0x30;
+		}
+		else if (0x41 <= code && code <= 0x46)
+		{
+			total = 16 * total + code - 55;
+		}
+		else if (0x61 <= code && code <= 0x66)
+		{
+			total = 16 * total + code - 87;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return _Utils_Tuple2(offset, total);
+});
+
+
+
+// FIND STRING
+
+
+var _Parser_findSubString = F5(function(smallString, offset, row, col, bigString)
+{
+	var newOffset = bigString.indexOf(smallString, offset);
+	var target = newOffset < 0 ? bigString.length : newOffset + smallString.length;
+
+	while (offset < target)
+	{
+		var code = bigString.charCodeAt(offset++);
+		code === 0x000A /* \n */
+			? ( col=1, row++ )
+			: ( col++, (code & 0xF800) === 0xD800 && offset++ )
+	}
+
+	return _Utils_Tuple3(newOffset, row, col);
+});
+
+
+// CREATE
+
+var _Regex_never = /.^/;
+
+var _Regex_fromStringWith = F2(function(options, string)
+{
+	var flags = 'g';
+	if (options.multiline) { flags += 'm'; }
+	if (options.caseInsensitive) { flags += 'i'; }
+
+	try
+	{
+		return $elm$core$Maybe$Just(new RegExp(string, flags));
+	}
+	catch(error)
+	{
+		return $elm$core$Maybe$Nothing;
+	}
+});
+
+
+// USE
+
+var _Regex_contains = F2(function(re, string)
+{
+	return string.match(re) !== null;
+});
+
+
+var _Regex_findAtMost = F3(function(n, re, str)
+{
+	var out = [];
+	var number = 0;
+	var string = str;
+	var lastIndex = re.lastIndex;
+	var prevLastIndex = -1;
+	var result;
+	while (number++ < n && (result = re.exec(string)))
+	{
+		if (prevLastIndex == re.lastIndex) break;
+		var i = result.length - 1;
+		var subs = new Array(i);
+		while (i > 0)
+		{
+			var submatch = result[i];
+			subs[--i] = submatch
+				? $elm$core$Maybe$Just(submatch)
+				: $elm$core$Maybe$Nothing;
+		}
+		out.push(A4($elm$regex$Regex$Match, result[0], result.index, number, _List_fromArray(subs)));
+		prevLastIndex = re.lastIndex;
+	}
+	re.lastIndex = lastIndex;
+	return _List_fromArray(out);
+});
+
+
+var _Regex_replaceAtMost = F4(function(n, re, replacer, string)
+{
+	var count = 0;
+	function jsReplacer(match)
+	{
+		if (count++ >= n)
+		{
+			return match;
+		}
+		var i = arguments.length - 3;
+		var submatches = new Array(i);
+		while (i > 0)
+		{
+			var submatch = arguments[i];
+			submatches[--i] = submatch
+				? $elm$core$Maybe$Just(submatch)
+				: $elm$core$Maybe$Nothing;
+		}
+		return replacer(A4($elm$regex$Regex$Match, match, arguments[arguments.length - 2], count, _List_fromArray(submatches)));
+	}
+	return string.replace(re, jsReplacer);
+});
+
+var _Regex_splitAtMost = F3(function(n, re, str)
+{
+	var string = str;
+	var out = [];
+	var start = re.lastIndex;
+	var restoreLastIndex = re.lastIndex;
+	while (n--)
+	{
+		var result = re.exec(string);
+		if (!result) break;
+		out.push(string.slice(start, result.index));
+		start = re.lastIndex;
+	}
+	out.push(string.slice(start));
+	re.lastIndex = restoreLastIndex;
+	return _List_fromArray(out);
+});
+
+var _Regex_infinity = Infinity;
+
+
 function _Url_percentEncode(string)
 {
 	return encodeURIComponent(string);
@@ -5103,113 +5334,320 @@ var $author$project$Types$ShowPortfolio = {$: 'ShowPortfolio'};
 var $author$project$Types$ShowReadingList = {$: 'ShowReadingList'};
 var $author$project$Types$ShowWriting = {$: 'ShowWriting'};
 var $author$project$Types$WritingRoute = {$: 'WritingRoute'};
-var $author$project$Data$poetry = _List_fromArray(
-	[
-		_Utils_Tuple2('http://muumuuhouse.com/wp.07jun2021.html', 'Three Poems From L-Theanine (muumuu house)'),
-		_Utils_Tuple2('http://thenervousbreakdown.com/willisplummer/2020/10/three-poems-from-mons-pubis/', 'Three Poems From MONS PUBIS (The Nervous Breakdown)'),
-		_Utils_Tuple2('http://quick-books.biz/', 'The Book of Judith (quickbooks, pamphlet, ltd run of 100)'),
-		_Utils_Tuple2('https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers', 'wild horse rappers (with precious okoyomon)'),
-		_Utils_Tuple2('http://muumuuhouse.com/wp.22may2017.html', '10,000 year clock (muumuu house)'),
-		_Utils_Tuple2('http://www.bodegamag.com/articles/172-bros', 'bros (bodega mag)'),
-		_Utils_Tuple2('http://darkfuckingwizard.com/three-poems/', '3 poems (dark fucking wizard)'),
-		_Utils_Tuple2('http://muumuuhouse.com/wp.13nov2014.html', '14 haiku (muumuu house)'),
-		_Utils_Tuple2('https://preludemag.com/contributors/willis-plummer/', '3 poems (prelude magazine)'),
-		_Utils_Tuple2('https://genius.com/Willis-plummer-good-and-beautiful-annotated', 'good and beautiful (2014 judith lobel arkin prize honorable mention)'),
-		_Utils_Tuple2('http://www.hobartpulp.com/web_features/5-poems--8', '5 poems (hobartpulp)')
-	]);
-var $author$project$Data$projects = _List_fromArray(
-	[
-		{
-		description: '\n        My latest gamedev project has been implementing Tetris in my Swift-Metal \'framework\'.\n        So far, I\'m around 80% fidelity. It\'s been a lot of fun learning how Tetris really works.\n        Did you know that on initial release, every country\'s version had slightly different rules\n        and functionality?\n    ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://github.com/willisplummer/metal-tetris', 'github')
-			]),
-		title: 'Tetris on Metal'
-	},
-		{
-		description: '\n                        In an effort to learn video game development I reimplemented Snake\n                        in Godot. Then I wrote it again in Swift using Metal to interface\n                        directly with the GPU.\n                      ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://github.com/willisplummer/godot-snake', 'godot implementation'),
-				_Utils_Tuple2('https://github.com/willisplummer/metal-snake', 'swift + metal')
-			]),
-		title: 'Two Implementations of Snake'
-	},
-		{
-		description: '\n                       A small nodejs application to enable public interviews performed via SMS.\n                       Participants generate a proxy number via Twilio and then send message there.\n                       The messages are forwarded back and forth like a normal text conversation and appear on the site as well.\n                        ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://github.com/willisplummer/public-texting', 'github')
-			]),
-		title: 'Public Texting'
-	},
-		{
-		description: '\n                        A Tic Tac Toe API that recurses through every possible move and chooses the option with the most winning outcomes.\n                        Written as an opportunity to experiment with ReasonML.\n                      ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://github.com/willisplummer/reason-react-tictac', 'github')
-			]),
-		title: 'Tic Tac Toe AI'
-	},
-		{
-		description: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for handling navigation and cursor events.\n                        ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://willisplummer.github.io/demo-squares/', 'site'),
-				_Utils_Tuple2('https://github.com/willisplummer/demo-squares', 'github')
-			]),
-		title: 'A Colorful Landing Page'
-	},
-		{
-		description: '\n                        A standalone page for Kickstarter\'s Experts program.\n                        Implemented in React with atomic classes generated via SCSS.\n                        The list of Experts is sourced from a Rails controller.\n                      ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://www.kickstarter.com/experts', 'site')
-			]),
-		title: 'Kickstarter Experts'
-	},
-		{
-		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://github.com/willisplummer/elm-personal-website', 'github')
-			]),
-		title: 'This Portfolio Site'
-	},
-		{
-		description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('https://github.com/willisplummer/mta_alexa_app', 'github')
-			]),
-		title: 'MTA Bus Times App for Amazon Echo'
-	},
-		{
-		description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
-		links: _List_fromArray(
-			[
-				_Utils_Tuple2('http://westernbeefs.com/', 'site'),
-				_Utils_Tuple2('https://github.com/willisplummer/westernbeefs', 'github')
-			]),
-		title: 'Western Beefs of North America'
+var $author$project$Data$BookEntry = F3(
+	function (title, author, year) {
+		return {author: author, title: title, year: year};
+	});
+var $MaybeJustJames$yaml$Yaml$Decode$Decoder = function (a) {
+	return {$: 'Decoder', a: a};
+};
+var $MaybeJustJames$yaml$Yaml$Decode$Decoding = function (a) {
+	return {$: 'Decoding', a: a};
+};
+var $MaybeJustJames$yaml$Yaml$Decode$fromValue = F2(
+	function (_v0, v) {
+		var decoder = _v0.a;
+		return decoder(v);
+	});
+var $elm$core$Basics$compare = _Utils_compare;
+var $elm$core$Dict$get = F2(
+	function (targetKey, dict) {
+		get:
+		while (true) {
+			if (dict.$ === 'RBEmpty_elm_builtin') {
+				return $elm$core$Maybe$Nothing;
+			} else {
+				var key = dict.b;
+				var value = dict.c;
+				var left = dict.d;
+				var right = dict.e;
+				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
+				switch (_v1.$) {
+					case 'LT':
+						var $temp$targetKey = targetKey,
+							$temp$dict = left;
+						targetKey = $temp$targetKey;
+						dict = $temp$dict;
+						continue get;
+					case 'EQ':
+						return $elm$core$Maybe$Just(value);
+					default:
+						var $temp$targetKey = targetKey,
+							$temp$dict = right;
+						targetKey = $temp$targetKey;
+						dict = $temp$dict;
+						continue get;
+				}
+			}
+		}
+	});
+var $MaybeJustJames$yaml$Yaml$Decode$find = F3(
+	function (names, decoder, v0) {
+		find:
+		while (true) {
+			if (names.b) {
+				var name = names.a;
+				var rest = names.b;
+				if (v0.$ === 'Record_') {
+					var properties = v0.a;
+					var _v2 = A2($elm$core$Dict$get, name, properties);
+					if (_v2.$ === 'Just') {
+						var v1 = _v2.a;
+						var $temp$names = rest,
+							$temp$decoder = decoder,
+							$temp$v0 = v1;
+						names = $temp$names;
+						decoder = $temp$decoder;
+						v0 = $temp$v0;
+						continue find;
+					} else {
+						return $elm$core$Result$Err(
+							$MaybeJustJames$yaml$Yaml$Decode$Decoding('Expected property: ' + name));
+					}
+				} else {
+					return $elm$core$Result$Err(
+						$MaybeJustJames$yaml$Yaml$Decode$Decoding('Expected record'));
+				}
+			} else {
+				return A2($MaybeJustJames$yaml$Yaml$Decode$fromValue, decoder, v0);
+			}
+		}
+	});
+var $MaybeJustJames$yaml$Yaml$Decode$field = F2(
+	function (name, decoder) {
+		return $MaybeJustJames$yaml$Yaml$Decode$Decoder(
+			function (v) {
+				return A3(
+					$MaybeJustJames$yaml$Yaml$Decode$find,
+					_List_fromArray(
+						[name]),
+					decoder,
+					v);
+			});
+	});
+var $elm$core$String$fromFloat = _String_fromNumber;
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$toString = function (value) {
+	switch (value.$) {
+		case 'String_':
+			var string = value.a;
+			return '\"' + (string + '\" (string)');
+		case 'Float_':
+			var _float = value.a;
+			return $elm$core$String$fromFloat(_float) + ' (float)';
+		case 'Int_':
+			var _int = value.a;
+			return $elm$core$String$fromInt(_int) + ' (int)';
+		case 'List_':
+			var list = value.a;
+			return '[ ' + (A2(
+				$elm$core$String$join,
+				', ',
+				A2($elm$core$List$map, $MaybeJustJames$yaml$Yaml$Parser$Ast$toString, list)) + ' ] (list)');
+		case 'Record_':
+			var properties = value.a;
+			return '{ ' + (A2(
+				$elm$core$String$join,
+				', ',
+				A2(
+					$elm$core$List$map,
+					$MaybeJustJames$yaml$Yaml$Parser$Ast$toStringProperty,
+					$elm$core$Dict$toList(properties))) + ' } (map)');
+		case 'Bool_':
+			if (value.a) {
+				return 'True (bool)';
+			} else {
+				return 'False (bool)';
+			}
+		case 'Null_':
+			return 'Null';
+		case 'Anchor_':
+			var name = value.a;
+			var r_val = value.b;
+			return '&' + (name + (' ' + $MaybeJustJames$yaml$Yaml$Parser$Ast$toString(r_val)));
+		default:
+			var name = value.a;
+			return '*' + name;
 	}
-	]);
-var $author$project$Data$prose = _List_fromArray(
-	[
-		_Utils_Tuple2('https://thecreativeindependent.com/people/visual-artists-andrew-zebulon-and-kristen-wintercheck-on-letting-your-materials-guide-you/', 'kristen wintercheck and andrew zebulon on letting your materials guide you'),
-		_Utils_Tuple2('https://thecreativeindependent.com/people/poet-matthew-rohrer-on-challenging-your-own-process/', 'matthew rohrer on challenging your own process'),
-		_Utils_Tuple2('http://thenervousbreakdown.com/willisplummer/2018/11/two-stories/', 'two stories (the nervous breakdown)'),
-		_Utils_Tuple2('https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/', 'megan boyle on documenting your entire life in your creative work'),
-		_Utils_Tuple2('https://thecreativeindependent.com/people/poet-andrew-weatherhead-on-hijacking-language/', 'andrew weatherhead on hijacking language'),
-		_Utils_Tuple2('https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', 'tao lin on why he writes'),
-		_Utils_Tuple2('https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', 'precious okoyomon on finding poetry in everything'),
-		_Utils_Tuple2('https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', 'total party kill: the architects of dungeons and dragons'),
-		_Utils_Tuple2('http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', 'not even doom music: an interview with mat riviere'),
-		_Utils_Tuple2('http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', 'an interview with ny tyrant in four parts')
-	]);
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$toStringProperty = function (_v0) {
+	var name = _v0.a;
+	var value = _v0.b;
+	return name + (': ' + $MaybeJustJames$yaml$Yaml$Parser$Ast$toString(value));
+};
+var $MaybeJustJames$yaml$Yaml$Decode$decodeError = F2(
+	function (expected, got) {
+		return $elm$core$Result$Err(
+			$MaybeJustJames$yaml$Yaml$Decode$Decoding(
+				'Expected ' + (expected + (', got: ' + $MaybeJustJames$yaml$Yaml$Parser$Ast$toString(got)))));
+	});
+var $MaybeJustJames$yaml$Yaml$Decode$int = $MaybeJustJames$yaml$Yaml$Decode$Decoder(
+	function (v) {
+		if (v.$ === 'Int_') {
+			var int_ = v.a;
+			return $elm$core$Result$Ok(int_);
+		} else {
+			return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'int', v);
+		}
+	});
+var $MaybeJustJames$yaml$Yaml$Decode$map3 = F4(
+	function (func, _v0, _v1, _v2) {
+		var a = _v0.a;
+		var b = _v1.a;
+		var c = _v2.a;
+		return $MaybeJustJames$yaml$Yaml$Decode$Decoder(
+			function (v0) {
+				var _v3 = a(v0);
+				if (_v3.$ === 'Err') {
+					var err1 = _v3.a;
+					return $elm$core$Result$Err(err1);
+				} else {
+					var av = _v3.a;
+					var _v4 = b(v0);
+					if (_v4.$ === 'Err') {
+						var err2 = _v4.a;
+						return $elm$core$Result$Err(err2);
+					} else {
+						var bv = _v4.a;
+						var _v5 = c(v0);
+						if (_v5.$ === 'Err') {
+							var err3 = _v5.a;
+							return $elm$core$Result$Err(err3);
+						} else {
+							var cv = _v5.a;
+							return $elm$core$Result$Ok(
+								A3(func, av, bv, cv));
+						}
+					}
+				}
+			});
+	});
+var $MaybeJustJames$yaml$Yaml$Decode$string = $MaybeJustJames$yaml$Yaml$Decode$Decoder(
+	function (v) {
+		switch (v.$) {
+			case 'String_':
+				var string_ = v.a;
+				return $elm$core$Result$Ok(string_);
+			case 'Null_':
+				return $elm$core$Result$Ok('');
+			default:
+				return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'string', v);
+		}
+	});
+var $author$project$Data$decoder = A4(
+	$MaybeJustJames$yaml$Yaml$Decode$map3,
+	$author$project$Data$BookEntry,
+	A2($MaybeJustJames$yaml$Yaml$Decode$field, 'title', $MaybeJustJames$yaml$Yaml$Decode$string),
+	A2($MaybeJustJames$yaml$Yaml$Decode$field, 'author', $MaybeJustJames$yaml$Yaml$Decode$string),
+	A2($MaybeJustJames$yaml$Yaml$Decode$field, 'year', $MaybeJustJames$yaml$Yaml$Decode$int));
+var $MaybeJustJames$yaml$Yaml$Decode$Parsing = function (a) {
+	return {$: 'Parsing', a: a};
+};
+var $elm$core$Basics$composeR = F3(
+	function (f, g, x) {
+		return g(
+			f(x));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$problemToString = function (p) {
+	switch (p.$) {
+		case 'Expecting':
+			var msg = p.a;
+			return 'Expected ' + msg;
+		case 'ExpectingInt':
+			return 'Expected an integer';
+		case 'ExpectingHex':
+			return 'Expected a hexadecimal value';
+		case 'ExpectingOctal':
+			return 'Expected an octal value';
+		case 'ExpectingBinary':
+			return 'Expected a binary value';
+		case 'ExpectingFloat':
+			return 'Expected a float';
+		case 'ExpectingNumber':
+			return 'Expected a number';
+		case 'ExpectingVariable':
+			return 'Expected a variable';
+		case 'ExpectingSymbol':
+			var name = p.a;
+			return 'Expected symbol \'' + (name + '\'');
+		case 'ExpectingKeyword':
+			var name = p.a;
+			return 'Expected keyword \'' + (name + '\'');
+		case 'ExpectingEnd':
+			return 'Expected end of input';
+		case 'UnexpectedChar':
+			return 'Encountered an unexpected character';
+		case 'Problem':
+			var msg = p.a;
+			return 'Problem: ' + msg;
+		default:
+			return 'Bad repeat';
+	}
+};
+var $MaybeJustJames$yaml$Yaml$Parser$deadEndToString = function (deadend) {
+	return 'Line ' + ($elm$core$String$fromInt(deadend.row) + (', column ' + ($elm$core$String$fromInt(deadend.col) + (': ' + $MaybeJustJames$yaml$Yaml$Parser$problemToString(deadend.problem)))));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$deadEndsToString = function (deadends) {
+	return A2(
+		$elm$core$String$join,
+		'\n',
+		A2($elm$core$List$map, $MaybeJustJames$yaml$Yaml$Parser$deadEndToString, deadends));
+};
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
+var $elm$core$Dict$values = function (dict) {
+	return A3(
+		$elm$core$Dict$foldr,
+		F3(
+			function (key, value, valueList) {
+				return A2($elm$core$List$cons, value, valueList);
+			}),
+		_List_Nil,
+		dict);
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$fold = F3(
+	function (f, value, z) {
+		switch (value.$) {
+			case 'String_':
+				return A2(f, value, z);
+			case 'Float_':
+				return A2(f, value, z);
+			case 'Int_':
+				return A2(f, value, z);
+			case 'Bool_':
+				return A2(f, value, z);
+			case 'Null_':
+				return A2(f, value, z);
+			case 'Alias_':
+				return A2(f, value, z);
+			case 'List_':
+				var l = value.a;
+				return A2(
+					f,
+					value,
+					A3(
+						$elm$core$List$foldl,
+						$MaybeJustJames$yaml$Yaml$Parser$Ast$fold(f),
+						z,
+						l));
+			case 'Record_':
+				var r = value.a;
+				return A2(
+					f,
+					value,
+					A3(
+						$elm$core$List$foldl,
+						$MaybeJustJames$yaml$Yaml$Parser$Ast$fold(f),
+						z,
+						$elm$core$Dict$values(r)));
+			default:
+				var nm = value.a;
+				var a = value.b;
+				return A2(
+					f,
+					value,
+					A3($MaybeJustJames$yaml$Yaml$Parser$Ast$fold, f, a, z));
+		}
+	});
 var $elm$core$Dict$Black = {$: 'Black'};
 var $elm$core$Dict$RBNode_elm_builtin = F5(
 	function (a, b, c, d, e) {
@@ -5270,7 +5708,6 @@ var $elm$core$Dict$balance = F5(
 			}
 		}
 	});
-var $elm$core$Basics$compare = _Utils_compare;
 var $elm$core$Dict$insertHelp = F3(
 	function (key, value, dict) {
 		if (dict.$ === 'RBEmpty_elm_builtin') {
@@ -5319,6 +5756,16 @@ var $elm$core$Dict$insert = F3(
 			return x;
 		}
 	});
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Anchor_ = F2(
+	function (a, b) {
+		return {$: 'Anchor_', a: a, b: b};
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$List_ = function (a) {
+	return {$: 'List_', a: a};
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Record_ = function (a) {
+	return {$: 'Record_', a: a};
+};
 var $elm$core$Dict$fromList = function (assocs) {
 	return A3(
 		$elm$core$List$foldl,
@@ -5331,6 +5778,1910 @@ var $elm$core$Dict$fromList = function (assocs) {
 		$elm$core$Dict$empty,
 		assocs);
 };
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$map = F2(
+	function (f, value) {
+		switch (value.$) {
+			case 'String_':
+				return f(value);
+			case 'Float_':
+				return f(value);
+			case 'Int_':
+				return f(value);
+			case 'Bool_':
+				return f(value);
+			case 'Null_':
+				return f(value);
+			case 'Alias_':
+				return f(value);
+			case 'List_':
+				var l = value.a;
+				return f(
+					$MaybeJustJames$yaml$Yaml$Parser$Ast$List_(
+						A2(
+							$elm$core$List$map,
+							$MaybeJustJames$yaml$Yaml$Parser$Ast$map(f),
+							l)));
+			case 'Record_':
+				var r = value.a;
+				return f(
+					$MaybeJustJames$yaml$Yaml$Parser$Ast$Record_(
+						$elm$core$Dict$fromList(
+							A2(
+								$elm$core$List$map,
+								function (_v1) {
+									var k = _v1.a;
+									var v = _v1.b;
+									return _Utils_Tuple2(
+										k,
+										A2($MaybeJustJames$yaml$Yaml$Parser$Ast$map, f, v));
+								},
+								$elm$core$Dict$toList(r)))));
+			default:
+				var name = value.a;
+				var a = value.b;
+				return f(
+					A2(
+						$MaybeJustJames$yaml$Yaml$Parser$Ast$Anchor_,
+						name,
+						A2($MaybeJustJames$yaml$Yaml$Parser$Ast$map, f, a)));
+		}
+	});
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$deref = function (ast) {
+	var anchorMap = A3(
+		$MaybeJustJames$yaml$Yaml$Parser$Ast$fold,
+		F2(
+			function (node, d) {
+				if (node.$ === 'Anchor_') {
+					var name = node.a;
+					var v = node.b;
+					return A3($elm$core$Dict$insert, name, v, d);
+				} else {
+					return d;
+				}
+			}),
+		ast,
+		$elm$core$Dict$empty);
+	var replaceAnchors = function (v) {
+		switch (v.$) {
+			case 'Alias_':
+				var name = v.a;
+				return A2(
+					$elm$core$Maybe$withDefault,
+					v,
+					A2($elm$core$Dict$get, name, anchorMap));
+			case 'Anchor_':
+				var node = v.b;
+				return node;
+			default:
+				return v;
+		}
+	};
+	return A2($MaybeJustJames$yaml$Yaml$Parser$Ast$map, replaceAnchors, ast);
+};
+var $elm$core$Result$map = F2(
+	function (func, ra) {
+		if (ra.$ === 'Ok') {
+			var a = ra.a;
+			return $elm$core$Result$Ok(
+				func(a));
+		} else {
+			var e = ra.a;
+			return $elm$core$Result$Err(e);
+		}
+	});
+var $elm$core$Result$mapError = F2(
+	function (f, result) {
+		if (result.$ === 'Ok') {
+			var v = result.a;
+			return $elm$core$Result$Ok(v);
+		} else {
+			var e = result.a;
+			return $elm$core$Result$Err(
+				f(e));
+		}
+	});
+var $elm$parser$Parser$Advanced$Bad = F2(
+	function (a, b) {
+		return {$: 'Bad', a: a, b: b};
+	});
+var $elm$parser$Parser$Advanced$Good = F3(
+	function (a, b, c) {
+		return {$: 'Good', a: a, b: b, c: c};
+	});
+var $elm$parser$Parser$Advanced$Parser = function (a) {
+	return {$: 'Parser', a: a};
+};
+var $elm$parser$Parser$Advanced$andThen = F2(
+	function (callback, _v0) {
+		var parseA = _v0.a;
+		return $elm$parser$Parser$Advanced$Parser(
+			function (s0) {
+				var _v1 = parseA(s0);
+				if (_v1.$ === 'Bad') {
+					var p = _v1.a;
+					var x = _v1.b;
+					return A2($elm$parser$Parser$Advanced$Bad, p, x);
+				} else {
+					var p1 = _v1.a;
+					var a = _v1.b;
+					var s1 = _v1.c;
+					var _v2 = callback(a);
+					var parseB = _v2.a;
+					var _v3 = parseB(s1);
+					if (_v3.$ === 'Bad') {
+						var p2 = _v3.a;
+						var x = _v3.b;
+						return A2($elm$parser$Parser$Advanced$Bad, p1 || p2, x);
+					} else {
+						var p2 = _v3.a;
+						var b = _v3.b;
+						var s2 = _v3.c;
+						return A3($elm$parser$Parser$Advanced$Good, p1 || p2, b, s2);
+					}
+				}
+			});
+	});
+var $elm$parser$Parser$andThen = $elm$parser$Parser$Advanced$andThen;
+var $elm$core$Basics$always = F2(
+	function (a, _v0) {
+		return a;
+	});
+var $elm$parser$Parser$Advanced$map2 = F3(
+	function (func, _v0, _v1) {
+		var parseA = _v0.a;
+		var parseB = _v1.a;
+		return $elm$parser$Parser$Advanced$Parser(
+			function (s0) {
+				var _v2 = parseA(s0);
+				if (_v2.$ === 'Bad') {
+					var p = _v2.a;
+					var x = _v2.b;
+					return A2($elm$parser$Parser$Advanced$Bad, p, x);
+				} else {
+					var p1 = _v2.a;
+					var a = _v2.b;
+					var s1 = _v2.c;
+					var _v3 = parseB(s1);
+					if (_v3.$ === 'Bad') {
+						var p2 = _v3.a;
+						var x = _v3.b;
+						return A2($elm$parser$Parser$Advanced$Bad, p1 || p2, x);
+					} else {
+						var p2 = _v3.a;
+						var b = _v3.b;
+						var s2 = _v3.c;
+						return A3(
+							$elm$parser$Parser$Advanced$Good,
+							p1 || p2,
+							A2(func, a, b),
+							s2);
+					}
+				}
+			});
+	});
+var $elm$parser$Parser$Advanced$ignorer = F2(
+	function (keepParser, ignoreParser) {
+		return A3($elm$parser$Parser$Advanced$map2, $elm$core$Basics$always, keepParser, ignoreParser);
+	});
+var $elm$parser$Parser$ignorer = $elm$parser$Parser$Advanced$ignorer;
+var $elm$parser$Parser$Advanced$Empty = {$: 'Empty'};
+var $elm$parser$Parser$Advanced$Append = F2(
+	function (a, b) {
+		return {$: 'Append', a: a, b: b};
+	});
+var $elm$parser$Parser$Advanced$oneOfHelp = F3(
+	function (s0, bag, parsers) {
+		oneOfHelp:
+		while (true) {
+			if (!parsers.b) {
+				return A2($elm$parser$Parser$Advanced$Bad, false, bag);
+			} else {
+				var parse = parsers.a.a;
+				var remainingParsers = parsers.b;
+				var _v1 = parse(s0);
+				if (_v1.$ === 'Good') {
+					var step = _v1;
+					return step;
+				} else {
+					var step = _v1;
+					var p = step.a;
+					var x = step.b;
+					if (p) {
+						return step;
+					} else {
+						var $temp$s0 = s0,
+							$temp$bag = A2($elm$parser$Parser$Advanced$Append, bag, x),
+							$temp$parsers = remainingParsers;
+						s0 = $temp$s0;
+						bag = $temp$bag;
+						parsers = $temp$parsers;
+						continue oneOfHelp;
+					}
+				}
+			}
+		}
+	});
+var $elm$parser$Parser$Advanced$oneOf = function (parsers) {
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s) {
+			return A3($elm$parser$Parser$Advanced$oneOfHelp, s, $elm$parser$Parser$Advanced$Empty, parsers);
+		});
+};
+var $elm$parser$Parser$oneOf = $elm$parser$Parser$Advanced$oneOf;
+var $elm$parser$Parser$Advanced$succeed = function (a) {
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s) {
+			return A3($elm$parser$Parser$Advanced$Good, false, a, s);
+		});
+};
+var $elm$parser$Parser$succeed = $elm$parser$Parser$Advanced$succeed;
+var $elm$parser$Parser$ExpectingSymbol = function (a) {
+	return {$: 'ExpectingSymbol', a: a};
+};
+var $elm$parser$Parser$Advanced$Token = F2(
+	function (a, b) {
+		return {$: 'Token', a: a, b: b};
+	});
+var $elm$parser$Parser$Advanced$AddRight = F2(
+	function (a, b) {
+		return {$: 'AddRight', a: a, b: b};
+	});
+var $elm$parser$Parser$Advanced$DeadEnd = F4(
+	function (row, col, problem, contextStack) {
+		return {col: col, contextStack: contextStack, problem: problem, row: row};
+	});
+var $elm$parser$Parser$Advanced$fromState = F2(
+	function (s, x) {
+		return A2(
+			$elm$parser$Parser$Advanced$AddRight,
+			$elm$parser$Parser$Advanced$Empty,
+			A4($elm$parser$Parser$Advanced$DeadEnd, s.row, s.col, x, s.context));
+	});
+var $elm$parser$Parser$Advanced$isSubString = _Parser_isSubString;
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $elm$core$Basics$not = _Basics_not;
+var $elm$parser$Parser$Advanced$token = function (_v0) {
+	var str = _v0.a;
+	var expecting = _v0.b;
+	var progress = !$elm$core$String$isEmpty(str);
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s) {
+			var _v1 = A5($elm$parser$Parser$Advanced$isSubString, str, s.offset, s.row, s.col, s.src);
+			var newOffset = _v1.a;
+			var newRow = _v1.b;
+			var newCol = _v1.c;
+			return _Utils_eq(newOffset, -1) ? A2(
+				$elm$parser$Parser$Advanced$Bad,
+				false,
+				A2($elm$parser$Parser$Advanced$fromState, s, expecting)) : A3(
+				$elm$parser$Parser$Advanced$Good,
+				progress,
+				_Utils_Tuple0,
+				{col: newCol, context: s.context, indent: s.indent, offset: newOffset, row: newRow, src: s.src});
+		});
+};
+var $elm$parser$Parser$Advanced$symbol = $elm$parser$Parser$Advanced$token;
+var $elm$parser$Parser$symbol = function (str) {
+	return $elm$parser$Parser$Advanced$symbol(
+		A2(
+			$elm$parser$Parser$Advanced$Token,
+			str,
+			$elm$parser$Parser$ExpectingSymbol(str)));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Util$threeDashes = $elm$parser$Parser$symbol('---');
+var $elm$parser$Parser$Done = function (a) {
+	return {$: 'Done', a: a};
+};
+var $elm$parser$Parser$Loop = function (a) {
+	return {$: 'Loop', a: a};
+};
+var $elm$parser$Parser$Advanced$chompUntilEndOr = function (str) {
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s) {
+			var _v0 = A5(_Parser_findSubString, str, s.offset, s.row, s.col, s.src);
+			var newOffset = _v0.a;
+			var newRow = _v0.b;
+			var newCol = _v0.c;
+			var adjustedOffset = (newOffset < 0) ? $elm$core$String$length(s.src) : newOffset;
+			return A3(
+				$elm$parser$Parser$Advanced$Good,
+				_Utils_cmp(s.offset, adjustedOffset) < 0,
+				_Utils_Tuple0,
+				{col: newCol, context: s.context, indent: s.indent, offset: adjustedOffset, row: newRow, src: s.src});
+		});
+};
+var $elm$parser$Parser$Advanced$lineComment = function (start) {
+	return A2(
+		$elm$parser$Parser$Advanced$ignorer,
+		$elm$parser$Parser$Advanced$token(start),
+		$elm$parser$Parser$Advanced$chompUntilEndOr('\n'));
+};
+var $elm$parser$Parser$Expecting = function (a) {
+	return {$: 'Expecting', a: a};
+};
+var $elm$parser$Parser$toToken = function (str) {
+	return A2(
+		$elm$parser$Parser$Advanced$Token,
+		str,
+		$elm$parser$Parser$Expecting(str));
+};
+var $elm$parser$Parser$lineComment = function (str) {
+	return $elm$parser$Parser$Advanced$lineComment(
+		$elm$parser$Parser$toToken(str));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Util$comment = $elm$parser$Parser$lineComment('#');
+var $elm$parser$Parser$Advanced$loopHelp = F4(
+	function (p, state, callback, s0) {
+		loopHelp:
+		while (true) {
+			var _v0 = callback(state);
+			var parse = _v0.a;
+			var _v1 = parse(s0);
+			if (_v1.$ === 'Good') {
+				var p1 = _v1.a;
+				var step = _v1.b;
+				var s1 = _v1.c;
+				if (step.$ === 'Loop') {
+					var newState = step.a;
+					var $temp$p = p || p1,
+						$temp$state = newState,
+						$temp$callback = callback,
+						$temp$s0 = s1;
+					p = $temp$p;
+					state = $temp$state;
+					callback = $temp$callback;
+					s0 = $temp$s0;
+					continue loopHelp;
+				} else {
+					var result = step.a;
+					return A3($elm$parser$Parser$Advanced$Good, p || p1, result, s1);
+				}
+			} else {
+				var p1 = _v1.a;
+				var x = _v1.b;
+				return A2($elm$parser$Parser$Advanced$Bad, p || p1, x);
+			}
+		}
+	});
+var $elm$parser$Parser$Advanced$loop = F2(
+	function (state, callback) {
+		return $elm$parser$Parser$Advanced$Parser(
+			function (s) {
+				return A4($elm$parser$Parser$Advanced$loopHelp, false, state, callback, s);
+			});
+	});
+var $elm$parser$Parser$Advanced$map = F2(
+	function (func, _v0) {
+		var parse = _v0.a;
+		return $elm$parser$Parser$Advanced$Parser(
+			function (s0) {
+				var _v1 = parse(s0);
+				if (_v1.$ === 'Good') {
+					var p = _v1.a;
+					var a = _v1.b;
+					var s1 = _v1.c;
+					return A3(
+						$elm$parser$Parser$Advanced$Good,
+						p,
+						func(a),
+						s1);
+				} else {
+					var p = _v1.a;
+					var x = _v1.b;
+					return A2($elm$parser$Parser$Advanced$Bad, p, x);
+				}
+			});
+	});
+var $elm$parser$Parser$map = $elm$parser$Parser$Advanced$map;
+var $elm$parser$Parser$Advanced$Done = function (a) {
+	return {$: 'Done', a: a};
+};
+var $elm$parser$Parser$Advanced$Loop = function (a) {
+	return {$: 'Loop', a: a};
+};
+var $elm$parser$Parser$toAdvancedStep = function (step) {
+	if (step.$ === 'Loop') {
+		var s = step.a;
+		return $elm$parser$Parser$Advanced$Loop(s);
+	} else {
+		var a = step.a;
+		return $elm$parser$Parser$Advanced$Done(a);
+	}
+};
+var $elm$parser$Parser$loop = F2(
+	function (state, callback) {
+		return A2(
+			$elm$parser$Parser$Advanced$loop,
+			state,
+			function (s) {
+				return A2(
+					$elm$parser$Parser$map,
+					$elm$parser$Parser$toAdvancedStep,
+					callback(s));
+			});
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$Util$whitespace = function () {
+	var step = function (_v0) {
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						$elm$parser$Parser$Loop(_Utils_Tuple0)),
+					$MaybeJustJames$yaml$Yaml$Parser$Util$comment),
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						$elm$parser$Parser$Loop(_Utils_Tuple0)),
+					$elm$parser$Parser$symbol(' ')),
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						$elm$parser$Parser$Loop(_Utils_Tuple0)),
+					$elm$parser$Parser$symbol('\n')),
+					$elm$parser$Parser$succeed(
+					$elm$parser$Parser$Done(_Utils_Tuple0))
+				]));
+	};
+	return A2($elm$parser$Parser$loop, _Utils_Tuple0, step);
+}();
+var $MaybeJustJames$yaml$Yaml$Parser$Document$dashes = function (indent) {
+	return (indent === 1) ? $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				A2(
+				$elm$parser$Parser$ignorer,
+				A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed($elm$core$Basics$identity),
+					$MaybeJustJames$yaml$Yaml$Parser$Util$threeDashes),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+				A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($elm$core$Basics$identity),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)
+			])) : A2(
+		$elm$parser$Parser$ignorer,
+		$elm$parser$Parser$succeed($elm$core$Basics$identity),
+		$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace);
+};
+var $elm$parser$Parser$Advanced$getCol = $elm$parser$Parser$Advanced$Parser(
+	function (s) {
+		return A3($elm$parser$Parser$Advanced$Good, false, s.col, s);
+	});
+var $elm$parser$Parser$getCol = $elm$parser$Parser$Advanced$getCol;
+var $MaybeJustJames$yaml$Yaml$Parser$Document$begins = $elm$parser$Parser$oneOf(
+	_List_fromArray(
+		[
+			A2(
+			$elm$parser$Parser$ignorer,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($elm$core$Basics$identity),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+			A2($elm$parser$Parser$andThen, $MaybeJustJames$yaml$Yaml$Parser$Document$dashes, $elm$parser$Parser$getCol)),
+			A2(
+			$elm$parser$Parser$ignorer,
+			$elm$parser$Parser$succeed($elm$core$Basics$identity),
+			$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)
+		]));
+var $elm$parser$Parser$ExpectingEnd = {$: 'ExpectingEnd'};
+var $elm$parser$Parser$Advanced$end = function (x) {
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s) {
+			return _Utils_eq(
+				$elm$core$String$length(s.src),
+				s.offset) ? A3($elm$parser$Parser$Advanced$Good, false, _Utils_Tuple0, s) : A2(
+				$elm$parser$Parser$Advanced$Bad,
+				false,
+				A2($elm$parser$Parser$Advanced$fromState, s, x));
+		});
+};
+var $elm$parser$Parser$end = $elm$parser$Parser$Advanced$end($elm$parser$Parser$ExpectingEnd);
+var $MaybeJustJames$yaml$Yaml$Parser$Util$threeDots = $elm$parser$Parser$symbol('...');
+var $MaybeJustJames$yaml$Yaml$Parser$Document$ends = A2(
+	$elm$parser$Parser$ignorer,
+	A2(
+		$elm$parser$Parser$ignorer,
+		A2(
+			$elm$parser$Parser$ignorer,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($elm$core$Basics$identity),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+			$elm$parser$Parser$oneOf(
+				_List_fromArray(
+					[
+						$MaybeJustJames$yaml$Yaml$Parser$Util$threeDots,
+						$elm$parser$Parser$succeed(_Utils_Tuple0)
+					]))),
+		$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+	$elm$parser$Parser$end);
+var $elm$parser$Parser$Advanced$keeper = F2(
+	function (parseFunc, parseArg) {
+		return A3($elm$parser$Parser$Advanced$map2, $elm$core$Basics$apL, parseFunc, parseArg);
+	});
+var $elm$parser$Parser$keeper = $elm$parser$Parser$Advanced$keeper;
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_ = {$: 'Null_'};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$String_ = function (a) {
+	return {$: 'String_', a: a};
+};
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $elm$parser$Parser$chompUntilEndOr = $elm$parser$Parser$Advanced$chompUntilEndOr;
+var $elm$parser$Parser$Advanced$mapChompedString = F2(
+	function (func, _v0) {
+		var parse = _v0.a;
+		return $elm$parser$Parser$Advanced$Parser(
+			function (s0) {
+				var _v1 = parse(s0);
+				if (_v1.$ === 'Bad') {
+					var p = _v1.a;
+					var x = _v1.b;
+					return A2($elm$parser$Parser$Advanced$Bad, p, x);
+				} else {
+					var p = _v1.a;
+					var a = _v1.b;
+					var s1 = _v1.c;
+					return A3(
+						$elm$parser$Parser$Advanced$Good,
+						p,
+						A2(
+							func,
+							A3($elm$core$String$slice, s0.offset, s1.offset, s0.src),
+							a),
+						s1);
+				}
+			});
+	});
+var $elm$parser$Parser$Advanced$getChompedString = function (parser) {
+	return A2($elm$parser$Parser$Advanced$mapChompedString, $elm$core$Basics$always, parser);
+};
+var $elm$parser$Parser$getChompedString = $elm$parser$Parser$Advanced$getChompedString;
+var $MaybeJustJames$yaml$Yaml$Parser$Util$remaining = $elm$parser$Parser$getChompedString(
+	A2(
+		$elm$parser$Parser$ignorer,
+		$elm$parser$Parser$succeed(_Utils_Tuple0),
+		$elm$parser$Parser$chompUntilEndOr('\n...\n')));
+var $MaybeJustJames$yaml$Yaml$Parser$String$exceptions = function () {
+	var dashed = function (s) {
+		return '---' + s;
+	};
+	return $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+				$elm$parser$Parser$end),
+				A2(
+				$elm$parser$Parser$keeper,
+				A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						A2($elm$core$Basics$composeL, $MaybeJustJames$yaml$Yaml$Parser$Ast$String_, dashed)),
+					$MaybeJustJames$yaml$Yaml$Parser$Util$threeDashes),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$remaining),
+				A2(
+				$elm$parser$Parser$ignorer,
+				A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+					$MaybeJustJames$yaml$Yaml$Parser$Util$threeDots),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$remaining)
+			]));
+}();
+var $elm$parser$Parser$Advanced$isSubChar = _Parser_isSubChar;
+var $elm$parser$Parser$Advanced$chompWhileHelp = F5(
+	function (isGood, offset, row, col, s0) {
+		chompWhileHelp:
+		while (true) {
+			var newOffset = A3($elm$parser$Parser$Advanced$isSubChar, isGood, offset, s0.src);
+			if (_Utils_eq(newOffset, -1)) {
+				return A3(
+					$elm$parser$Parser$Advanced$Good,
+					_Utils_cmp(s0.offset, offset) < 0,
+					_Utils_Tuple0,
+					{col: col, context: s0.context, indent: s0.indent, offset: offset, row: row, src: s0.src});
+			} else {
+				if (_Utils_eq(newOffset, -2)) {
+					var $temp$isGood = isGood,
+						$temp$offset = offset + 1,
+						$temp$row = row + 1,
+						$temp$col = 1,
+						$temp$s0 = s0;
+					isGood = $temp$isGood;
+					offset = $temp$offset;
+					row = $temp$row;
+					col = $temp$col;
+					s0 = $temp$s0;
+					continue chompWhileHelp;
+				} else {
+					var $temp$isGood = isGood,
+						$temp$offset = newOffset,
+						$temp$row = row,
+						$temp$col = col + 1,
+						$temp$s0 = s0;
+					isGood = $temp$isGood;
+					offset = $temp$offset;
+					row = $temp$row;
+					col = $temp$col;
+					s0 = $temp$s0;
+					continue chompWhileHelp;
+				}
+			}
+		}
+	});
+var $elm$parser$Parser$Advanced$chompWhile = function (isGood) {
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s) {
+			return A5($elm$parser$Parser$Advanced$chompWhileHelp, isGood, s.offset, s.row, s.col, s);
+		});
+};
+var $elm$parser$Parser$chompWhile = $elm$parser$Parser$Advanced$chompWhile;
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var $elm$core$List$member = F2(
+	function (x, xs) {
+		return A2(
+			$elm$core$List$any,
+			function (a) {
+				return _Utils_eq(a, x);
+			},
+			xs);
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$refName = A2(
+	$elm$parser$Parser$keeper,
+	$elm$parser$Parser$succeed($elm$core$Basics$identity),
+	$elm$parser$Parser$getChompedString(
+		$elm$parser$Parser$chompWhile(
+			function (c) {
+				return !A2(
+					$elm$core$List$member,
+					c,
+					_List_fromArray(
+						[
+							_Utils_chr('\u000D'),
+							_Utils_chr('\n'),
+							_Utils_chr(' '),
+							_Utils_chr('\t'),
+							_Utils_chr(','),
+							_Utils_chr('['),
+							_Utils_chr(']'),
+							_Utils_chr('{'),
+							_Utils_chr('}')
+						]));
+			})));
+var $MaybeJustJames$yaml$Yaml$Parser$anchor = function (valParser) {
+	return A2(
+		$elm$parser$Parser$keeper,
+		A2(
+			$elm$parser$Parser$keeper,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Anchor_),
+				$elm$parser$Parser$symbol('&')),
+			A2($elm$parser$Parser$ignorer, $MaybeJustJames$yaml$Yaml$Parser$refName, $MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)),
+		A2($elm$parser$Parser$andThen, valParser, $elm$parser$Parser$getCol));
+};
+var $elm$parser$Parser$Advanced$backtrackable = function (_v0) {
+	var parse = _v0.a;
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s0) {
+			var _v1 = parse(s0);
+			if (_v1.$ === 'Bad') {
+				var x = _v1.b;
+				return A2($elm$parser$Parser$Advanced$Bad, false, x);
+			} else {
+				var a = _v1.b;
+				var s1 = _v1.c;
+				return A3($elm$parser$Parser$Advanced$Good, false, a, s1);
+			}
+		});
+};
+var $elm$parser$Parser$backtrackable = $elm$parser$Parser$Advanced$backtrackable;
+var $elm$parser$Parser$UnexpectedChar = {$: 'UnexpectedChar'};
+var $elm$parser$Parser$Advanced$chompIf = F2(
+	function (isGood, expecting) {
+		return $elm$parser$Parser$Advanced$Parser(
+			function (s) {
+				var newOffset = A3($elm$parser$Parser$Advanced$isSubChar, isGood, s.offset, s.src);
+				return _Utils_eq(newOffset, -1) ? A2(
+					$elm$parser$Parser$Advanced$Bad,
+					false,
+					A2($elm$parser$Parser$Advanced$fromState, s, expecting)) : (_Utils_eq(newOffset, -2) ? A3(
+					$elm$parser$Parser$Advanced$Good,
+					true,
+					_Utils_Tuple0,
+					{col: 1, context: s.context, indent: s.indent, offset: s.offset + 1, row: s.row + 1, src: s.src}) : A3(
+					$elm$parser$Parser$Advanced$Good,
+					true,
+					_Utils_Tuple0,
+					{col: s.col + 1, context: s.context, indent: s.indent, offset: newOffset, row: s.row, src: s.src}));
+			});
+	});
+var $elm$parser$Parser$chompIf = function (isGood) {
+	return A2($elm$parser$Parser$Advanced$chompIf, isGood, $elm$parser$Parser$UnexpectedChar);
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Util$characters_ = function (isOk) {
+	return $elm$parser$Parser$getChompedString(
+		A2(
+			$elm$parser$Parser$ignorer,
+			$elm$parser$Parser$succeed(_Utils_Tuple0),
+			$elm$parser$Parser$chompWhile(isOk)));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Util$is = F2(
+	function (searched, _char) {
+		return _Utils_eq(_char, searched);
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isDoubleQuote = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr('\"'));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isSpace = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr(' '));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$spaces = $elm$parser$Parser$chompWhile($MaybeJustJames$yaml$Yaml$Parser$Util$isSpace);
+var $MaybeJustJames$yaml$Yaml$Parser$Util$doubleQuotes = A2(
+	$elm$parser$Parser$keeper,
+	A2(
+		$elm$parser$Parser$ignorer,
+		$elm$parser$Parser$succeed($elm$core$Basics$identity),
+		$elm$parser$Parser$symbol('\"')),
+	A2(
+		$elm$parser$Parser$ignorer,
+		A2(
+			$elm$parser$Parser$ignorer,
+			$MaybeJustJames$yaml$Yaml$Parser$Util$characters_(
+				A2($elm$core$Basics$composeL, $elm$core$Basics$not, $MaybeJustJames$yaml$Yaml$Parser$Util$isDoubleQuote)),
+			$elm$parser$Parser$symbol('\"')),
+		$MaybeJustJames$yaml$Yaml$Parser$Util$spaces));
+var $elm$core$Set$Set_elm_builtin = function (a) {
+	return {$: 'Set_elm_builtin', a: a};
+};
+var $elm$core$Set$empty = $elm$core$Set$Set_elm_builtin($elm$core$Dict$empty);
+var $elm$core$Set$insert = F2(
+	function (key, _v0) {
+		var dict = _v0.a;
+		return $elm$core$Set$Set_elm_builtin(
+			A3($elm$core$Dict$insert, key, _Utils_Tuple0, dict));
+	});
+var $elm$core$Dict$member = F2(
+	function (key, dict) {
+		var _v0 = A2($elm$core$Dict$get, key, dict);
+		if (_v0.$ === 'Just') {
+			return true;
+		} else {
+			return false;
+		}
+	});
+var $elm$core$Set$member = F2(
+	function (key, _v0) {
+		var dict = _v0.a;
+		return A2($elm$core$Dict$member, key, dict);
+	});
+var $elm$core$Tuple$second = function (_v0) {
+	var y = _v0.b;
+	return y;
+};
+var $MaybeJustJames$yaml$Yaml$Parser$duplicatedPropertyKeys = function (properties) {
+	var keys = A2($elm$core$List$map, $elm$core$Tuple$first, properties);
+	var duplicated = A3(
+		$elm$core$List$foldr,
+		F2(
+			function (x, _v0) {
+				var obs = _v0.a;
+				var dup = _v0.b;
+				return A2($elm$core$Set$member, x, obs) ? _Utils_Tuple2(
+					obs,
+					A2($elm$core$Set$insert, x, dup)) : _Utils_Tuple2(
+					A2($elm$core$Set$insert, x, obs),
+					dup);
+			}),
+		_Utils_Tuple2($elm$core$Set$empty, $elm$core$Set$empty),
+		keys);
+	return $elm$core$Set$toList(duplicated.b);
+};
+var $elm$parser$Parser$Problem = function (a) {
+	return {$: 'Problem', a: a};
+};
+var $elm$parser$Parser$Advanced$problem = function (x) {
+	return $elm$parser$Parser$Advanced$Parser(
+		function (s) {
+			return A2(
+				$elm$parser$Parser$Advanced$Bad,
+				false,
+				A2($elm$parser$Parser$Advanced$fromState, s, x));
+		});
+};
+var $elm$parser$Parser$problem = function (msg) {
+	return $elm$parser$Parser$Advanced$problem(
+		$elm$parser$Parser$Problem(msg));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$duplicatedPropertyKeysCheck = function (properties) {
+	var duplicates = $MaybeJustJames$yaml$Yaml$Parser$duplicatedPropertyKeys(properties);
+	return (!$elm$core$List$length(duplicates)) ? $elm$parser$Parser$succeed(properties) : $elm$parser$Parser$problem(
+		'Non-unique keys in record: ' + A2($elm$core$String$join, ', ', duplicates));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_ = function (a) {
+	return {$: 'Bool_', a: a};
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_ = function (a) {
+	return {$: 'Float_', a: a};
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Int_ = function (a) {
+	return {$: 'Int_', a: a};
+};
+var $elm$core$String$toFloat = _String_toFloat;
+var $elm$core$String$trim = _String_trim;
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$fromString = function (string) {
+	var trimmed = $elm$core$String$trim(string);
+	var sign = function () {
+		if ($elm$core$String$length(trimmed) > 1) {
+			var _v3 = A2($elm$core$String$left, 1, trimmed);
+			switch (_v3) {
+				case '-':
+					return _Utils_Tuple2(
+						-1,
+						A2($elm$core$String$dropLeft, 1, trimmed));
+				case '+':
+					return _Utils_Tuple2(
+						1,
+						A2($elm$core$String$dropLeft, 1, trimmed));
+				default:
+					return _Utils_Tuple2(1, trimmed);
+			}
+		} else {
+			return _Utils_Tuple2(1, trimmed);
+		}
+	}();
+	switch (sign.b) {
+		case '':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_;
+		case '~':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_;
+		case 'null':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_;
+		case 'Null':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_;
+		case 'NULL':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_;
+		case 'true':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'True':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'TRUE':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'on':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'On':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'ON':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'y':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'Y':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'yes':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'Yes':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'YES':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(true);
+		case 'false':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'False':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'FALSE':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'off':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'Off':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'OFF':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'n':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'N':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'no':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'No':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case 'NO':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_(false);
+		case '.nan':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_(0 / 0);
+		case '.NaN':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_(0 / 0);
+		case '.NAN':
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_(0 / 0);
+		case '.inf':
+			var mult = sign.a;
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_((mult * 1) / 0);
+		case '.Inf':
+			var mult = sign.a;
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_((mult * 1) / 0);
+		case '.INF':
+			var mult = sign.a;
+			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_((mult * 1) / 0);
+		default:
+			var _v1 = $elm$core$String$toInt(trimmed);
+			if (_v1.$ === 'Just') {
+				var _int = _v1.a;
+				return $MaybeJustJames$yaml$Yaml$Parser$Ast$Int_(_int);
+			} else {
+				var _v2 = $elm$core$String$toFloat(trimmed);
+				if (_v2.$ === 'Just') {
+					var _float = _v2.a;
+					return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_(_float);
+				} else {
+					return $MaybeJustJames$yaml$Yaml$Parser$Ast$String_(
+						$elm$core$String$trim(trimmed));
+				}
+			}
+	}
+};
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Util$indented = F2(
+	function (indent, next) {
+		var check = function (actual) {
+			return $elm$parser$Parser$oneOf(
+				_List_fromArray(
+					[
+						A2(
+						$elm$parser$Parser$andThen,
+						function (_v0) {
+							return next.ending;
+						},
+						$elm$parser$Parser$end),
+						A2(
+						$elm$parser$Parser$andThen,
+						function (_v1) {
+							return next.ending;
+						},
+						$elm$parser$Parser$symbol('\n...\n')),
+						_Utils_eq(actual, indent) ? next.exactly : ((_Utils_cmp(actual, indent) > 0) ? next.larger(actual) : next.smaller)
+					]));
+		};
+		return A2(
+			$elm$parser$Parser$andThen,
+			check,
+			A2(
+				$elm$parser$Parser$keeper,
+				A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed($elm$core$Basics$identity),
+					$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+				$elm$parser$Parser$getCol));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isColon = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr(':'));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isListEnd = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr(']'));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isListStart = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr('['));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr('\n'));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr('}'));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordStart = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr('{'));
+var $MaybeJustJames$yaml$Yaml$Parser$listElementBegin = $elm$parser$Parser$oneOf(
+	_List_fromArray(
+		[
+			$elm$parser$Parser$symbol('- '),
+			$elm$parser$Parser$symbol('-\n')
+		]));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isComma = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr(','));
+var $MaybeJustJames$yaml$Yaml$Parser$listInlineOnDone = F2(
+	function (elements, element) {
+		return $elm$parser$Parser$Done(
+			$elm$core$List$reverse(
+				A2($elm$core$List$cons, element, elements)));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$listInlineOnMore = F2(
+	function (elements, element) {
+		return $elm$parser$Parser$Loop(
+			A2($elm$core$List$cons, element, elements));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$listInlineNext = F2(
+	function (elements, element) {
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						A2($MaybeJustJames$yaml$Yaml$Parser$listInlineOnMore, elements, element)),
+					$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isComma)),
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						A2($MaybeJustJames$yaml$Yaml$Parser$listInlineOnDone, elements, element)),
+					$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isListEnd))
+				]));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$Util$neither = F3(
+	function (f1, f2, _char) {
+		return (!f1(_char)) && (!f2(_char));
+	});
+var $elm$core$String$replace = F3(
+	function (before, after, string) {
+		return A2(
+			$elm$core$String$join,
+			after,
+			A2($elm$core$String$split, before, string));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$listInlineString = A2(
+	$elm$parser$Parser$map,
+	A2(
+		$elm$core$Basics$composeL,
+		$MaybeJustJames$yaml$Yaml$Parser$Ast$fromString,
+		A2($elm$core$String$replace, '\\', '\\\\')),
+	$elm$parser$Parser$getChompedString(
+		A2(
+			$elm$parser$Parser$ignorer,
+			$elm$parser$Parser$succeed(_Utils_Tuple0),
+			$elm$parser$Parser$chompWhile(
+				A2($MaybeJustJames$yaml$Yaml$Parser$Util$neither, $MaybeJustJames$yaml$Yaml$Parser$Util$isComma, $MaybeJustJames$yaml$Yaml$Parser$Util$isListEnd)))));
+var $elm$core$String$concat = function (strings) {
+	return A2($elm$core$String$join, '', strings);
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Util$characters = function (isOk) {
+	var more = F2(
+		function (chars, _char) {
+			return $elm$parser$Parser$Loop(
+				A2($elm$core$List$cons, _char, chars));
+		});
+	var done = function (chars) {
+		return $elm$parser$Parser$Done(
+			$elm$core$String$concat(
+				$elm$core$List$reverse(chars)));
+	};
+	var step = function (chars) {
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						done(chars)),
+					$MaybeJustJames$yaml$Yaml$Parser$Util$comment),
+					A2(
+					$elm$parser$Parser$map,
+					more(chars),
+					$elm$parser$Parser$getChompedString(
+						A2(
+							$elm$parser$Parser$ignorer,
+							$elm$parser$Parser$succeed(_Utils_Tuple0),
+							$elm$parser$Parser$chompIf(isOk)))),
+					$elm$parser$Parser$succeed(
+					done(chars))
+				]));
+	};
+	return A2($elm$parser$Parser$loop, _List_Nil, step);
+};
+var $MaybeJustJames$yaml$Yaml$Parser$Util$multilineStep = F2(
+	function (indent, lines) {
+		var multilineString = function (lines_) {
+			return A2(
+				$elm$core$String$join,
+				' ',
+				$elm$core$List$reverse(lines_));
+		};
+		var conclusion = F2(
+			function (line, indent_) {
+				return (_Utils_cmp(indent_, indent) > 0) ? $elm$parser$Parser$Loop(
+					A2($elm$core$List$cons, line, lines)) : $elm$parser$Parser$Done(
+					multilineString(
+						A2($elm$core$List$cons, line, lines)));
+			});
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					A2(
+					$elm$parser$Parser$keeper,
+					A2(
+						$elm$parser$Parser$keeper,
+						$elm$parser$Parser$succeed(conclusion),
+						A2(
+							$elm$parser$Parser$ignorer,
+							A2(
+								$elm$parser$Parser$ignorer,
+								$MaybeJustJames$yaml$Yaml$Parser$Util$characters(
+									A2($elm$core$Basics$composeL, $elm$core$Basics$not, $MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine)),
+								$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine)),
+							$MaybeJustJames$yaml$Yaml$Parser$Util$spaces)),
+					$elm$parser$Parser$getCol),
+					$elm$parser$Parser$succeed(
+					$elm$parser$Parser$Done(
+						multilineString(lines)))
+				]));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$Util$multiline = function (indent) {
+	return A2(
+		$elm$parser$Parser$loop,
+		_List_Nil,
+		$MaybeJustJames$yaml$Yaml$Parser$Util$multilineStep(indent));
+};
+var $elm$core$Tuple$pair = F2(
+	function (a, b) {
+		return _Utils_Tuple2(a, b);
+	});
+var $elm$regex$Regex$Match = F4(
+	function (match, index, number, submatches) {
+		return {index: index, match: match, number: number, submatches: submatches};
+	});
+var $elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
+var $elm$regex$Regex$fromString = function (string) {
+	return A2(
+		$elm$regex$Regex$fromStringWith,
+		{caseInsensitive: false, multiline: false},
+		string);
+};
+var $elm$regex$Regex$never = _Regex_never;
+var $elm$regex$Regex$replace = _Regex_replaceAtMost(_Regex_infinity);
+var $MaybeJustJames$yaml$Yaml$Parser$Util$postProcessString = function (str) {
+	var regexFromString = A2(
+		$elm$core$Basics$composeR,
+		$elm$regex$Regex$fromString,
+		$elm$core$Maybe$withDefault($elm$regex$Regex$never));
+	return A3(
+		$elm$regex$Regex$replace,
+		regexFromString('\\s\\s+'),
+		function (match) {
+			return A2($elm$core$String$contains, '\n\n', match.match) ? '\n' : ' ';
+		},
+		str);
+};
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlineOnDone = F2(
+	function (elements, element) {
+		return $elm$parser$Parser$Done(
+			$elm$core$List$reverse(
+				A2($elm$core$List$cons, element, elements)));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlineOnMore = F2(
+	function (elements, element) {
+		return $elm$parser$Parser$Loop(
+			A2($elm$core$List$cons, element, elements));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlineNext = F2(
+	function (elements, element) {
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						A2($MaybeJustJames$yaml$Yaml$Parser$recordInlineOnMore, elements, element)),
+					$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isComma)),
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(
+						A2($MaybeJustJames$yaml$Yaml$Parser$recordInlineOnDone, elements, element)),
+					$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd))
+				]));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$Util$neither3 = F4(
+	function (f1, f2, f3, _char) {
+		return (!f1(_char)) && ((!f2(_char)) && (!f3(_char)));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyNameString = A2(
+	$elm$parser$Parser$map,
+	$elm$core$String$trim,
+	$elm$parser$Parser$getChompedString(
+		A2(
+			$elm$parser$Parser$ignorer,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed(_Utils_Tuple0),
+				$elm$parser$Parser$chompWhile(
+					A3($MaybeJustJames$yaml$Yaml$Parser$Util$neither3, $MaybeJustJames$yaml$Yaml$Parser$Util$isColon, $MaybeJustJames$yaml$Yaml$Parser$Util$isComma, $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd))),
+			$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isSingleQuote = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
+	_Utils_chr('\''));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$singleQuotes = A2(
+	$elm$parser$Parser$keeper,
+	A2(
+		$elm$parser$Parser$ignorer,
+		$elm$parser$Parser$succeed(
+			A2($elm$core$String$replace, '\\', '\\\\')),
+		$elm$parser$Parser$symbol('\'')),
+	A2(
+		$elm$parser$Parser$ignorer,
+		A2(
+			$elm$parser$Parser$ignorer,
+			$MaybeJustJames$yaml$Yaml$Parser$Util$characters_(
+				A2($elm$core$Basics$composeL, $elm$core$Basics$not, $MaybeJustJames$yaml$Yaml$Parser$Util$isSingleQuote)),
+			$elm$parser$Parser$symbol('\'')),
+		$MaybeJustJames$yaml$Yaml$Parser$Util$spaces));
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyName = A2(
+	$elm$parser$Parser$keeper,
+	$elm$parser$Parser$succeed($elm$core$Basics$identity),
+	A2(
+		$elm$parser$Parser$ignorer,
+		A2(
+			$elm$parser$Parser$ignorer,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$oneOf(
+					_List_fromArray(
+						[$MaybeJustJames$yaml$Yaml$Parser$Util$singleQuotes, $MaybeJustJames$yaml$Yaml$Parser$Util$doubleQuotes, $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyNameString])),
+				$elm$parser$Parser$chompWhile($MaybeJustJames$yaml$Yaml$Parser$Util$isSpace)),
+			$elm$parser$Parser$oneOf(
+				_List_fromArray(
+					[
+						$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isColon),
+						$elm$parser$Parser$problem('I was parsing an inline record, when I ran into an invalid property. It is missing the \":\"!')
+					]))),
+		$elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine),
+					$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isSpace),
+					$elm$parser$Parser$problem('I was parsing an inline record, but missing a space or a new line between the \":\" and the value!')
+				]))));
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlineString = A2(
+	$elm$parser$Parser$map,
+	$MaybeJustJames$yaml$Yaml$Parser$Ast$fromString,
+	$elm$parser$Parser$getChompedString(
+		A2(
+			$elm$parser$Parser$ignorer,
+			$elm$parser$Parser$succeed(_Utils_Tuple0),
+			$elm$parser$Parser$chompWhile(
+				A2($MaybeJustJames$yaml$Yaml$Parser$Util$neither, $MaybeJustJames$yaml$Yaml$Parser$Util$isComma, $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd)))));
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Alias_ = function (a) {
+	return {$: 'Alias_', a: a};
+};
+var $MaybeJustJames$yaml$Yaml$Parser$reference = A2(
+	$elm$parser$Parser$keeper,
+	A2(
+		$elm$parser$Parser$ignorer,
+		$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Alias_),
+		$elm$parser$Parser$symbol('*')),
+	$MaybeJustJames$yaml$Yaml$Parser$refName);
+var $elm$parser$Parser$token = function (str) {
+	return $elm$parser$Parser$Advanced$token(
+		$elm$parser$Parser$toToken(str));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$list = function (indent) {
+	var confirmed = function (value_) {
+		return A2(
+			$elm$parser$Parser$keeper,
+			$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$List_),
+			A2(
+				$elm$parser$Parser$loop,
+				_List_fromArray(
+					[value_]),
+				$MaybeJustJames$yaml$Yaml$Parser$listStep(indent)));
+	};
+	return A2(
+		$elm$parser$Parser$andThen,
+		confirmed,
+		$MaybeJustJames$yaml$Yaml$Parser$listElement(indent));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$listElement = function (indent) {
+	return A2(
+		$elm$parser$Parser$keeper,
+		A2(
+			$elm$parser$Parser$ignorer,
+			$elm$parser$Parser$succeed($elm$core$Basics$identity),
+			$MaybeJustJames$yaml$Yaml$Parser$listElementBegin),
+		$MaybeJustJames$yaml$Yaml$Parser$listElementValue(indent));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$listElementValue = function (indent) {
+	var elVal = function (indent_) {
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline(),
+					$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline(),
+					$MaybeJustJames$yaml$Yaml$Parser$list(indent_),
+					A2($MaybeJustJames$yaml$Yaml$Parser$recordOrString, indent, indent_)
+				]));
+	};
+	return A2(
+		$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
+		indent,
+		{
+			ending: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+			exactly: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+			larger: function (indent_) {
+				return $elm$parser$Parser$oneOf(
+					_List_fromArray(
+						[
+							$MaybeJustJames$yaml$Yaml$Parser$anchor(elVal),
+							$MaybeJustJames$yaml$Yaml$Parser$reference,
+							elVal(indent_)
+						]));
+			},
+			smaller: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
+		});
+};
+var $MaybeJustJames$yaml$Yaml$Parser$listInlineStep = function (elements) {
+	return A2(
+		$elm$parser$Parser$andThen,
+		$MaybeJustJames$yaml$Yaml$Parser$listInlineNext(elements),
+		A2(
+			$elm$parser$Parser$keeper,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($elm$core$Basics$identity),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+			A2(
+				$elm$parser$Parser$ignorer,
+				$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue(),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$listStep = F2(
+	function (indent, values) {
+		var next = function (value_) {
+			return $elm$parser$Parser$Loop(
+				A2($elm$core$List$cons, value_, values));
+		};
+		var finish = $elm$parser$Parser$Done(
+			$elm$core$List$reverse(values));
+		return A2(
+			$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
+			indent,
+			{
+				ending: $elm$parser$Parser$succeed(finish),
+				exactly: $elm$parser$Parser$oneOf(
+					_List_fromArray(
+						[
+							A2(
+							$elm$parser$Parser$keeper,
+							$elm$parser$Parser$succeed(next),
+							$MaybeJustJames$yaml$Yaml$Parser$listElement(indent)),
+							$elm$parser$Parser$succeed(finish)
+						])),
+				larger: function (_v1) {
+					return $elm$parser$Parser$problem('I was looking for the next element but didn\'t find one.');
+				},
+				smaller: $elm$parser$Parser$succeed(finish)
+			});
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$quotedString = function (indent) {
+	var withQuote = function (quote) {
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					A2($MaybeJustJames$yaml$Yaml$Parser$recordProperty, indent, quote),
+					$elm$parser$Parser$succeed(
+					$MaybeJustJames$yaml$Yaml$Parser$Ast$String_(
+						$MaybeJustJames$yaml$Yaml$Parser$Util$postProcessString(quote)))
+				]));
+	};
+	return A2(
+		$elm$parser$Parser$andThen,
+		withQuote,
+		A2(
+			$elm$parser$Parser$keeper,
+			$elm$parser$Parser$succeed($elm$core$Basics$identity),
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$oneOf(
+					_List_fromArray(
+						[$MaybeJustJames$yaml$Yaml$Parser$Util$singleQuotes, $MaybeJustJames$yaml$Yaml$Parser$Util$doubleQuotes])),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$spaces)));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$record = F2(
+	function (indent, property) {
+		var confirmed = function (value_) {
+			return A2(
+				$elm$parser$Parser$map,
+				A2($elm$core$Basics$composeL, $MaybeJustJames$yaml$Yaml$Parser$Ast$Record_, $elm$core$Dict$fromList),
+				A2(
+					$elm$parser$Parser$andThen,
+					$MaybeJustJames$yaml$Yaml$Parser$duplicatedPropertyKeysCheck,
+					A2(
+						$elm$parser$Parser$keeper,
+						$elm$parser$Parser$succeed($elm$core$Basics$identity),
+						A2(
+							$elm$parser$Parser$loop,
+							_List_fromArray(
+								[
+									_Utils_Tuple2(property, value_)
+								]),
+							$MaybeJustJames$yaml$Yaml$Parser$recordStep(indent)))));
+		};
+		return A2(
+			$elm$parser$Parser$andThen,
+			confirmed,
+			$MaybeJustJames$yaml$Yaml$Parser$recordElementValue(indent));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$recordElement = function (indent) {
+	var property = $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				$MaybeJustJames$yaml$Yaml$Parser$Util$singleQuotes,
+				$MaybeJustJames$yaml$Yaml$Parser$Util$doubleQuotes,
+				$elm$parser$Parser$getChompedString(
+				$elm$parser$Parser$chompWhile(
+					A2($MaybeJustJames$yaml$Yaml$Parser$Util$neither, $MaybeJustJames$yaml$Yaml$Parser$Util$isColon, $MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine)))
+			]));
+	return A2(
+		$elm$parser$Parser$keeper,
+		A2(
+			$elm$parser$Parser$keeper,
+			$elm$parser$Parser$succeed($elm$core$Tuple$pair),
+			A2(
+				$elm$parser$Parser$ignorer,
+				A2($elm$parser$Parser$ignorer, property, $MaybeJustJames$yaml$Yaml$Parser$Util$spaces),
+				$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isColon))),
+		$MaybeJustJames$yaml$Yaml$Parser$recordElementValue(indent));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$recordElementValue = function (indent) {
+	var elVal = function (indent_) {
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline(),
+					$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline(),
+					$MaybeJustJames$yaml$Yaml$Parser$list(indent_),
+					A2($MaybeJustJames$yaml$Yaml$Parser$recordOrString, indent, indent_)
+				]));
+	};
+	return A2(
+		$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
+		indent,
+		{
+			ending: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+			exactly: $elm$parser$Parser$oneOf(
+				_List_fromArray(
+					[
+						$MaybeJustJames$yaml$Yaml$Parser$list(indent),
+						$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
+					])),
+			larger: function (indent_) {
+				return $elm$parser$Parser$oneOf(
+					_List_fromArray(
+						[
+							$MaybeJustJames$yaml$Yaml$Parser$anchor(elVal),
+							$MaybeJustJames$yaml$Yaml$Parser$reference,
+							elVal(indent_)
+						]));
+			},
+			smaller: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
+		});
+};
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlineStep = function (elements) {
+	return A2(
+		$elm$parser$Parser$andThen,
+		$MaybeJustJames$yaml$Yaml$Parser$recordInlineNext(elements),
+		A2(
+			$elm$parser$Parser$keeper,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($elm$core$Basics$identity),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+			A2(
+				$elm$parser$Parser$ignorer,
+				$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue(),
+				$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)));
+};
+var $MaybeJustJames$yaml$Yaml$Parser$recordOrString = F2(
+	function (indent, indent_) {
+		var removeComment = function (string) {
+			return A2(
+				$elm$core$Maybe$withDefault,
+				'',
+				$elm$core$List$head(
+					A2($elm$core$String$split, '#', string)));
+		};
+		var addRemaining = F2(
+			function (string, remaining) {
+				return $MaybeJustJames$yaml$Yaml$Parser$Ast$fromString(
+					$MaybeJustJames$yaml$Yaml$Parser$Util$postProcessString(
+						_Utils_ap(
+							removeComment(string),
+							remaining)));
+			});
+		var withString = function (string) {
+			return $elm$parser$Parser$oneOf(
+				_List_fromArray(
+					[
+						A2(
+						$elm$parser$Parser$ignorer,
+						$elm$parser$Parser$succeed(
+							$MaybeJustJames$yaml$Yaml$Parser$Ast$fromString(string)),
+						$elm$parser$Parser$end),
+						A2($MaybeJustJames$yaml$Yaml$Parser$recordProperty, indent_, string),
+						A2(
+						$elm$parser$Parser$keeper,
+						$elm$parser$Parser$succeed(
+							addRemaining(string)),
+						(!indent) ? $MaybeJustJames$yaml$Yaml$Parser$Util$remaining : $MaybeJustJames$yaml$Yaml$Parser$Util$multiline(indent))
+					]));
+		};
+		return $elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					$MaybeJustJames$yaml$Yaml$Parser$quotedString(indent_),
+					A2(
+					$elm$parser$Parser$andThen,
+					withString,
+					$elm$parser$Parser$getChompedString(
+						A2(
+							$elm$parser$Parser$ignorer,
+							A2(
+								$elm$parser$Parser$ignorer,
+								$elm$parser$Parser$succeed($elm$core$Basics$identity),
+								$elm$parser$Parser$chompIf(
+									A2($MaybeJustJames$yaml$Yaml$Parser$Util$neither, $MaybeJustJames$yaml$Yaml$Parser$Util$isColon, $MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine))),
+							$elm$parser$Parser$chompWhile(
+								A2($MaybeJustJames$yaml$Yaml$Parser$Util$neither, $MaybeJustJames$yaml$Yaml$Parser$Util$isColon, $MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine))))),
+					A2(
+					$elm$parser$Parser$andThen,
+					withString,
+					$elm$parser$Parser$getChompedString(
+						A2(
+							$elm$parser$Parser$ignorer,
+							$elm$parser$Parser$succeed($elm$core$Basics$identity),
+							$elm$parser$Parser$chompWhile($MaybeJustJames$yaml$Yaml$Parser$Util$isColon))))
+				]));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$recordProperty = F2(
+	function (indent, name) {
+		return A2(
+			$elm$parser$Parser$andThen,
+			$elm$core$Basics$identity,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed(
+					A2($MaybeJustJames$yaml$Yaml$Parser$record, indent, name)),
+				$elm$parser$Parser$oneOf(
+					_List_fromArray(
+						[
+							$elm$parser$Parser$token(': '),
+							$elm$parser$Parser$token(':\n'),
+							A2(
+							$elm$parser$Parser$ignorer,
+							$elm$parser$Parser$backtrackable(
+								$elm$parser$Parser$token(':')),
+							$elm$parser$Parser$end)
+						]))));
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$recordStep = F2(
+	function (indent, values) {
+		var next = function (value_) {
+			return $elm$parser$Parser$Loop(
+				A2($elm$core$List$cons, value_, values));
+		};
+		var finish = $elm$parser$Parser$Done(
+			$elm$core$List$reverse(values));
+		return A2(
+			$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
+			indent,
+			{
+				ending: $elm$parser$Parser$succeed(finish),
+				exactly: A2(
+					$elm$parser$Parser$keeper,
+					$elm$parser$Parser$succeed(next),
+					$MaybeJustJames$yaml$Yaml$Parser$recordElement(indent)),
+				larger: function (_v0) {
+					return $elm$parser$Parser$problem('I was looking for the next property but didn\'t find one.');
+				},
+				smaller: $elm$parser$Parser$succeed(finish)
+			});
+	});
+function $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue() {
+	return A2(
+		$elm$parser$Parser$keeper,
+		A2(
+			$elm$parser$Parser$keeper,
+			$elm$parser$Parser$succeed($elm$core$Tuple$pair),
+			A2($elm$parser$Parser$ignorer, $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyName, $MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)),
+		$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue());
+}
+function $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue() {
+	var propVal = $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline(),
+				$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline(),
+				$MaybeJustJames$yaml$Yaml$Parser$recordInlineString
+			]));
+	return $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				$MaybeJustJames$yaml$Yaml$Parser$anchor(
+				$elm$core$Basics$always(propVal)),
+				$MaybeJustJames$yaml$Yaml$Parser$reference,
+				propVal
+			]));
+}
+function $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue() {
+	var inlineVal = $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline(),
+				$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline(),
+				$MaybeJustJames$yaml$Yaml$Parser$quotedString(0),
+				$MaybeJustJames$yaml$Yaml$Parser$listInlineString
+			]));
+	return $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				$MaybeJustJames$yaml$Yaml$Parser$anchor(
+				$elm$core$Basics$always(inlineVal)),
+				$MaybeJustJames$yaml$Yaml$Parser$reference,
+				inlineVal
+			]));
+}
+function $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline() {
+	return A2(
+		$elm$parser$Parser$keeper,
+		A2(
+			$elm$parser$Parser$ignorer,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$List_),
+				$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isListStart)),
+			$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+		$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne());
+}
+function $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne() {
+	return $elm$parser$Parser$oneOf(
+		_List_fromArray(
+			[
+				A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed(_List_Nil),
+				$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isListEnd)),
+				A2(
+				$elm$parser$Parser$keeper,
+				$elm$parser$Parser$succeed($elm$core$Basics$identity),
+				A2($elm$parser$Parser$loop, _List_Nil, $MaybeJustJames$yaml$Yaml$Parser$listInlineStep))
+			]));
+}
+function $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline() {
+	return A2(
+		$elm$parser$Parser$keeper,
+		A2(
+			$elm$parser$Parser$ignorer,
+			A2(
+				$elm$parser$Parser$ignorer,
+				$elm$parser$Parser$succeed(
+					A2($elm$core$Basics$composeL, $MaybeJustJames$yaml$Yaml$Parser$Ast$Record_, $elm$core$Dict$fromList)),
+				$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isRecordStart)),
+			$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+		$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne());
+}
+function $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne() {
+	return A2(
+		$elm$parser$Parser$andThen,
+		$MaybeJustJames$yaml$Yaml$Parser$duplicatedPropertyKeysCheck,
+		$elm$parser$Parser$oneOf(
+			_List_fromArray(
+				[
+					A2(
+					$elm$parser$Parser$ignorer,
+					$elm$parser$Parser$succeed(_List_Nil),
+					$elm$parser$Parser$chompIf($MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd)),
+					A2(
+					$elm$parser$Parser$keeper,
+					$elm$parser$Parser$succeed($elm$core$Basics$identity),
+					A2($elm$parser$Parser$loop, _List_Nil, $MaybeJustJames$yaml$Yaml$Parser$recordInlineStep))
+				])));
+}
+try {
+	var $MaybeJustJames$yaml$Yaml$Parser$recordInlineValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue();
+	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue = function () {
+		return $MaybeJustJames$yaml$Yaml$Parser$recordInlineValue;
+	};
+	var $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue();
+	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue = function () {
+		return $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyValue;
+	};
+	var $MaybeJustJames$yaml$Yaml$Parser$listInlineValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue();
+	$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue = function () {
+		return $MaybeJustJames$yaml$Yaml$Parser$listInlineValue;
+	};
+	var $MaybeJustJames$yaml$Yaml$Parser$listInline = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline();
+	$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline = function () {
+		return $MaybeJustJames$yaml$Yaml$Parser$listInline;
+	};
+	var $MaybeJustJames$yaml$Yaml$Parser$listInlineStepOne = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne();
+	$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne = function () {
+		return $MaybeJustJames$yaml$Yaml$Parser$listInlineStepOne;
+	};
+	var $MaybeJustJames$yaml$Yaml$Parser$recordInline = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline();
+	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline = function () {
+		return $MaybeJustJames$yaml$Yaml$Parser$recordInline;
+	};
+	var $MaybeJustJames$yaml$Yaml$Parser$recordInlineStepOne = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne();
+	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne = function () {
+		return $MaybeJustJames$yaml$Yaml$Parser$recordInlineStepOne;
+	};
+} catch ($) {
+	throw 'Some top-level definitions from `Yaml.Parser` are causing infinite recursion:\n\n  ┌─────┐\n  │    list\n  │     ↓\n  │    listElement\n  │     ↓\n  │    listElementValue\n  │     ↓\n  │    recordInlineValue\n  │     ↓\n  │    recordInlinePropertyValue\n  │     ↓\n  │    listInlineValue\n  │     ↓\n  │    listInline\n  │     ↓\n  │    listInlineStepOne\n  │     ↓\n  │    listInlineStep\n  │     ↓\n  │    listStep\n  │     ↓\n  │    quotedString\n  │     ↓\n  │    record\n  │     ↓\n  │    recordElement\n  │     ↓\n  │    recordElementValue\n  │     ↓\n  │    recordInline\n  │     ↓\n  │    recordInlineStepOne\n  │     ↓\n  │    recordInlineStep\n  │     ↓\n  │    recordOrString\n  │     ↓\n  │    recordProperty\n  │     ↓\n  │    recordStep\n  └─────┘\n\nThese errors are very tricky, so read https://elm-lang.org/0.19.1/bad-recursion to learn how to fix it!';}
+var $MaybeJustJames$yaml$Yaml$Parser$value = $elm$parser$Parser$oneOf(
+	_List_fromArray(
+		[
+			$MaybeJustJames$yaml$Yaml$Parser$String$exceptions,
+			$MaybeJustJames$yaml$Yaml$Parser$recordInline,
+			$MaybeJustJames$yaml$Yaml$Parser$listInline,
+			A2($elm$parser$Parser$andThen, $MaybeJustJames$yaml$Yaml$Parser$list, $elm$parser$Parser$getCol),
+			A2(
+			$elm$parser$Parser$andThen,
+			$MaybeJustJames$yaml$Yaml$Parser$recordOrString(0),
+			$elm$parser$Parser$getCol)
+		]));
+var $MaybeJustJames$yaml$Yaml$Parser$parser = A2(
+	$elm$parser$Parser$keeper,
+	A2(
+		$elm$parser$Parser$ignorer,
+		A2(
+			$elm$parser$Parser$ignorer,
+			$elm$parser$Parser$succeed($elm$core$Basics$identity),
+			$MaybeJustJames$yaml$Yaml$Parser$Document$begins),
+		$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
+	A2($elm$parser$Parser$ignorer, $MaybeJustJames$yaml$Yaml$Parser$value, $MaybeJustJames$yaml$Yaml$Parser$Document$ends));
+var $elm$parser$Parser$DeadEnd = F3(
+	function (row, col, problem) {
+		return {col: col, problem: problem, row: row};
+	});
+var $elm$parser$Parser$problemToDeadEnd = function (p) {
+	return A3($elm$parser$Parser$DeadEnd, p.row, p.col, p.problem);
+};
+var $elm$parser$Parser$Advanced$bagToList = F2(
+	function (bag, list) {
+		bagToList:
+		while (true) {
+			switch (bag.$) {
+				case 'Empty':
+					return list;
+				case 'AddRight':
+					var bag1 = bag.a;
+					var x = bag.b;
+					var $temp$bag = bag1,
+						$temp$list = A2($elm$core$List$cons, x, list);
+					bag = $temp$bag;
+					list = $temp$list;
+					continue bagToList;
+				default:
+					var bag1 = bag.a;
+					var bag2 = bag.b;
+					var $temp$bag = bag1,
+						$temp$list = A2($elm$parser$Parser$Advanced$bagToList, bag2, list);
+					bag = $temp$bag;
+					list = $temp$list;
+					continue bagToList;
+			}
+		}
+	});
+var $elm$parser$Parser$Advanced$run = F2(
+	function (_v0, src) {
+		var parse = _v0.a;
+		var _v1 = parse(
+			{col: 1, context: _List_Nil, indent: 1, offset: 0, row: 1, src: src});
+		if (_v1.$ === 'Good') {
+			var value = _v1.b;
+			return $elm$core$Result$Ok(value);
+		} else {
+			var bag = _v1.b;
+			return $elm$core$Result$Err(
+				A2($elm$parser$Parser$Advanced$bagToList, bag, _List_Nil));
+		}
+	});
+var $elm$parser$Parser$run = F2(
+	function (parser, source) {
+		var _v0 = A2($elm$parser$Parser$Advanced$run, parser, source);
+		if (_v0.$ === 'Ok') {
+			var a = _v0.a;
+			return $elm$core$Result$Ok(a);
+		} else {
+			var problems = _v0.a;
+			return $elm$core$Result$Err(
+				A2($elm$core$List$map, $elm$parser$Parser$problemToDeadEnd, problems));
+		}
+	});
+var $MaybeJustJames$yaml$Yaml$Parser$fromString = A2(
+	$elm$core$Basics$composeR,
+	$elm$parser$Parser$run($MaybeJustJames$yaml$Yaml$Parser$parser),
+	A2(
+		$elm$core$Basics$composeR,
+		$elm$core$Result$mapError($MaybeJustJames$yaml$Yaml$Parser$deadEndsToString),
+		$elm$core$Result$map($MaybeJustJames$yaml$Yaml$Parser$deref)));
+var $MaybeJustJames$yaml$Yaml$Decode$fromString = F2(
+	function (decoder, raw) {
+		var _v0 = $MaybeJustJames$yaml$Yaml$Parser$fromString(raw);
+		if (_v0.$ === 'Ok') {
+			var v = _v0.a;
+			return A2($MaybeJustJames$yaml$Yaml$Decode$fromValue, decoder, v);
+		} else {
+			var error = _v0.a;
+			return $elm$core$Result$Err(
+				$MaybeJustJames$yaml$Yaml$Decode$Parsing(error));
+		}
+	});
+var $MaybeJustJames$yaml$Yaml$Decode$singleResult = function () {
+	var each = F2(
+		function (v, r) {
+			if (r.$ === 'Err') {
+				return r;
+			} else {
+				var vs = r.a;
+				if (v.$ === 'Ok') {
+					var vok = v.a;
+					return $elm$core$Result$Ok(
+						A2($elm$core$List$cons, vok, vs));
+				} else {
+					var err = v.a;
+					return $elm$core$Result$Err(err);
+				}
+			}
+		});
+	return A2(
+		$elm$core$Basics$composeR,
+		A2(
+			$elm$core$List$foldl,
+			each,
+			$elm$core$Result$Ok(_List_Nil)),
+		$elm$core$Result$map($elm$core$List$reverse));
+}();
+var $MaybeJustJames$yaml$Yaml$Decode$list = function (decoder) {
+	return $MaybeJustJames$yaml$Yaml$Decode$Decoder(
+		function (v) {
+			switch (v.$) {
+				case 'List_':
+					var list_ = v.a;
+					return $MaybeJustJames$yaml$Yaml$Decode$singleResult(
+						A2(
+							$elm$core$List$map,
+							$MaybeJustJames$yaml$Yaml$Decode$fromValue(decoder),
+							list_));
+				case 'Null_':
+					return $elm$core$Result$Ok(_List_Nil);
+				default:
+					return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'list', v);
+			}
+		});
+};
+var $author$project$Data$decodeReadingList = $MaybeJustJames$yaml$Yaml$Decode$fromString(
+	$MaybeJustJames$yaml$Yaml$Decode$list($author$project$Data$decoder));
 var $author$project$Data$reading = $elm$core$Dict$fromList(
 	_List_fromArray(
 		[
@@ -5573,123 +7924,6 @@ var $author$project$Data$reading = $elm$core$Dict$fromList(
 					_Utils_Tuple2('the big u', 'neal stephenson')
 				]))
 		]));
-var $author$project$Model$initialModel = F2(
-	function (route, key) {
-		return {
-			key: key,
-			nav: _List_fromArray(
-				[
-					_Utils_Tuple3('About', $author$project$Types$ShowAbout, $author$project$Types$AboutRoute),
-					_Utils_Tuple3('Writing', $author$project$Types$ShowWriting, $author$project$Types$WritingRoute),
-					_Utils_Tuple3('Reading', $author$project$Types$ShowReadingList, $author$project$Types$ReadingListRoute),
-					_Utils_Tuple3('Projects', $author$project$Types$ShowPortfolio, $author$project$Types$PortfolioRoute)
-				]),
-			projectDescriptions: $author$project$Data$projects,
-			readingList: $author$project$Data$reading,
-			route: route,
-			writingLinks: {poetryLinks: $author$project$Data$poetry, proseLinks: $author$project$Data$prose}
-		};
-	});
-var $elm$core$Platform$Cmd$batch = _Platform_batch;
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$Types$NotFoundRoute = {$: 'NotFoundRoute'};
-var $elm$url$Url$Parser$State = F5(
-	function (visited, unvisited, params, frag, value) {
-		return {frag: frag, params: params, unvisited: unvisited, value: value, visited: visited};
-	});
-var $elm$url$Url$Parser$getFirstMatch = function (states) {
-	getFirstMatch:
-	while (true) {
-		if (!states.b) {
-			return $elm$core$Maybe$Nothing;
-		} else {
-			var state = states.a;
-			var rest = states.b;
-			var _v1 = state.unvisited;
-			if (!_v1.b) {
-				return $elm$core$Maybe$Just(state.value);
-			} else {
-				if ((_v1.a === '') && (!_v1.b.b)) {
-					return $elm$core$Maybe$Just(state.value);
-				} else {
-					var $temp$states = rest;
-					states = $temp$states;
-					continue getFirstMatch;
-				}
-			}
-		}
-	}
-};
-var $elm$url$Url$Parser$removeFinalEmpty = function (segments) {
-	if (!segments.b) {
-		return _List_Nil;
-	} else {
-		if ((segments.a === '') && (!segments.b.b)) {
-			return _List_Nil;
-		} else {
-			var segment = segments.a;
-			var rest = segments.b;
-			return A2(
-				$elm$core$List$cons,
-				segment,
-				$elm$url$Url$Parser$removeFinalEmpty(rest));
-		}
-	}
-};
-var $elm$url$Url$Parser$preparePath = function (path) {
-	var _v0 = A2($elm$core$String$split, '/', path);
-	if (_v0.b && (_v0.a === '')) {
-		var segments = _v0.b;
-		return $elm$url$Url$Parser$removeFinalEmpty(segments);
-	} else {
-		var segments = _v0;
-		return $elm$url$Url$Parser$removeFinalEmpty(segments);
-	}
-};
-var $elm$url$Url$Parser$addToParametersHelp = F2(
-	function (value, maybeList) {
-		if (maybeList.$ === 'Nothing') {
-			return $elm$core$Maybe$Just(
-				_List_fromArray(
-					[value]));
-		} else {
-			var list = maybeList.a;
-			return $elm$core$Maybe$Just(
-				A2($elm$core$List$cons, value, list));
-		}
-	});
-var $elm$url$Url$percentDecode = _Url_percentDecode;
-var $elm$core$Dict$get = F2(
-	function (targetKey, dict) {
-		get:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var key = dict.b;
-				var value = dict.c;
-				var left = dict.d;
-				var right = dict.e;
-				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
-				switch (_v1.$) {
-					case 'LT':
-						var $temp$targetKey = targetKey,
-							$temp$dict = left;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-					case 'EQ':
-						return $elm$core$Maybe$Just(value);
-					default:
-						var $temp$targetKey = targetKey,
-							$temp$dict = right;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-				}
-			}
-		}
-	});
 var $elm$core$Dict$getMin = function (dict) {
 	getMin:
 	while (true) {
@@ -6063,6 +8297,228 @@ var $elm$core$Dict$update = F3(
 			return A2($elm$core$Dict$remove, targetKey, dictionary);
 		}
 	});
+var $elm$core$Result$withDefault = F2(
+	function (def, result) {
+		if (result.$ === 'Ok') {
+			var a = result.a;
+			return a;
+		} else {
+			return def;
+		}
+	});
+var $author$project$Data$mkReadingList = function (ymlString) {
+	var list = A2(
+		$elm$core$Result$withDefault,
+		_List_Nil,
+		$author$project$Data$decodeReadingList(ymlString));
+	var addEntryToList = F2(
+		function (book, acc) {
+			return A3(
+				$elm$core$Dict$update,
+				book.year,
+				function (entries) {
+					return $elm$core$Maybe$Just(
+						A2(
+							$elm$core$List$cons,
+							_Utils_Tuple2(book.title, book.author),
+							A2($elm$core$Maybe$withDefault, _List_Nil, entries)));
+				},
+				acc);
+		});
+	var readingList = A3($elm$core$List$foldr, addEntryToList, $author$project$Data$reading, list);
+	return readingList;
+};
+var $author$project$Data$poetry = _List_fromArray(
+	[
+		_Utils_Tuple2('http://muumuuhouse.com/wp.07jun2021.html', 'Three Poems From L-Theanine (muumuu house)'),
+		_Utils_Tuple2('http://thenervousbreakdown.com/willisplummer/2020/10/three-poems-from-mons-pubis/', 'Three Poems From MONS PUBIS (The Nervous Breakdown)'),
+		_Utils_Tuple2('http://quick-books.biz/', 'The Book of Judith (quickbooks, pamphlet, ltd run of 100)'),
+		_Utils_Tuple2('https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers', 'wild horse rappers (with precious okoyomon)'),
+		_Utils_Tuple2('http://muumuuhouse.com/wp.22may2017.html', '10,000 year clock (muumuu house)'),
+		_Utils_Tuple2('http://www.bodegamag.com/articles/172-bros', 'bros (bodega mag)'),
+		_Utils_Tuple2('http://darkfuckingwizard.com/three-poems/', '3 poems (dark fucking wizard)'),
+		_Utils_Tuple2('http://muumuuhouse.com/wp.13nov2014.html', '14 haiku (muumuu house)'),
+		_Utils_Tuple2('https://preludemag.com/contributors/willis-plummer/', '3 poems (prelude magazine)'),
+		_Utils_Tuple2('https://genius.com/Willis-plummer-good-and-beautiful-annotated', 'good and beautiful (2014 judith lobel arkin prize honorable mention)'),
+		_Utils_Tuple2('http://www.hobartpulp.com/web_features/5-poems--8', '5 poems (hobartpulp)')
+	]);
+var $author$project$Data$projects = _List_fromArray(
+	[
+		{
+		description: '\n        My latest gamedev project has been implementing Tetris in my Swift-Metal \'framework\'.\n        So far, I\'m around 80% fidelity. It\'s been a lot of fun learning how Tetris really works.\n        Did you know that on initial release, every country\'s version had slightly different rules\n        and functionality?\n    ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/metal-tetris', 'github')
+			]),
+		title: 'Tetris on Metal'
+	},
+		{
+		description: '\n                        In an effort to learn video game development I reimplemented Snake\n                        in Godot. Then I wrote it again in Swift using Metal to interface\n                        directly with the GPU.\n                      ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/godot-snake', 'godot implementation'),
+				_Utils_Tuple2('https://github.com/willisplummer/metal-snake', 'swift + metal')
+			]),
+		title: 'Two Implementations of Snake'
+	},
+		{
+		description: '\n                       A small nodejs application to enable public interviews performed via SMS.\n                       Participants generate a proxy number via Twilio and then send message there.\n                       The messages are forwarded back and forth like a normal text conversation and appear on the site as well.\n                        ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/public-texting', 'github')
+			]),
+		title: 'Public Texting'
+	},
+		{
+		description: '\n                        A Tic Tac Toe API that recurses through every possible move and chooses the option with the most winning outcomes.\n                        Written as an opportunity to experiment with ReasonML.\n                      ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/reason-react-tictac', 'github')
+			]),
+		title: 'Tic Tac Toe AI'
+	},
+		{
+		description: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for handling navigation and cursor events.\n                        ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://willisplummer.github.io/demo-squares/', 'site'),
+				_Utils_Tuple2('https://github.com/willisplummer/demo-squares', 'github')
+			]),
+		title: 'A Colorful Landing Page'
+	},
+		{
+		description: '\n                        A standalone page for Kickstarter\'s Experts program.\n                        Implemented in React with atomic classes generated via SCSS.\n                        The list of Experts is sourced from a Rails controller.\n                      ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://www.kickstarter.com/experts', 'site')
+			]),
+		title: 'Kickstarter Experts'
+	},
+		{
+		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/elm-personal-website', 'github')
+			]),
+		title: 'This Portfolio Site'
+	},
+		{
+		description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('https://github.com/willisplummer/mta_alexa_app', 'github')
+			]),
+		title: 'MTA Bus Times App for Amazon Echo'
+	},
+		{
+		description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
+		links: _List_fromArray(
+			[
+				_Utils_Tuple2('http://westernbeefs.com/', 'site'),
+				_Utils_Tuple2('https://github.com/willisplummer/westernbeefs', 'github')
+			]),
+		title: 'Western Beefs of North America'
+	}
+	]);
+var $author$project$Data$prose = _List_fromArray(
+	[
+		_Utils_Tuple2('https://thecreativeindependent.com/people/visual-artists-andrew-zebulon-and-kristen-wintercheck-on-letting-your-materials-guide-you/', 'kristen wintercheck and andrew zebulon on letting your materials guide you'),
+		_Utils_Tuple2('https://thecreativeindependent.com/people/poet-matthew-rohrer-on-challenging-your-own-process/', 'matthew rohrer on challenging your own process'),
+		_Utils_Tuple2('http://thenervousbreakdown.com/willisplummer/2018/11/two-stories/', 'two stories (the nervous breakdown)'),
+		_Utils_Tuple2('https://thecreativeindependent.com/people/writer-megan-boyle-on-documenting-your-entire-life-in-your-creative-work/', 'megan boyle on documenting your entire life in your creative work'),
+		_Utils_Tuple2('https://thecreativeindependent.com/people/poet-andrew-weatherhead-on-hijacking-language/', 'andrew weatherhead on hijacking language'),
+		_Utils_Tuple2('https://thecreativeindependent.com/people/tao-lin-on-why-he-writes/', 'tao lin on why he writes'),
+		_Utils_Tuple2('https://thecreativeindependent.com/people/precious-okoyomon-on-finding-poetry-in-everything/', 'precious okoyomon on finding poetry in everything'),
+		_Utils_Tuple2('https://medium.com/kickstarter/total-party-kill-3898fb82b5fb#.31wxy6hzl', 'total party kill: the architects of dungeons and dragons'),
+		_Utils_Tuple2('http://thoughtcatalog.com/2013/not-even-doom-music-an-interview-with-mat-riviere/', 'not even doom music: an interview with mat riviere'),
+		_Utils_Tuple2('http://thoughtcatalog.com/2013/an-interview-with-nytyrant-in-four-parts/', 'an interview with ny tyrant in four parts')
+	]);
+var $author$project$Model$initialModel = F3(
+	function (ymlReadingList, route, key) {
+		return {
+			key: key,
+			nav: _List_fromArray(
+				[
+					_Utils_Tuple3('About', $author$project$Types$ShowAbout, $author$project$Types$AboutRoute),
+					_Utils_Tuple3('Writing', $author$project$Types$ShowWriting, $author$project$Types$WritingRoute),
+					_Utils_Tuple3('Reading', $author$project$Types$ShowReadingList, $author$project$Types$ReadingListRoute),
+					_Utils_Tuple3('Projects', $author$project$Types$ShowPortfolio, $author$project$Types$PortfolioRoute)
+				]),
+			projectDescriptions: $author$project$Data$projects,
+			readingList: $author$project$Data$mkReadingList(ymlReadingList),
+			route: route,
+			writingLinks: {poetryLinks: $author$project$Data$poetry, proseLinks: $author$project$Data$prose}
+		};
+	});
+var $elm$core$Platform$Cmd$batch = _Platform_batch;
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$Types$NotFoundRoute = {$: 'NotFoundRoute'};
+var $elm$url$Url$Parser$State = F5(
+	function (visited, unvisited, params, frag, value) {
+		return {frag: frag, params: params, unvisited: unvisited, value: value, visited: visited};
+	});
+var $elm$url$Url$Parser$getFirstMatch = function (states) {
+	getFirstMatch:
+	while (true) {
+		if (!states.b) {
+			return $elm$core$Maybe$Nothing;
+		} else {
+			var state = states.a;
+			var rest = states.b;
+			var _v1 = state.unvisited;
+			if (!_v1.b) {
+				return $elm$core$Maybe$Just(state.value);
+			} else {
+				if ((_v1.a === '') && (!_v1.b.b)) {
+					return $elm$core$Maybe$Just(state.value);
+				} else {
+					var $temp$states = rest;
+					states = $temp$states;
+					continue getFirstMatch;
+				}
+			}
+		}
+	}
+};
+var $elm$url$Url$Parser$removeFinalEmpty = function (segments) {
+	if (!segments.b) {
+		return _List_Nil;
+	} else {
+		if ((segments.a === '') && (!segments.b.b)) {
+			return _List_Nil;
+		} else {
+			var segment = segments.a;
+			var rest = segments.b;
+			return A2(
+				$elm$core$List$cons,
+				segment,
+				$elm$url$Url$Parser$removeFinalEmpty(rest));
+		}
+	}
+};
+var $elm$url$Url$Parser$preparePath = function (path) {
+	var _v0 = A2($elm$core$String$split, '/', path);
+	if (_v0.b && (_v0.a === '')) {
+		var segments = _v0.b;
+		return $elm$url$Url$Parser$removeFinalEmpty(segments);
+	} else {
+		var segments = _v0;
+		return $elm$url$Url$Parser$removeFinalEmpty(segments);
+	}
+};
+var $elm$url$Url$Parser$addToParametersHelp = F2(
+	function (value, maybeList) {
+		if (maybeList.$ === 'Nothing') {
+			return $elm$core$Maybe$Just(
+				_List_fromArray(
+					[value]));
+		} else {
+			var list = maybeList.a;
+			return $elm$core$Maybe$Just(
+				A2($elm$core$List$cons, value, list));
+		}
+	});
+var $elm$url$Url$percentDecode = _Url_percentDecode;
 var $elm$url$Url$Parser$addParam = F2(
 	function (segment, dict) {
 		var _v0 = A2($elm$core$String$split, '=', segment);
@@ -6235,15 +8691,6 @@ var $author$project$Routing$route = $elm$url$Url$Parser$oneOf(
 			$author$project$Types$ReadingListRoute,
 			$elm$url$Url$Parser$s('reading-list'))
 		]));
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var $author$project$Routing$parseUrl = function (url) {
 	return A2(
 		$elm$core$Maybe$withDefault,
@@ -6259,16 +8706,18 @@ var $author$project$Routing$parseUrl = function (url) {
 				})));
 };
 var $author$project$Model$init = F3(
-	function (flags, url, key) {
+	function (ymlReadingList, url, key) {
 		return _Utils_Tuple2(
-			A2(
+			A3(
 				$author$project$Model$initialModel,
+				ymlReadingList,
 				$author$project$Routing$parseUrl(url),
 				key),
 			$elm$core$Platform$Cmd$none);
 	});
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $elm$json$Json$Decode$string = _Json_decodeString;
 var $elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
 var $author$project$Update$update = F2(
 	function (msg, model) {
@@ -6924,11 +9373,6 @@ var $elm$virtual_dom$VirtualDom$attribute = F2(
 			_VirtualDom_noJavaScriptOrHtmlUri(value));
 	});
 var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
-var $elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
 var $tesk9$accessible_html$Accessibility$Utils$aria = A2(
 	$elm$core$Basics$composeL,
 	$elm$html$Html$Attributes$attribute,
@@ -7036,5 +9480,4 @@ var $author$project$Main$main = $elm$browser$Browser$application(
 		update: $author$project$Update$update,
 		view: $author$project$View$view
 	});
-_Platform_export({'Main':{'init':$author$project$Main$main(
-	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
+_Platform_export({'Main':{'init':$author$project$Main$main($elm$json$Json$Decode$string)(0)}});}(this));

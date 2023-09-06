@@ -10,7 +10,9 @@
 	</body>
 	<script src="elm.min.js"></script>
 	<script>
+		fetch('reading-list.yml').then(res => res.text()).then(yml => {	
 			var node = document.getElementById('main');
-			var app = Elm.Main.init({node});
+			var app = Elm.Main.init({node, flags: yml});
+		}) 
 	</script>
 </html>
