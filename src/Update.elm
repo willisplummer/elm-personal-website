@@ -1,10 +1,11 @@
 module Update exposing (..)
 
-import Browser.Navigation exposing (pushUrl)
+import Browser
+import Browser.Navigation as Nav exposing (pushUrl)
 import Routing exposing (parseUrl)
 import Url.Builder exposing (relative)
 import Types exposing (..)
-
+import Url
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -23,6 +24,14 @@ update msg model =
 
         Noop ->
             ( model, Cmd.none )
+
+        LinkClicked urlRequest ->
+           case urlRequest of
+                Browser.Internal url ->
+                  ( model, pushUrl model.key (Url.toString url) )
+
+                Browser.External href ->
+                  ( model, Nav.load href )
 
         UrlChange location ->
             let

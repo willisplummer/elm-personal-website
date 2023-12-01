@@ -51,7 +51,7 @@ content model =
                     [ text "Since 2020, I've been doing project based consulting for a bunch of companies including:"
                     , ul []
                         [ li []
-                            [ a [ href "https://www.meredithmonk.org/" ] [ text "The House Foundation" ]
+                            [ a [ href "https://www.meredithmonk.org/", target "_blank" ] [ text "The House Foundation" ]
                             ]
                         , li []
                             [ a [ href "https://photoassist.com/" ] [ text "PhotoAssist" ]

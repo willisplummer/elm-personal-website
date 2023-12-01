@@ -6,7 +6,7 @@
     "build": "./build.sh"
   },
   "dependencies": {
-    "elm": "0.19.1-5"
+    "elm": "0.19.1"
   },
   "devDependencies": {
     "elm-live": "^4.0.2",

@@ -1,8 +1,8 @@
 module Types exposing (..)
 
+import Browser
 import Browser.Navigation exposing (Key)
 import Dict exposing (Dict)
-import Browser.Navigation exposing (Key)
 import Url exposing (Url)
 
 type Route
@@ -66,4 +66,5 @@ type Msg
     | ShowPortfolio
     | ShowReadingList
     | UrlChange Url
+    | LinkClicked Browser.UrlRequest
     | Noop

@@ -14,7 +14,7 @@ main =
         , view = view
         , update = update
         , subscriptions = \_ -> Sub.none
-        , onUrlRequest = \_ -> Noop
         , onUrlChange = UrlChange
+        , onUrlRequest = LinkClicked
         }
 
