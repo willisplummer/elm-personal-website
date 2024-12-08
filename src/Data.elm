@@ -328,7 +328,7 @@ projects =
       }
      ,{ title = "Tic Tac Toe AI" 
       , description = """
-                        A Tic Tac Toe API that recurses through every possible move and chooses the option with the most winning outcomes.
+                        A Tic Tac Toe AI that recurses through every possible move and chooses the option with the most winning outcomes.
                         Written as an opportunity to experiment with ReasonML.
                       """
       , links = [ ("https://github.com/willisplummer/reason-react-tictac", "github")]
