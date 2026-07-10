@@ -18,9 +18,9 @@ if !committing_elm
 
 ERROR: To commit to gh-pages, run the following command
 
-> elm-make Main.elm
+> ./build.sh
 
-then add the the latest version of index.html to your staged changes
+then add the latest version of elm.js / elm.min.js to your staged changes
 
 Include '-n' to bypass this check.
 
