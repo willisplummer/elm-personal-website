@@ -48,7 +48,7 @@ content model =
         AboutRoute ->
             div [ class "content" ]
                 [ p [] [ text "Hi, I'm Willis. I live in New York. I write code, poetry, and fiction." ]
-                , p [] [ text "I work at Patreon on the Creator Insights team as a Senior Software Developer." ]
+                , p [] [ text "I work at Patreon on the Creator Insights team as a Senior Software Engineer." ]
                 , p []
                     [ text "From 2020 to 2025, I did project-based consulting for a bunch of companies including:"
                     , ul []

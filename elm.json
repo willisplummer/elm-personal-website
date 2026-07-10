@@ -8,7 +8,7 @@
         "direct": {
             "MaybeJustJames/yaml": "2.1.4",
             "elm/browser": "1.0.0",
-            "elm/core": "1.0.0",
+            "elm/core": "1.0.5",
             "elm/html": "1.0.0",
             "elm/json": "1.0.0",
             "elm/url": "1.0.0",
@@ -23,9 +23,10 @@
     },
     "test-dependencies": {
         "direct": {
-            "elm-explorations/test": "1.2.2"
+            "elm-explorations/test": "2.2.1"
         },
         "indirect": {
+            "elm/bytes": "1.0.8",
             "elm/random": "1.0.0"
         }
     }

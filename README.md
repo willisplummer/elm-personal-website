@@ -3,11 +3,14 @@
 A static personal website written in [Elm](https://elm-lang.org/). It's a plain
 HTML + JS + data-file project — no npm/node_modules install step:
 
-- `index.html` — the deployed page shell; loads the compiled `elm.min.js` and fetches `reading-list.yml`
-- `dev.html` — local-dev page shell; same as `index.html` but loads the unminified `elm.js` (used by `make dev`)
+- `index.html` — the deployed page shell; loads the compiled `elm.min.js` and
+  fetches `reading-list.yml`
+- `dev.html` — local-dev page shell; same as `index.html` but loads the
+  unminified `elm.js` (used by `make dev`)
 - `Main.elm` / `src/` — the Elm source
 - `reading-list.yml` — content rendered by the app at runtime
-- `elm.js` / `elm.min.js` — the compiled output, committed so GitHub Pages can serve it
+- `elm.js` / `elm.min.js` — the compiled output, committed so GitHub Pages can
+  serve it
 
 ## DEV ENVIRONMENT
 
@@ -85,7 +88,3 @@ There's a pre-commit hook that reminds you to rebuild before committing to
 ```
 $ cp hooks/pre-commit .git/hooks/pre-commit
 ```
-
-## TO DO's
-
-- [ ] improve deploy to gh-pages workflow

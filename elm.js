@@ -77,7 +77,7 @@ function A9(fun, a, b, c, d, e, f, g, h, i) {
   return fun.a === 9 ? fun.f(a, b, c, d, e, f, g, h, i) : fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
 }
 
-console.warn('Compiled in DEV mode. Follow the advice at https://elm-lang.org/0.19.1/optimize for better performance and smaller assets.');
+
 
 
 // EQUALITY
@@ -96,12 +96,6 @@ function _Utils_eq(x, y)
 
 function _Utils_eqHelp(x, y, depth, stack)
 {
-	if (depth > 100)
-	{
-		stack.push(_Utils_Tuple2(x,y));
-		return true;
-	}
-
 	if (x === y)
 	{
 		return true;
@@ -113,7 +107,13 @@ function _Utils_eqHelp(x, y, depth, stack)
 		return false;
 	}
 
-	/**/
+	if (depth > 100)
+	{
+		stack.push(_Utils_Tuple2(x,y));
+		return true;
+	}
+
+	/**_UNUSED/
 	if (x.$ === 'Set_elm_builtin')
 	{
 		x = $elm$core$Set$toList(x);
@@ -126,7 +126,7 @@ function _Utils_eqHelp(x, y, depth, stack)
 	}
 	//*/
 
-	/**_UNUSED/
+	/**/
 	if (x.$ < 0)
 	{
 		x = $elm$core$Dict$toList(x);
@@ -161,7 +161,7 @@ function _Utils_cmp(x, y, ord)
 		return x === y ? /*EQ*/ 0 : x < y ? /*LT*/ -1 : /*GT*/ 1;
 	}
 
-	/**/
+	/**_UNUSED/
 	if (x instanceof String)
 	{
 		var a = x.valueOf();
@@ -170,10 +170,10 @@ function _Utils_cmp(x, y, ord)
 	}
 	//*/
 
-	/**_UNUSED/
-	if (!x.$)
-	//*/
 	/**/
+	if (typeof x.$ === 'undefined')
+	//*/
+	/**_UNUSED/
 	if (x.$[0] === '#')
 	//*/
 	{
@@ -203,17 +203,17 @@ var _Utils_compare = F2(function(x, y)
 
 // COMMON VALUES
 
-var _Utils_Tuple0_UNUSED = 0;
-var _Utils_Tuple0 = { $: '#0' };
+var _Utils_Tuple0 = 0;
+var _Utils_Tuple0_UNUSED = { $: '#0' };
 
-function _Utils_Tuple2_UNUSED(a, b) { return { a: a, b: b }; }
-function _Utils_Tuple2(a, b) { return { $: '#2', a: a, b: b }; }
+function _Utils_Tuple2(a, b) { return { a: a, b: b }; }
+function _Utils_Tuple2_UNUSED(a, b) { return { $: '#2', a: a, b: b }; }
 
-function _Utils_Tuple3_UNUSED(a, b, c) { return { a: a, b: b, c: c }; }
-function _Utils_Tuple3(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
+function _Utils_Tuple3(a, b, c) { return { a: a, b: b, c: c }; }
+function _Utils_Tuple3_UNUSED(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
 
-function _Utils_chr_UNUSED(c) { return c; }
-function _Utils_chr(c) { return new String(c); }
+function _Utils_chr(c) { return c; }
+function _Utils_chr_UNUSED(c) { return new String(c); }
 
 
 // RECORDS
@@ -264,11 +264,11 @@ function _Utils_ap(xs, ys)
 
 
 
-var _List_Nil_UNUSED = { $: 0 };
-var _List_Nil = { $: '[]' };
+var _List_Nil = { $: 0 };
+var _List_Nil_UNUSED = { $: '[]' };
 
-function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
-function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
+function _List_Cons(hd, tl) { return { $: 1, a: hd, b: tl }; }
+function _List_Cons_UNUSED(hd, tl) { return { $: '::', a: hd, b: tl }; }
 
 
 var _List_cons = F2(_List_Cons);
@@ -499,12 +499,12 @@ var _JsArray_appendN = F3(function(n, dest, source)
 
 // LOG
 
-var _Debug_log_UNUSED = F2(function(tag, value)
+var _Debug_log = F2(function(tag, value)
 {
 	return value;
 });
 
-var _Debug_log = F2(function(tag, value)
+var _Debug_log_UNUSED = F2(function(tag, value)
 {
 	console.log(tag + ': ' + _Debug_toString(value));
 	return value;
@@ -530,12 +530,12 @@ function _Debug_todoCase(moduleName, region, value)
 
 // TO STRING
 
-function _Debug_toString_UNUSED(value)
+function _Debug_toString(value)
 {
 	return '<internals>';
 }
 
-function _Debug_toString(value)
+function _Debug_toString_UNUSED(value)
 {
 	return _Debug_toAnsiString(false, value);
 }
@@ -633,6 +633,16 @@ function _Debug_toAnsiString(ansi, value)
 		return _Debug_ctorColor(ansi, tag) + output;
 	}
 
+	if (typeof DataView === 'function' && value instanceof DataView)
+	{
+		return _Debug_stringColor(ansi, '<' + value.byteLength + ' bytes>');
+	}
+
+	if (typeof File !== 'undefined' && value instanceof File)
+	{
+		return _Debug_internalColor(ansi, '<' + value.name + '>');
+	}
+
 	if (typeof value === 'object')
 	{
 		var output = [];
@@ -698,21 +708,25 @@ function _Debug_fadeColor(ansi, string)
 
 function _Debug_internalColor(ansi, string)
 {
-	return ansi ? '\x1b[94m' + string + '\x1b[0m' : string;
+	return ansi ? '\x1b[36m' + string + '\x1b[0m' : string;
 }
 
+function _Debug_toHexDigit(n)
+{
+	return String.fromCharCode(n < 10 ? 48 + n : 55 + n);
+}
 
 
 // CRASH
 
 
-function _Debug_crash_UNUSED(identifier)
+function _Debug_crash(identifier)
 {
 	throw new Error('https://github.com/elm/core/blob/1.0.0/hints/' + identifier + '.md');
 }
 
 
-function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
+function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 {
 	switch(identifier)
 	{
@@ -770,11 +784,11 @@ function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.start.line === region.end.line)
+	if (region.aL.al === region.a_.al)
 	{
-		return 'on line ' + region.start.line;
+		return 'on line ' + region.aL.al;
 	}
-	return 'on lines ' + region.start.line + ' through ' + region.end.line;
+	return 'on lines ' + region.aL.al + ' through ' + region.a_.al;
 }
 
 
@@ -847,7 +861,7 @@ var _String_cons = F2(function(chr, str)
 function _String_uncons(string)
 {
 	var word = string.charCodeAt(0);
-	return word
+	return !isNaN(word)
 		? $elm$core$Maybe$Just(
 			0xD800 <= word && word <= 0xDBFF
 				? _Utils_Tuple2(_Utils_chr(string[0] + string[1]), string.slice(2))
@@ -1171,9 +1185,7 @@ function _Char_fromCode(code)
 			? String.fromCharCode(code)
 			:
 		(code -= 0x10000,
-			String.fromCharCode(Math.floor(code / 0x400) + 0xD800)
-			+
-			String.fromCharCode(code % 0x400 + 0xDC00)
+			String.fromCharCode(Math.floor(code / 0x400) + 0xD800, code % 0x400 + 0xDC00)
 		)
 	);
 }
@@ -1200,7 +1212,7 @@ function _Char_toLocaleLower(char)
 
 
 
-/**/
+/**_UNUSED/
 function _Json_errorToString(error)
 {
 	return $elm$json$Json$Decode$errorToString(error);
@@ -1600,11 +1612,11 @@ var _Json_encode = F2(function(indentLevel, value)
 	return JSON.stringify(_Json_unwrap(value), null, indentLevel) + '';
 });
 
-function _Json_wrap(value) { return { $: 0, a: value }; }
-function _Json_unwrap(value) { return value.a; }
+function _Json_wrap_UNUSED(value) { return { $: 0, a: value }; }
+function _Json_unwrap_UNUSED(value) { return value.a; }
 
-function _Json_wrap_UNUSED(value) { return value; }
-function _Json_unwrap_UNUSED(value) { return value; }
+function _Json_wrap(value) { return value; }
+function _Json_unwrap(value) { return value; }
 
 function _Json_emptyArray() { return []; }
 function _Json_emptyObject() { return {}; }
@@ -1841,9 +1853,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.b4,
+		impl.cK,
+		impl.cG,
 		function() { return function() {} }
 	);
 });
@@ -1856,21 +1868,21 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 function _Platform_initialize(flagDecoder, args, init, update, subscriptions, stepperBuilder)
 {
 	var result = A2(_Json_run, flagDecoder, _Json_wrap(args ? args['flags'] : undefined));
-	$elm$core$Result$isOk(result) || _Debug_crash(2 /**/, _Json_errorToString(result.a) /**/);
+	$elm$core$Result$isOk(result) || _Debug_crash(2 /**_UNUSED/, _Json_errorToString(result.a) /**/);
 	var managers = {};
-	result = init(result.a);
-	var model = result.a;
+	var initPair = init(result.a);
+	var model = initPair.a;
 	var stepper = stepperBuilder(sendToApp, model);
 	var ports = _Platform_setupEffects(managers, sendToApp);
 
 	function sendToApp(msg, viewMetadata)
 	{
-		result = A2(update, msg, model);
-		stepper(model = result.a, viewMetadata);
-		_Platform_dispatchEffects(managers, result.b, subscriptions(model));
+		var pair = A2(update, msg, model);
+		stepper(model = pair.a, viewMetadata);
+		_Platform_enqueueEffects(managers, pair.b, subscriptions(model));
 	}
 
-	_Platform_dispatchEffects(managers, result.b, subscriptions(model));
+	_Platform_enqueueEffects(managers, initPair.b, subscriptions(model));
 
 	return ports ? { ports: ports } : {};
 }
@@ -2028,6 +2040,51 @@ var _Platform_map = F2(function(tagger, bag)
 
 
 // PIPE BAGS INTO EFFECT MANAGERS
+//
+// Effects must be queued!
+//
+// Say your init contains a synchronous command, like Time.now or Time.here
+//
+//   - This will produce a batch of effects (FX_1)
+//   - The synchronous task triggers the subsequent `update` call
+//   - This will produce a batch of effects (FX_2)
+//
+// If we just start dispatching FX_2, subscriptions from FX_2 can be processed
+// before subscriptions from FX_1. No good! Earlier versions of this code had
+// this problem, leading to these reports:
+//
+//   https://github.com/elm/core/issues/980
+//   https://github.com/elm/core/pull/981
+//   https://github.com/elm/compiler/issues/1776
+//
+// The queue is necessary to avoid ordering issues for synchronous commands.
+
+
+// Why use true/false here? Why not just check the length of the queue?
+// The goal is to detect "are we currently dispatching effects?" If we
+// are, we need to bail and let the ongoing while loop handle things.
+//
+// Now say the queue has 1 element. When we dequeue the final element,
+// the queue will be empty, but we are still actively dispatching effects.
+// So you could get queue jumping in a really tricky category of cases.
+//
+var _Platform_effectsQueue = [];
+var _Platform_effectsActive = false;
+
+
+function _Platform_enqueueEffects(managers, cmdBag, subBag)
+{
+	_Platform_effectsQueue.push({ p: managers, q: cmdBag, r: subBag });
+
+	if (_Platform_effectsActive) return;
+
+	_Platform_effectsActive = true;
+	for (var fx; fx = _Platform_effectsQueue.shift(); )
+	{
+		_Platform_dispatchEffects(fx.p, fx.q, fx.r);
+	}
+	_Platform_effectsActive = false;
+}
 
 
 function _Platform_dispatchEffects(managers, cmdBag, subBag)
@@ -2065,8 +2122,8 @@ function _Platform_gatherEffects(isCmd, bag, effectsDict, taggers)
 
 		case 3:
 			_Platform_gatherEffects(isCmd, bag.o, effectsDict, {
-				p: bag.n,
-				q: taggers
+				s: bag.n,
+				t: taggers
 			});
 			return;
 	}
@@ -2077,9 +2134,9 @@ function _Platform_toEffect(isCmd, home, taggers, value)
 {
 	function applyTaggers(x)
 	{
-		for (var temp = taggers; temp; temp = temp.q)
+		for (var temp = taggers; temp; temp = temp.t)
 		{
-			x = temp.p(x);
+			x = temp.s(x);
 		}
 		return x;
 	}
@@ -2126,7 +2183,7 @@ function _Platform_outgoingPort(name, converter)
 	_Platform_checkPortName(name);
 	_Platform_effectManagers[name] = {
 		e: _Platform_outgoingPortMap,
-		r: converter,
+		u: converter,
 		a: _Platform_setupOutgoingPort
 	};
 	return _Platform_leaf(name);
@@ -2139,7 +2196,7 @@ var _Platform_outgoingPortMap = F2(function(tagger, value) { return value; });
 function _Platform_setupOutgoingPort(name)
 {
 	var subs = [];
-	var converter = _Platform_effectManagers[name].r;
+	var converter = _Platform_effectManagers[name].u;
 
 	// CREATE MANAGER
 
@@ -2196,7 +2253,7 @@ function _Platform_incomingPort(name, converter)
 	_Platform_checkPortName(name);
 	_Platform_effectManagers[name] = {
 		f: _Platform_incomingPortMap,
-		r: converter,
+		u: converter,
 		a: _Platform_setupIncomingPort
 	};
 	return _Platform_leaf(name);
@@ -2215,7 +2272,7 @@ var _Platform_incomingPortMap = F2(function(tagger, finalTagger)
 function _Platform_setupIncomingPort(name, sendToApp)
 {
 	var subs = _List_Nil;
-	var converter = _Platform_effectManagers[name].r;
+	var converter = _Platform_effectManagers[name].u;
 
 	// CREATE MANAGER
 
@@ -2255,7 +2312,7 @@ function _Platform_setupIncomingPort(name, sendToApp)
 //
 
 
-function _Platform_export_UNUSED(exports)
+function _Platform_export(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsProd(scope['Elm'], exports)
@@ -2276,7 +2333,7 @@ function _Platform_mergeExportsProd(obj, exports)
 }
 
 
-function _Platform_export(exports)
+function _Platform_export_UNUSED(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsDebug('Elm', scope['Elm'], exports)
@@ -2316,10 +2373,10 @@ var _VirtualDom_init = F4(function(virtualNode, flagDecoder, debugMetadata, args
 {
 	// NOTE: this function needs _Platform_export available to work
 
-	/**_UNUSED/
+	/**/
 	var node = args['node'];
 	//*/
-	/**/
+	/**_UNUSED/
 	var node = args && args['node'] ? args['node'] : _Debug_crash(0);
 	//*/
 
@@ -2574,24 +2631,24 @@ function _VirtualDom_noInnerHtmlOrFormAction(key)
 	return key == 'innerHTML' || key == 'formAction' ? 'data-' + key : key;
 }
 
-function _VirtualDom_noJavaScriptUri_UNUSED(value)
+function _VirtualDom_noJavaScriptUri(value)
 {
 	return /^javascript:/i.test(value.replace(/\s/g,'')) ? '' : value;
 }
 
-function _VirtualDom_noJavaScriptUri(value)
+function _VirtualDom_noJavaScriptUri_UNUSED(value)
 {
 	return /^javascript:/i.test(value.replace(/\s/g,''))
 		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
 		: value;
 }
 
-function _VirtualDom_noJavaScriptOrHtmlUri_UNUSED(value)
+function _VirtualDom_noJavaScriptOrHtmlUri(value)
 {
 	return /^\s*(javascript:|data:text\/html)/i.test(value) ? '' : value;
 }
 
-function _VirtualDom_noJavaScriptOrHtmlUri(value)
+function _VirtualDom_noJavaScriptOrHtmlUri_UNUSED(value)
 {
 	return /^\s*(javascript:|data:text\/html)/i.test(value)
 		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
@@ -2643,9 +2700,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		message: func(record.message),
-		stopPropagation: record.stopPropagation,
-		preventDefault: record.preventDefault
+		L: func(record.L),
+		aM: record.aM,
+		aJ: record.aJ
 	}
 });
 
@@ -2913,11 +2970,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.message;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.stopPropagation;
+		var message = !tag ? value : tag < 3 ? value.a : value.L;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aM;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.preventDefault) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.aJ) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3863,15 +3920,15 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.b4,
+		impl.cK,
+		impl.cG,
 		function(sendToApp, initialModel) {
-			var view = impl.view;
-			/**_UNUSED/
+			var view = impl.cL;
+			/**/
 			var domNode = args['node'];
 			//*/
-			/**/
+			/**_UNUSED/
 			var domNode = args && args['node'] ? args['node'] : _Debug_crash(0);
 			//*/
 			var currNode = _VirtualDom_virtualize(domNode);
@@ -3899,12 +3956,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.b4,
+		impl.cK,
+		impl.cG,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.setup && impl.setup(sendToApp)
-			var view = impl.view;
+			var divertHrefToApp = impl.aK && impl.aK(sendToApp)
+			var view = impl.cL;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3912,12 +3969,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.body);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bN);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.title) && (_VirtualDom_doc.title = title = doc.title);
+				(title !== doc.z) && (_VirtualDom_doc.title = title = doc.z);
 			});
 		}
 	);
@@ -3968,12 +4025,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.onUrlChange;
-	var onUrlRequest = impl.onUrlRequest;
+	var onUrlChange = impl.co;
+	var onUrlRequest = impl.cp;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		setup: function(sendToApp)
+		aK: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -3989,9 +4046,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.protocol === next.protocol
-							&& curr.host === next.host
-							&& curr.port_.a === next.port_.a
+							&& curr.bo === next.bo
+							&& curr.a7 === next.a7
+							&& curr.bl.a === next.bl.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -3999,13 +4056,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		init: function(flags)
+		b4: function(flags)
 		{
-			return A3(impl.init, flags, _Browser_getUrl(), key);
+			return A3(impl.b4, flags, _Browser_getUrl(), key);
 		},
-		view: impl.view,
-		update: impl.update,
-		subscriptions: impl.subscriptions
+		cL: impl.cL,
+		cK: impl.cK,
+		cG: impl.cG
 	});
 }
 
@@ -4071,17 +4128,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { hidden: 'hidden', change: 'visibilitychange' }
+		? { b1: 'hidden', ai: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { hidden: 'mozHidden', change: 'mozvisibilitychange' }
+		? { b1: 'mozHidden', ai: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { hidden: 'msHidden', change: 'msvisibilitychange' }
+		? { b1: 'msHidden', ai: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { hidden: 'webkitHidden', change: 'webkitvisibilitychange' }
-		: { hidden: 'hidden', change: 'visibilitychange' };
+		? { b1: 'webkitHidden', ai: 'webkitvisibilitychange' }
+		: { b1: 'hidden', ai: 'visibilitychange' };
 }
 
 
@@ -4162,12 +4219,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		scene: _Browser_getScene(),
-		viewport: {
-			x: _Browser_window.pageXOffset,
-			y: _Browser_window.pageYOffset,
-			width: _Browser_doc.documentElement.clientWidth,
-			height: _Browser_doc.documentElement.clientHeight
+		bu: _Browser_getScene(),
+		bG: {
+			aC: _Browser_window.pageXOffset,
+			aD: _Browser_window.pageYOffset,
+			ae: _Browser_doc.documentElement.clientWidth,
+			Y: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4177,8 +4234,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		width: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		height: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		ae: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		Y: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4201,15 +4258,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			scene: {
-				width: node.scrollWidth,
-				height: node.scrollHeight
+			bu: {
+				ae: node.scrollWidth,
+				Y: node.scrollHeight
 			},
-			viewport: {
-				x: node.scrollLeft,
-				y: node.scrollTop,
-				width: node.clientWidth,
-				height: node.clientHeight
+			bG: {
+				aC: node.scrollLeft,
+				aD: node.scrollTop,
+				ae: node.clientWidth,
+				Y: node.clientHeight
 			}
 		};
 	});
@@ -4239,18 +4296,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			scene: _Browser_getScene(),
-			viewport: {
-				x: x,
-				y: y,
-				width: _Browser_doc.documentElement.clientWidth,
-				height: _Browser_doc.documentElement.clientHeight
+			bu: _Browser_getScene(),
+			bG: {
+				aC: x,
+				aD: y,
+				ae: _Browser_doc.documentElement.clientWidth,
+				Y: _Browser_doc.documentElement.clientHeight
 			},
-			element: {
-				x: x + rect.left,
-				y: y + rect.top,
-				width: rect.width,
-				height: rect.height
+			bX: {
+				aC: x + rect.left,
+				aD: y + rect.top,
+				ae: rect.width,
+				Y: rect.height
 			}
 		};
 	});
@@ -4424,8 +4481,8 @@ var _Regex_never = /.^/;
 var _Regex_fromStringWith = F2(function(options, string)
 {
 	var flags = 'g';
-	if (options.multiline) { flags += 'm'; }
-	if (options.caseInsensitive) { flags += 'i'; }
+	if (options.cc) { flags += 'm'; }
+	if (options.bQ) { flags += 'i'; }
 
 	try
 	{
@@ -4534,20 +4591,20 @@ function _Url_percentDecode(string)
 		return $elm$core$Maybe$Nothing;
 	}
 }var $author$project$Types$LinkClicked = function (a) {
-	return {$: 'LinkClicked', a: a};
+	return {$: 5, a: a};
 };
 var $author$project$Types$UrlChange = function (a) {
-	return {$: 'UrlChange', a: a};
+	return {$: 4, a: a};
 };
-var $elm$core$Basics$EQ = {$: 'EQ'};
-var $elm$core$Basics$GT = {$: 'GT'};
-var $elm$core$Basics$LT = {$: 'LT'};
+var $elm$core$Basics$EQ = 1;
+var $elm$core$Basics$GT = 2;
+var $elm$core$Basics$LT = 0;
 var $elm$core$List$cons = _List_cons;
 var $elm$core$Dict$foldr = F3(
 	function (func, acc, t) {
 		foldr:
 		while (true) {
-			if (t.$ === 'RBEmpty_elm_builtin') {
+			if (t.$ === -2) {
 				return acc;
 			} else {
 				var key = t.b;
@@ -4592,7 +4649,7 @@ var $elm$core$Dict$keys = function (dict) {
 		dict);
 };
 var $elm$core$Set$toList = function (_v0) {
-	var dict = _v0.a;
+	var dict = _v0;
 	return $elm$core$Dict$keys(dict);
 };
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
@@ -4602,7 +4659,7 @@ var $elm$core$Array$foldr = F3(
 		var tail = _v0.d;
 		var helper = F2(
 			function (node, acc) {
-				if (node.$ === 'SubTree') {
+				if (!node.$) {
 					var subTree = node.a;
 					return A3($elm$core$Elm$JsArray$foldr, helper, acc, subTree);
 				} else {
@@ -4620,32 +4677,32 @@ var $elm$core$Array$toList = function (array) {
 	return A3($elm$core$Array$foldr, $elm$core$List$cons, _List_Nil, array);
 };
 var $elm$core$Result$Err = function (a) {
-	return {$: 'Err', a: a};
+	return {$: 1, a: a};
 };
 var $elm$json$Json$Decode$Failure = F2(
 	function (a, b) {
-		return {$: 'Failure', a: a, b: b};
+		return {$: 3, a: a, b: b};
 	});
 var $elm$json$Json$Decode$Field = F2(
 	function (a, b) {
-		return {$: 'Field', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $elm$json$Json$Decode$Index = F2(
 	function (a, b) {
-		return {$: 'Index', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var $elm$core$Result$Ok = function (a) {
-	return {$: 'Ok', a: a};
+	return {$: 0, a: a};
 };
 var $elm$json$Json$Decode$OneOf = function (a) {
-	return {$: 'OneOf', a: a};
+	return {$: 2, a: a};
 };
-var $elm$core$Basics$False = {$: 'False'};
+var $elm$core$Basics$False = 1;
 var $elm$core$Basics$add = _Basics_add;
 var $elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
+	return {$: 0, a: a};
 };
-var $elm$core$Maybe$Nothing = {$: 'Nothing'};
+var $elm$core$Maybe$Nothing = {$: 1};
 var $elm$core$String$all = _String_all;
 var $elm$core$Basics$and = _Basics_and;
 var $elm$core$Basics$append = _Utils_append;
@@ -4770,12 +4827,12 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 		errorToStringHelp:
 		while (true) {
 			switch (error.$) {
-				case 'Field':
+				case 0:
 					var f = error.a;
 					var err = error.b;
 					var isSimple = function () {
 						var _v1 = $elm$core$String$uncons(f);
-						if (_v1.$ === 'Nothing') {
+						if (_v1.$ === 1) {
 							return false;
 						} else {
 							var _v2 = _v1.a;
@@ -4790,7 +4847,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'Index':
+				case 1:
 					var i = error.a;
 					var err = error.b;
 					var indexName = '[' + ($elm$core$String$fromInt(i) + ']');
@@ -4799,7 +4856,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'OneOf':
+				case 2:
 					var errors = error.a;
 					if (!errors.b) {
 						return 'Ran into a Json.Decode.oneOf with no possibilities' + function () {
@@ -4863,7 +4920,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 var $elm$core$Array$branchFactor = 32;
 var $elm$core$Array$Array_elm_builtin = F4(
 	function (a, b, c, d) {
-		return {$: 'Array_elm_builtin', a: a, b: b, c: c, d: d};
+		return {$: 0, a: a, b: b, c: c, d: d};
 	});
 var $elm$core$Elm$JsArray$empty = _JsArray_empty;
 var $elm$core$Basics$ceiling = _Basics_ceiling;
@@ -4878,7 +4935,7 @@ var $elm$core$Array$shiftStep = $elm$core$Basics$ceiling(
 var $elm$core$Array$empty = A4($elm$core$Array$Array_elm_builtin, 0, $elm$core$Array$shiftStep, $elm$core$Elm$JsArray$empty, $elm$core$Elm$JsArray$empty);
 var $elm$core$Elm$JsArray$initialize = _JsArray_initialize;
 var $elm$core$Array$Leaf = function (a) {
-	return {$: 'Leaf', a: a};
+	return {$: 1, a: a};
 };
 var $elm$core$Basics$apL = F2(
 	function (f, x) {
@@ -4898,7 +4955,7 @@ var $elm$core$Basics$max = F2(
 	});
 var $elm$core$Basics$mul = _Basics_mul;
 var $elm$core$Array$SubTree = function (a) {
-	return {$: 'SubTree', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Elm$JsArray$initializeFromList = _JsArray_initializeFromList;
 var $elm$core$Array$compressNodes = F2(
@@ -4945,25 +5002,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.nodeListSize) {
+		if (!builder.i) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.tail),
+				$elm$core$Elm$JsArray$length(builder.l),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.tail);
+				builder.l);
 		} else {
-			var treeLen = builder.nodeListSize * $elm$core$Array$branchFactor;
+			var treeLen = builder.i * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.nodeList) : builder.nodeList;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.nodeListSize);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.m) : builder.m;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.i);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.tail) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.l) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.tail);
+				builder.l);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -4976,7 +5033,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{nodeList: nodeList, nodeListSize: (len / $elm$core$Array$branchFactor) | 0, tail: tail});
+					{m: nodeList, i: (len / $elm$core$Array$branchFactor) | 0, l: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -5006,9 +5063,9 @@ var $elm$core$Array$initialize = F2(
 			return A5($elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
-var $elm$core$Basics$True = {$: 'True'};
+var $elm$core$Basics$True = 0;
 var $elm$core$Result$isOk = function (result) {
-	if (result.$ === 'Ok') {
+	if (!result.$) {
 		return true;
 	} else {
 		return false;
@@ -5019,33 +5076,31 @@ var $elm$json$Json$Decode$map2 = _Json_map2;
 var $elm$json$Json$Decode$succeed = _Json_succeed;
 var $elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	switch (handler.$) {
-		case 'Normal':
+		case 0:
 			return 0;
-		case 'MayStopPropagation':
+		case 1:
 			return 1;
-		case 'MayPreventDefault':
+		case 2:
 			return 2;
 		default:
 			return 3;
 	}
 };
 var $elm$browser$Browser$External = function (a) {
-	return {$: 'External', a: a};
+	return {$: 1, a: a};
 };
 var $elm$browser$Browser$Internal = function (a) {
-	return {$: 'Internal', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Basics$identity = function (x) {
 	return x;
 };
-var $elm$browser$Browser$Dom$NotFound = function (a) {
-	return {$: 'NotFound', a: a};
-};
-var $elm$url$Url$Http = {$: 'Http'};
-var $elm$url$Url$Https = {$: 'Https'};
+var $elm$browser$Browser$Dom$NotFound = $elm$core$Basics$identity;
+var $elm$url$Url$Http = 0;
+var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
+		return {a2: fragment, a7: host, cs: path, bl: port_, bo: protocol, bp: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5081,7 +5136,7 @@ var $elm$url$Url$chompBeforePath = F5(
 					var i = _v0.a;
 					var _v1 = $elm$core$String$toInt(
 						A2($elm$core$String$dropLeft, i + 1, str));
-					if (_v1.$ === 'Nothing') {
+					if (_v1.$ === 1) {
 						return $elm$core$Maybe$Nothing;
 					} else {
 						var port_ = _v1;
@@ -5164,26 +5219,24 @@ var $elm$core$String$startsWith = _String_startsWith;
 var $elm$url$Url$fromString = function (str) {
 	return A2($elm$core$String$startsWith, 'http://', str) ? A2(
 		$elm$url$Url$chompAfterProtocol,
-		$elm$url$Url$Http,
+		0,
 		A2($elm$core$String$dropLeft, 7, str)) : (A2($elm$core$String$startsWith, 'https://', str) ? A2(
 		$elm$url$Url$chompAfterProtocol,
-		$elm$url$Url$Https,
+		1,
 		A2($elm$core$String$dropLeft, 8, str)) : $elm$core$Maybe$Nothing);
 };
 var $elm$core$Basics$never = function (_v0) {
 	never:
 	while (true) {
-		var nvr = _v0.a;
+		var nvr = _v0;
 		var $temp$_v0 = nvr;
 		_v0 = $temp$_v0;
 		continue never;
 	}
 };
-var $elm$core$Task$Perform = function (a) {
-	return {$: 'Perform', a: a};
-};
+var $elm$core$Task$Perform = $elm$core$Basics$identity;
 var $elm$core$Task$succeed = _Scheduler_succeed;
-var $elm$core$Task$init = $elm$core$Task$succeed(_Utils_Tuple0);
+var $elm$core$Task$init = $elm$core$Task$succeed(0);
 var $elm$core$List$foldrHelper = F4(
 	function (fn, acc, ctr, ls) {
 		if (!ls.b) {
@@ -5289,7 +5342,7 @@ var $elm$core$Task$sequence = function (tasks) {
 var $elm$core$Platform$sendToApp = _Platform_sendToApp;
 var $elm$core$Task$spawnCmd = F2(
 	function (router, _v0) {
-		var task = _v0.a;
+		var task = _v0;
 		return _Scheduler_spawn(
 			A2(
 				$elm$core$Task$andThen,
@@ -5301,7 +5354,7 @@ var $elm$core$Task$onEffects = F3(
 		return A2(
 			$elm$core$Task$map,
 			function (_v0) {
-				return _Utils_Tuple0;
+				return 0;
 			},
 			$elm$core$Task$sequence(
 				A2(
@@ -5311,40 +5364,36 @@ var $elm$core$Task$onEffects = F3(
 	});
 var $elm$core$Task$onSelfMsg = F3(
 	function (_v0, _v1, _v2) {
-		return $elm$core$Task$succeed(_Utils_Tuple0);
+		return $elm$core$Task$succeed(0);
 	});
 var $elm$core$Task$cmdMap = F2(
 	function (tagger, _v0) {
-		var task = _v0.a;
-		return $elm$core$Task$Perform(
-			A2($elm$core$Task$map, tagger, task));
+		var task = _v0;
+		return A2($elm$core$Task$map, tagger, task);
 	});
 _Platform_effectManagers['Task'] = _Platform_createManager($elm$core$Task$init, $elm$core$Task$onEffects, $elm$core$Task$onSelfMsg, $elm$core$Task$cmdMap);
 var $elm$core$Task$command = _Platform_leaf('Task');
 var $elm$core$Task$perform = F2(
 	function (toMessage, task) {
 		return $elm$core$Task$command(
-			$elm$core$Task$Perform(
-				A2($elm$core$Task$map, toMessage, task)));
+			A2($elm$core$Task$map, toMessage, task));
 	});
 var $elm$browser$Browser$application = _Browser_application;
-var $author$project$Types$AboutRoute = {$: 'AboutRoute'};
-var $author$project$Types$ShowAbout = {$: 'ShowAbout'};
-var $author$project$Types$ShowWriting = {$: 'ShowWriting'};
-var $author$project$Types$WritingRoute = {$: 'WritingRoute'};
+var $author$project$Types$AboutRoute = 0;
+var $author$project$Types$ShowAbout = {$: 0};
+var $author$project$Types$ShowWriting = {$: 1};
+var $author$project$Types$WritingRoute = 1;
 var $author$project$Data$BookEntry = F3(
 	function (title, author, year) {
-		return {author: author, title: title, year: year};
+		return {aS: author, z: title, bI: year};
 	});
-var $MaybeJustJames$yaml$Yaml$Decode$Decoder = function (a) {
-	return {$: 'Decoder', a: a};
-};
+var $MaybeJustJames$yaml$Yaml$Decode$Decoder = $elm$core$Basics$identity;
 var $MaybeJustJames$yaml$Yaml$Decode$Decoding = function (a) {
-	return {$: 'Decoding', a: a};
+	return {$: 1, a: a};
 };
 var $MaybeJustJames$yaml$Yaml$Decode$fromValue = F2(
 	function (_v0, v) {
-		var decoder = _v0.a;
+		var decoder = _v0;
 		return decoder(v);
 	});
 var $elm$core$Basics$compare = _Utils_compare;
@@ -5352,7 +5401,7 @@ var $elm$core$Dict$get = F2(
 	function (targetKey, dict) {
 		get:
 		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
+			if (dict.$ === -2) {
 				return $elm$core$Maybe$Nothing;
 			} else {
 				var key = dict.b;
@@ -5360,14 +5409,14 @@ var $elm$core$Dict$get = F2(
 				var left = dict.d;
 				var right = dict.e;
 				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
-				switch (_v1.$) {
-					case 'LT':
+				switch (_v1) {
+					case 0:
 						var $temp$targetKey = targetKey,
 							$temp$dict = left;
 						targetKey = $temp$targetKey;
 						dict = $temp$dict;
 						continue get;
-					case 'EQ':
+					case 1:
 						return $elm$core$Maybe$Just(value);
 					default:
 						var $temp$targetKey = targetKey,
@@ -5386,10 +5435,10 @@ var $MaybeJustJames$yaml$Yaml$Decode$find = F3(
 			if (names.b) {
 				var name = names.a;
 				var rest = names.b;
-				if (v0.$ === 'Record_') {
+				if (v0.$ === 4) {
 					var properties = v0.a;
 					var _v2 = A2($elm$core$Dict$get, name, properties);
-					if (_v2.$ === 'Just') {
+					if (!_v2.$) {
 						var v1 = _v2.a;
 						var $temp$names = rest,
 							$temp$decoder = decoder,
@@ -5413,35 +5462,34 @@ var $MaybeJustJames$yaml$Yaml$Decode$find = F3(
 	});
 var $MaybeJustJames$yaml$Yaml$Decode$field = F2(
 	function (name, decoder) {
-		return $MaybeJustJames$yaml$Yaml$Decode$Decoder(
-			function (v) {
-				return A3(
-					$MaybeJustJames$yaml$Yaml$Decode$find,
-					_List_fromArray(
-						[name]),
-					decoder,
-					v);
-			});
+		return function (v) {
+			return A3(
+				$MaybeJustJames$yaml$Yaml$Decode$find,
+				_List_fromArray(
+					[name]),
+				decoder,
+				v);
+		};
 	});
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$toString = function (value) {
 	switch (value.$) {
-		case 'String_':
+		case 0:
 			var string = value.a;
 			return '\"' + (string + '\" (string)');
-		case 'Float_':
+		case 1:
 			var _float = value.a;
 			return $elm$core$String$fromFloat(_float) + ' (float)';
-		case 'Int_':
+		case 2:
 			var _int = value.a;
 			return $elm$core$String$fromInt(_int) + ' (int)';
-		case 'List_':
+		case 3:
 			var list = value.a;
 			return '[ ' + (A2(
 				$elm$core$String$join,
 				', ',
 				A2($elm$core$List$map, $MaybeJustJames$yaml$Yaml$Parser$Ast$toString, list)) + ' ] (list)');
-		case 'Record_':
+		case 4:
 			var properties = value.a;
 			return '{ ' + (A2(
 				$elm$core$String$join,
@@ -5450,15 +5498,15 @@ var $MaybeJustJames$yaml$Yaml$Parser$Ast$toString = function (value) {
 					$elm$core$List$map,
 					$MaybeJustJames$yaml$Yaml$Parser$Ast$toStringProperty,
 					$elm$core$Dict$toList(properties))) + ' } (map)');
-		case 'Bool_':
+		case 5:
 			if (value.a) {
 				return 'True (bool)';
 			} else {
 				return 'False (bool)';
 			}
-		case 'Null_':
+		case 6:
 			return 'Null';
-		case 'Anchor_':
+		case 7:
 			var name = value.a;
 			var r_val = value.b;
 			return '&' + (name + (' ' + $MaybeJustJames$yaml$Yaml$Parser$Ast$toString(r_val)));
@@ -5478,59 +5526,56 @@ var $MaybeJustJames$yaml$Yaml$Decode$decodeError = F2(
 			$MaybeJustJames$yaml$Yaml$Decode$Decoding(
 				'Expected ' + (expected + (', got: ' + $MaybeJustJames$yaml$Yaml$Parser$Ast$toString(got)))));
 	});
-var $MaybeJustJames$yaml$Yaml$Decode$int = $MaybeJustJames$yaml$Yaml$Decode$Decoder(
-	function (v) {
-		if (v.$ === 'Int_') {
-			var int_ = v.a;
-			return $elm$core$Result$Ok(int_);
-		} else {
-			return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'int', v);
-		}
-	});
+var $MaybeJustJames$yaml$Yaml$Decode$int = function (v) {
+	if (v.$ === 2) {
+		var int_ = v.a;
+		return $elm$core$Result$Ok(int_);
+	} else {
+		return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'int', v);
+	}
+};
 var $MaybeJustJames$yaml$Yaml$Decode$map3 = F4(
 	function (func, _v0, _v1, _v2) {
-		var a = _v0.a;
-		var b = _v1.a;
-		var c = _v2.a;
-		return $MaybeJustJames$yaml$Yaml$Decode$Decoder(
-			function (v0) {
-				var _v3 = a(v0);
-				if (_v3.$ === 'Err') {
-					var err1 = _v3.a;
-					return $elm$core$Result$Err(err1);
+		var a = _v0;
+		var b = _v1;
+		var c = _v2;
+		return function (v0) {
+			var _v3 = a(v0);
+			if (_v3.$ === 1) {
+				var err1 = _v3.a;
+				return $elm$core$Result$Err(err1);
+			} else {
+				var av = _v3.a;
+				var _v4 = b(v0);
+				if (_v4.$ === 1) {
+					var err2 = _v4.a;
+					return $elm$core$Result$Err(err2);
 				} else {
-					var av = _v3.a;
-					var _v4 = b(v0);
-					if (_v4.$ === 'Err') {
-						var err2 = _v4.a;
-						return $elm$core$Result$Err(err2);
+					var bv = _v4.a;
+					var _v5 = c(v0);
+					if (_v5.$ === 1) {
+						var err3 = _v5.a;
+						return $elm$core$Result$Err(err3);
 					} else {
-						var bv = _v4.a;
-						var _v5 = c(v0);
-						if (_v5.$ === 'Err') {
-							var err3 = _v5.a;
-							return $elm$core$Result$Err(err3);
-						} else {
-							var cv = _v5.a;
-							return $elm$core$Result$Ok(
-								A3(func, av, bv, cv));
-						}
+						var cv = _v5.a;
+						return $elm$core$Result$Ok(
+							A3(func, av, bv, cv));
 					}
 				}
-			});
+			}
+		};
 	});
-var $MaybeJustJames$yaml$Yaml$Decode$string = $MaybeJustJames$yaml$Yaml$Decode$Decoder(
-	function (v) {
-		switch (v.$) {
-			case 'String_':
-				var string_ = v.a;
-				return $elm$core$Result$Ok(string_);
-			case 'Null_':
-				return $elm$core$Result$Ok('');
-			default:
-				return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'string', v);
-		}
-	});
+var $MaybeJustJames$yaml$Yaml$Decode$string = function (v) {
+	switch (v.$) {
+		case 0:
+			var string_ = v.a;
+			return $elm$core$Result$Ok(string_);
+		case 6:
+			return $elm$core$Result$Ok('');
+		default:
+			return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'string', v);
+	}
+};
 var $author$project$Data$decoder = A4(
 	$MaybeJustJames$yaml$Yaml$Decode$map3,
 	$author$project$Data$BookEntry,
@@ -5538,7 +5583,7 @@ var $author$project$Data$decoder = A4(
 	A2($MaybeJustJames$yaml$Yaml$Decode$field, 'author', $MaybeJustJames$yaml$Yaml$Decode$string),
 	A2($MaybeJustJames$yaml$Yaml$Decode$field, 'year', $MaybeJustJames$yaml$Yaml$Decode$int));
 var $MaybeJustJames$yaml$Yaml$Decode$Parsing = function (a) {
-	return {$: 'Parsing', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
@@ -5547,34 +5592,34 @@ var $elm$core$Basics$composeR = F3(
 	});
 var $MaybeJustJames$yaml$Yaml$Parser$problemToString = function (p) {
 	switch (p.$) {
-		case 'Expecting':
+		case 0:
 			var msg = p.a;
 			return 'Expected ' + msg;
-		case 'ExpectingInt':
+		case 1:
 			return 'Expected an integer';
-		case 'ExpectingHex':
+		case 2:
 			return 'Expected a hexadecimal value';
-		case 'ExpectingOctal':
+		case 3:
 			return 'Expected an octal value';
-		case 'ExpectingBinary':
+		case 4:
 			return 'Expected a binary value';
-		case 'ExpectingFloat':
+		case 5:
 			return 'Expected a float';
-		case 'ExpectingNumber':
+		case 6:
 			return 'Expected a number';
-		case 'ExpectingVariable':
+		case 7:
 			return 'Expected a variable';
-		case 'ExpectingSymbol':
+		case 8:
 			var name = p.a;
 			return 'Expected symbol \'' + (name + '\'');
-		case 'ExpectingKeyword':
+		case 9:
 			var name = p.a;
 			return 'Expected keyword \'' + (name + '\'');
-		case 'ExpectingEnd':
+		case 10:
 			return 'Expected end of input';
-		case 'UnexpectedChar':
+		case 11:
 			return 'Encountered an unexpected character';
-		case 'Problem':
+		case 12:
 			var msg = p.a;
 			return 'Problem: ' + msg;
 		default:
@@ -5582,7 +5627,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$problemToString = function (p) {
 	}
 };
 var $MaybeJustJames$yaml$Yaml$Parser$deadEndToString = function (deadend) {
-	return 'Line ' + ($elm$core$String$fromInt(deadend.row) + (', column ' + ($elm$core$String$fromInt(deadend.col) + (': ' + $MaybeJustJames$yaml$Yaml$Parser$problemToString(deadend.problem)))));
+	return 'Line ' + ($elm$core$String$fromInt(deadend.cE) + (', column ' + ($elm$core$String$fromInt(deadend.A) + (': ' + $MaybeJustJames$yaml$Yaml$Parser$problemToString(deadend.cu)))));
 };
 var $MaybeJustJames$yaml$Yaml$Parser$deadEndsToString = function (deadends) {
 	return A2(
@@ -5590,7 +5635,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$deadEndsToString = function (deadends) {
 		'\n',
 		A2($elm$core$List$map, $MaybeJustJames$yaml$Yaml$Parser$deadEndToString, deadends));
 };
-var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
+var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 var $elm$core$Dict$values = function (dict) {
 	return A3(
@@ -5605,19 +5650,19 @@ var $elm$core$Dict$values = function (dict) {
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$fold = F3(
 	function (f, value, z) {
 		switch (value.$) {
-			case 'String_':
+			case 0:
 				return A2(f, value, z);
-			case 'Float_':
+			case 1:
 				return A2(f, value, z);
-			case 'Int_':
+			case 2:
 				return A2(f, value, z);
-			case 'Bool_':
+			case 5:
 				return A2(f, value, z);
-			case 'Null_':
+			case 6:
 				return A2(f, value, z);
-			case 'Alias_':
+			case 8:
 				return A2(f, value, z);
-			case 'List_':
+			case 3:
 				var l = value.a;
 				return A2(
 					f,
@@ -5627,7 +5672,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$Ast$fold = F3(
 						$MaybeJustJames$yaml$Yaml$Parser$Ast$fold(f),
 						z,
 						l));
-			case 'Record_':
+			case 4:
 				var r = value.a;
 				return A2(
 					f,
@@ -5646,21 +5691,21 @@ var $MaybeJustJames$yaml$Yaml$Parser$Ast$fold = F3(
 					A3($MaybeJustJames$yaml$Yaml$Parser$Ast$fold, f, a, z));
 		}
 	});
-var $elm$core$Dict$Black = {$: 'Black'};
+var $elm$core$Dict$Black = 1;
 var $elm$core$Dict$RBNode_elm_builtin = F5(
 	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
+		return {$: -1, a: a, b: b, c: c, d: d, e: e};
 	});
-var $elm$core$Dict$Red = {$: 'Red'};
+var $elm$core$Dict$Red = 0;
 var $elm$core$Dict$balance = F5(
 	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
+		if ((right.$ === -1) && (!right.a)) {
 			var _v1 = right.a;
 			var rK = right.b;
 			var rV = right.c;
 			var rLeft = right.d;
 			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+			if ((left.$ === -1) && (!left.a)) {
 				var _v3 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -5668,22 +5713,22 @@ var $elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
+					0,
 					key,
 					value,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rLeft, rRight));
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, rK, rV, rLeft, rRight));
 			} else {
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
 					color,
 					rK,
 					rV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, left, rLeft),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, key, value, left, rLeft),
 					rRight);
 			}
 		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
+			if ((((left.$ === -1) && (!left.a)) && (left.d.$ === -1)) && (!left.d.a)) {
 				var _v5 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -5696,11 +5741,11 @@ var $elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
+					0,
 					lK,
 					lV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, lRight, right));
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, llK, llV, llLeft, llRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, key, value, lRight, right));
 			} else {
 				return A5($elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
 			}
@@ -5708,8 +5753,8 @@ var $elm$core$Dict$balance = F5(
 	});
 var $elm$core$Dict$insertHelp = F3(
 	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
+		if (dict.$ === -2) {
+			return A5($elm$core$Dict$RBNode_elm_builtin, 0, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
 		} else {
 			var nColor = dict.a;
 			var nKey = dict.b;
@@ -5717,8 +5762,8 @@ var $elm$core$Dict$insertHelp = F3(
 			var nLeft = dict.d;
 			var nRight = dict.e;
 			var _v1 = A2($elm$core$Basics$compare, key, nKey);
-			switch (_v1.$) {
-				case 'LT':
+			switch (_v1) {
+				case 0:
 					return A5(
 						$elm$core$Dict$balance,
 						nColor,
@@ -5726,7 +5771,7 @@ var $elm$core$Dict$insertHelp = F3(
 						nValue,
 						A3($elm$core$Dict$insertHelp, key, value, nLeft),
 						nRight);
-				case 'EQ':
+				case 1:
 					return A5($elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
 				default:
 					return A5(
@@ -5742,13 +5787,13 @@ var $elm$core$Dict$insertHelp = F3(
 var $elm$core$Dict$insert = F3(
 	function (key, value, dict) {
 		var _v0 = A3($elm$core$Dict$insertHelp, key, value, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
+		if ((_v0.$ === -1) && (!_v0.a)) {
 			var _v1 = _v0.a;
 			var k = _v0.b;
 			var v = _v0.c;
 			var l = _v0.d;
 			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
+			return A5($elm$core$Dict$RBNode_elm_builtin, 1, k, v, l, r);
 		} else {
 			var x = _v0;
 			return x;
@@ -5756,13 +5801,13 @@ var $elm$core$Dict$insert = F3(
 	});
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$Anchor_ = F2(
 	function (a, b) {
-		return {$: 'Anchor_', a: a, b: b};
+		return {$: 7, a: a, b: b};
 	});
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$List_ = function (a) {
-	return {$: 'List_', a: a};
+	return {$: 3, a: a};
 };
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$Record_ = function (a) {
-	return {$: 'Record_', a: a};
+	return {$: 4, a: a};
 };
 var $elm$core$Dict$fromList = function (assocs) {
 	return A3(
@@ -5779,19 +5824,19 @@ var $elm$core$Dict$fromList = function (assocs) {
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$map = F2(
 	function (f, value) {
 		switch (value.$) {
-			case 'String_':
+			case 0:
 				return f(value);
-			case 'Float_':
+			case 1:
 				return f(value);
-			case 'Int_':
+			case 2:
 				return f(value);
-			case 'Bool_':
+			case 5:
 				return f(value);
-			case 'Null_':
+			case 6:
 				return f(value);
-			case 'Alias_':
+			case 8:
 				return f(value);
-			case 'List_':
+			case 3:
 				var l = value.a;
 				return f(
 					$MaybeJustJames$yaml$Yaml$Parser$Ast$List_(
@@ -5799,7 +5844,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$Ast$map = F2(
 							$elm$core$List$map,
 							$MaybeJustJames$yaml$Yaml$Parser$Ast$map(f),
 							l)));
-			case 'Record_':
+			case 4:
 				var r = value.a;
 				return f(
 					$MaybeJustJames$yaml$Yaml$Parser$Ast$Record_(
@@ -5826,7 +5871,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$Ast$map = F2(
 	});
 var $elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
+		if (!maybe.$) {
 			var value = maybe.a;
 			return value;
 		} else {
@@ -5838,7 +5883,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$deref = function (ast) {
 		$MaybeJustJames$yaml$Yaml$Parser$Ast$fold,
 		F2(
 			function (node, d) {
-				if (node.$ === 'Anchor_') {
+				if (node.$ === 7) {
 					var name = node.a;
 					var v = node.b;
 					return A3($elm$core$Dict$insert, name, v, d);
@@ -5850,13 +5895,13 @@ var $MaybeJustJames$yaml$Yaml$Parser$deref = function (ast) {
 		$elm$core$Dict$empty);
 	var replaceAnchors = function (v) {
 		switch (v.$) {
-			case 'Alias_':
+			case 8:
 				var name = v.a;
 				return A2(
 					$elm$core$Maybe$withDefault,
 					v,
 					A2($elm$core$Dict$get, name, anchorMap));
-			case 'Anchor_':
+			case 7:
 				var node = v.b;
 				return node;
 			default:
@@ -5867,7 +5912,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$deref = function (ast) {
 };
 var $elm$core$Result$map = F2(
 	function (func, ra) {
-		if (ra.$ === 'Ok') {
+		if (!ra.$) {
 			var a = ra.a;
 			return $elm$core$Result$Ok(
 				func(a));
@@ -5878,7 +5923,7 @@ var $elm$core$Result$map = F2(
 	});
 var $elm$core$Result$mapError = F2(
 	function (f, result) {
-		if (result.$ === 'Ok') {
+		if (!result.$) {
 			var v = result.a;
 			return $elm$core$Result$Ok(v);
 		} else {
@@ -5889,44 +5934,41 @@ var $elm$core$Result$mapError = F2(
 	});
 var $elm$parser$Parser$Advanced$Bad = F2(
 	function (a, b) {
-		return {$: 'Bad', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var $elm$parser$Parser$Advanced$Good = F3(
 	function (a, b, c) {
-		return {$: 'Good', a: a, b: b, c: c};
+		return {$: 0, a: a, b: b, c: c};
 	});
-var $elm$parser$Parser$Advanced$Parser = function (a) {
-	return {$: 'Parser', a: a};
-};
+var $elm$parser$Parser$Advanced$Parser = $elm$core$Basics$identity;
 var $elm$parser$Parser$Advanced$andThen = F2(
 	function (callback, _v0) {
-		var parseA = _v0.a;
-		return $elm$parser$Parser$Advanced$Parser(
-			function (s0) {
-				var _v1 = parseA(s0);
-				if (_v1.$ === 'Bad') {
-					var p = _v1.a;
-					var x = _v1.b;
-					return A2($elm$parser$Parser$Advanced$Bad, p, x);
+		var parseA = _v0;
+		return function (s0) {
+			var _v1 = parseA(s0);
+			if (_v1.$ === 1) {
+				var p = _v1.a;
+				var x = _v1.b;
+				return A2($elm$parser$Parser$Advanced$Bad, p, x);
+			} else {
+				var p1 = _v1.a;
+				var a = _v1.b;
+				var s1 = _v1.c;
+				var _v2 = callback(a);
+				var parseB = _v2;
+				var _v3 = parseB(s1);
+				if (_v3.$ === 1) {
+					var p2 = _v3.a;
+					var x = _v3.b;
+					return A2($elm$parser$Parser$Advanced$Bad, p1 || p2, x);
 				} else {
-					var p1 = _v1.a;
-					var a = _v1.b;
-					var s1 = _v1.c;
-					var _v2 = callback(a);
-					var parseB = _v2.a;
-					var _v3 = parseB(s1);
-					if (_v3.$ === 'Bad') {
-						var p2 = _v3.a;
-						var x = _v3.b;
-						return A2($elm$parser$Parser$Advanced$Bad, p1 || p2, x);
-					} else {
-						var p2 = _v3.a;
-						var b = _v3.b;
-						var s2 = _v3.c;
-						return A3($elm$parser$Parser$Advanced$Good, p1 || p2, b, s2);
-					}
+					var p2 = _v3.a;
+					var b = _v3.b;
+					var s2 = _v3.c;
+					return A3($elm$parser$Parser$Advanced$Good, p1 || p2, b, s2);
 				}
-			});
+			}
+		};
 	});
 var $elm$parser$Parser$andThen = $elm$parser$Parser$Advanced$andThen;
 var $elm$core$Basics$always = F2(
@@ -5935,46 +5977,45 @@ var $elm$core$Basics$always = F2(
 	});
 var $elm$parser$Parser$Advanced$map2 = F3(
 	function (func, _v0, _v1) {
-		var parseA = _v0.a;
-		var parseB = _v1.a;
-		return $elm$parser$Parser$Advanced$Parser(
-			function (s0) {
-				var _v2 = parseA(s0);
-				if (_v2.$ === 'Bad') {
-					var p = _v2.a;
-					var x = _v2.b;
-					return A2($elm$parser$Parser$Advanced$Bad, p, x);
+		var parseA = _v0;
+		var parseB = _v1;
+		return function (s0) {
+			var _v2 = parseA(s0);
+			if (_v2.$ === 1) {
+				var p = _v2.a;
+				var x = _v2.b;
+				return A2($elm$parser$Parser$Advanced$Bad, p, x);
+			} else {
+				var p1 = _v2.a;
+				var a = _v2.b;
+				var s1 = _v2.c;
+				var _v3 = parseB(s1);
+				if (_v3.$ === 1) {
+					var p2 = _v3.a;
+					var x = _v3.b;
+					return A2($elm$parser$Parser$Advanced$Bad, p1 || p2, x);
 				} else {
-					var p1 = _v2.a;
-					var a = _v2.b;
-					var s1 = _v2.c;
-					var _v3 = parseB(s1);
-					if (_v3.$ === 'Bad') {
-						var p2 = _v3.a;
-						var x = _v3.b;
-						return A2($elm$parser$Parser$Advanced$Bad, p1 || p2, x);
-					} else {
-						var p2 = _v3.a;
-						var b = _v3.b;
-						var s2 = _v3.c;
-						return A3(
-							$elm$parser$Parser$Advanced$Good,
-							p1 || p2,
-							A2(func, a, b),
-							s2);
-					}
+					var p2 = _v3.a;
+					var b = _v3.b;
+					var s2 = _v3.c;
+					return A3(
+						$elm$parser$Parser$Advanced$Good,
+						p1 || p2,
+						A2(func, a, b),
+						s2);
 				}
-			});
+			}
+		};
 	});
 var $elm$parser$Parser$Advanced$ignorer = F2(
 	function (keepParser, ignoreParser) {
 		return A3($elm$parser$Parser$Advanced$map2, $elm$core$Basics$always, keepParser, ignoreParser);
 	});
 var $elm$parser$Parser$ignorer = $elm$parser$Parser$Advanced$ignorer;
-var $elm$parser$Parser$Advanced$Empty = {$: 'Empty'};
+var $elm$parser$Parser$Advanced$Empty = {$: 0};
 var $elm$parser$Parser$Advanced$Append = F2(
 	function (a, b) {
-		return {$: 'Append', a: a, b: b};
+		return {$: 2, a: a, b: b};
 	});
 var $elm$parser$Parser$Advanced$oneOfHelp = F3(
 	function (s0, bag, parsers) {
@@ -5983,10 +6024,10 @@ var $elm$parser$Parser$Advanced$oneOfHelp = F3(
 			if (!parsers.b) {
 				return A2($elm$parser$Parser$Advanced$Bad, false, bag);
 			} else {
-				var parse = parsers.a.a;
+				var parse = parsers.a;
 				var remainingParsers = parsers.b;
 				var _v1 = parse(s0);
-				if (_v1.$ === 'Good') {
+				if (!_v1.$) {
 					var step = _v1;
 					return step;
 				} else {
@@ -6009,40 +6050,38 @@ var $elm$parser$Parser$Advanced$oneOfHelp = F3(
 		}
 	});
 var $elm$parser$Parser$Advanced$oneOf = function (parsers) {
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s) {
-			return A3($elm$parser$Parser$Advanced$oneOfHelp, s, $elm$parser$Parser$Advanced$Empty, parsers);
-		});
+	return function (s) {
+		return A3($elm$parser$Parser$Advanced$oneOfHelp, s, $elm$parser$Parser$Advanced$Empty, parsers);
+	};
 };
 var $elm$parser$Parser$oneOf = $elm$parser$Parser$Advanced$oneOf;
 var $elm$parser$Parser$Advanced$succeed = function (a) {
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s) {
-			return A3($elm$parser$Parser$Advanced$Good, false, a, s);
-		});
+	return function (s) {
+		return A3($elm$parser$Parser$Advanced$Good, false, a, s);
+	};
 };
 var $elm$parser$Parser$succeed = $elm$parser$Parser$Advanced$succeed;
 var $elm$parser$Parser$ExpectingSymbol = function (a) {
-	return {$: 'ExpectingSymbol', a: a};
+	return {$: 8, a: a};
 };
 var $elm$parser$Parser$Advanced$Token = F2(
 	function (a, b) {
-		return {$: 'Token', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $elm$parser$Parser$Advanced$AddRight = F2(
 	function (a, b) {
-		return {$: 'AddRight', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var $elm$parser$Parser$Advanced$DeadEnd = F4(
 	function (row, col, problem, contextStack) {
-		return {col: col, contextStack: contextStack, problem: problem, row: row};
+		return {A: col, bT: contextStack, cu: problem, cE: row};
 	});
 var $elm$parser$Parser$Advanced$fromState = F2(
 	function (s, x) {
 		return A2(
 			$elm$parser$Parser$Advanced$AddRight,
 			$elm$parser$Parser$Advanced$Empty,
-			A4($elm$parser$Parser$Advanced$DeadEnd, s.row, s.col, x, s.context));
+			A4($elm$parser$Parser$Advanced$DeadEnd, s.cE, s.A, x, s.e));
 	});
 var $elm$parser$Parser$Advanced$isSubString = _Parser_isSubString;
 var $elm$core$Basics$negate = function (n) {
@@ -6053,21 +6092,20 @@ var $elm$parser$Parser$Advanced$token = function (_v0) {
 	var str = _v0.a;
 	var expecting = _v0.b;
 	var progress = !$elm$core$String$isEmpty(str);
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s) {
-			var _v1 = A5($elm$parser$Parser$Advanced$isSubString, str, s.offset, s.row, s.col, s.src);
-			var newOffset = _v1.a;
-			var newRow = _v1.b;
-			var newCol = _v1.c;
-			return _Utils_eq(newOffset, -1) ? A2(
-				$elm$parser$Parser$Advanced$Bad,
-				false,
-				A2($elm$parser$Parser$Advanced$fromState, s, expecting)) : A3(
-				$elm$parser$Parser$Advanced$Good,
-				progress,
-				_Utils_Tuple0,
-				{col: newCol, context: s.context, indent: s.indent, offset: newOffset, row: newRow, src: s.src});
-		});
+	return function (s) {
+		var _v1 = A5($elm$parser$Parser$Advanced$isSubString, str, s.c, s.cE, s.A, s.b);
+		var newOffset = _v1.a;
+		var newRow = _v1.b;
+		var newCol = _v1.c;
+		return _Utils_eq(newOffset, -1) ? A2(
+			$elm$parser$Parser$Advanced$Bad,
+			false,
+			A2($elm$parser$Parser$Advanced$fromState, s, expecting)) : A3(
+			$elm$parser$Parser$Advanced$Good,
+			progress,
+			0,
+			{A: newCol, e: s.e, B: s.B, c: newOffset, cE: newRow, b: s.b});
+	};
 };
 var $elm$parser$Parser$Advanced$symbol = $elm$parser$Parser$Advanced$token;
 var $elm$parser$Parser$symbol = function (str) {
@@ -6079,25 +6117,24 @@ var $elm$parser$Parser$symbol = function (str) {
 };
 var $MaybeJustJames$yaml$Yaml$Parser$Util$threeDashes = $elm$parser$Parser$symbol('---');
 var $elm$parser$Parser$Done = function (a) {
-	return {$: 'Done', a: a};
+	return {$: 1, a: a};
 };
 var $elm$parser$Parser$Loop = function (a) {
-	return {$: 'Loop', a: a};
+	return {$: 0, a: a};
 };
 var $elm$parser$Parser$Advanced$chompUntilEndOr = function (str) {
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s) {
-			var _v0 = A5(_Parser_findSubString, str, s.offset, s.row, s.col, s.src);
-			var newOffset = _v0.a;
-			var newRow = _v0.b;
-			var newCol = _v0.c;
-			var adjustedOffset = (newOffset < 0) ? $elm$core$String$length(s.src) : newOffset;
-			return A3(
-				$elm$parser$Parser$Advanced$Good,
-				_Utils_cmp(s.offset, adjustedOffset) < 0,
-				_Utils_Tuple0,
-				{col: newCol, context: s.context, indent: s.indent, offset: adjustedOffset, row: newRow, src: s.src});
-		});
+	return function (s) {
+		var _v0 = A5(_Parser_findSubString, str, s.c, s.cE, s.A, s.b);
+		var newOffset = _v0.a;
+		var newRow = _v0.b;
+		var newCol = _v0.c;
+		var adjustedOffset = (newOffset < 0) ? $elm$core$String$length(s.b) : newOffset;
+		return A3(
+			$elm$parser$Parser$Advanced$Good,
+			_Utils_cmp(s.c, adjustedOffset) < 0,
+			0,
+			{A: newCol, e: s.e, B: s.B, c: adjustedOffset, cE: newRow, b: s.b});
+	};
 };
 var $elm$parser$Parser$Advanced$lineComment = function (start) {
 	return A2(
@@ -6106,7 +6143,7 @@ var $elm$parser$Parser$Advanced$lineComment = function (start) {
 		$elm$parser$Parser$Advanced$chompUntilEndOr('\n'));
 };
 var $elm$parser$Parser$Expecting = function (a) {
-	return {$: 'Expecting', a: a};
+	return {$: 0, a: a};
 };
 var $elm$parser$Parser$toToken = function (str) {
 	return A2(
@@ -6124,13 +6161,13 @@ var $elm$parser$Parser$Advanced$loopHelp = F4(
 		loopHelp:
 		while (true) {
 			var _v0 = callback(state);
-			var parse = _v0.a;
+			var parse = _v0;
 			var _v1 = parse(s0);
-			if (_v1.$ === 'Good') {
+			if (!_v1.$) {
 				var p1 = _v1.a;
 				var step = _v1.b;
 				var s1 = _v1.c;
-				if (step.$ === 'Loop') {
+				if (!step.$) {
 					var newState = step.a;
 					var $temp$p = p || p1,
 						$temp$state = newState,
@@ -6154,42 +6191,40 @@ var $elm$parser$Parser$Advanced$loopHelp = F4(
 	});
 var $elm$parser$Parser$Advanced$loop = F2(
 	function (state, callback) {
-		return $elm$parser$Parser$Advanced$Parser(
-			function (s) {
-				return A4($elm$parser$Parser$Advanced$loopHelp, false, state, callback, s);
-			});
+		return function (s) {
+			return A4($elm$parser$Parser$Advanced$loopHelp, false, state, callback, s);
+		};
 	});
 var $elm$parser$Parser$Advanced$map = F2(
 	function (func, _v0) {
-		var parse = _v0.a;
-		return $elm$parser$Parser$Advanced$Parser(
-			function (s0) {
-				var _v1 = parse(s0);
-				if (_v1.$ === 'Good') {
-					var p = _v1.a;
-					var a = _v1.b;
-					var s1 = _v1.c;
-					return A3(
-						$elm$parser$Parser$Advanced$Good,
-						p,
-						func(a),
-						s1);
-				} else {
-					var p = _v1.a;
-					var x = _v1.b;
-					return A2($elm$parser$Parser$Advanced$Bad, p, x);
-				}
-			});
+		var parse = _v0;
+		return function (s0) {
+			var _v1 = parse(s0);
+			if (!_v1.$) {
+				var p = _v1.a;
+				var a = _v1.b;
+				var s1 = _v1.c;
+				return A3(
+					$elm$parser$Parser$Advanced$Good,
+					p,
+					func(a),
+					s1);
+			} else {
+				var p = _v1.a;
+				var x = _v1.b;
+				return A2($elm$parser$Parser$Advanced$Bad, p, x);
+			}
+		};
 	});
 var $elm$parser$Parser$map = $elm$parser$Parser$Advanced$map;
 var $elm$parser$Parser$Advanced$Done = function (a) {
-	return {$: 'Done', a: a};
+	return {$: 1, a: a};
 };
 var $elm$parser$Parser$Advanced$Loop = function (a) {
-	return {$: 'Loop', a: a};
+	return {$: 0, a: a};
 };
 var $elm$parser$Parser$toAdvancedStep = function (step) {
-	if (step.$ === 'Loop') {
+	if (!step.$) {
 		var s = step.a;
 		return $elm$parser$Parser$Advanced$Loop(s);
 	} else {
@@ -6217,23 +6252,23 @@ var $MaybeJustJames$yaml$Yaml$Parser$Util$whitespace = function () {
 					A2(
 					$elm$parser$Parser$ignorer,
 					$elm$parser$Parser$succeed(
-						$elm$parser$Parser$Loop(_Utils_Tuple0)),
+						$elm$parser$Parser$Loop(0)),
 					$MaybeJustJames$yaml$Yaml$Parser$Util$comment),
 					A2(
 					$elm$parser$Parser$ignorer,
 					$elm$parser$Parser$succeed(
-						$elm$parser$Parser$Loop(_Utils_Tuple0)),
+						$elm$parser$Parser$Loop(0)),
 					$elm$parser$Parser$symbol(' ')),
 					A2(
 					$elm$parser$Parser$ignorer,
 					$elm$parser$Parser$succeed(
-						$elm$parser$Parser$Loop(_Utils_Tuple0)),
+						$elm$parser$Parser$Loop(0)),
 					$elm$parser$Parser$symbol('\n')),
 					$elm$parser$Parser$succeed(
-					$elm$parser$Parser$Done(_Utils_Tuple0))
+					$elm$parser$Parser$Done(0))
 				]));
 	};
-	return A2($elm$parser$Parser$loop, _Utils_Tuple0, step);
+	return A2($elm$parser$Parser$loop, 0, step);
 }();
 var $MaybeJustJames$yaml$Yaml$Parser$Document$dashes = function (indent) {
 	return (indent === 1) ? $elm$parser$Parser$oneOf(
@@ -6255,10 +6290,9 @@ var $MaybeJustJames$yaml$Yaml$Parser$Document$dashes = function (indent) {
 		$elm$parser$Parser$succeed($elm$core$Basics$identity),
 		$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace);
 };
-var $elm$parser$Parser$Advanced$getCol = $elm$parser$Parser$Advanced$Parser(
-	function (s) {
-		return A3($elm$parser$Parser$Advanced$Good, false, s.col, s);
-	});
+var $elm$parser$Parser$Advanced$getCol = function (s) {
+	return A3($elm$parser$Parser$Advanced$Good, false, s.A, s);
+};
 var $elm$parser$Parser$getCol = $elm$parser$Parser$Advanced$getCol;
 var $MaybeJustJames$yaml$Yaml$Parser$Document$begins = $elm$parser$Parser$oneOf(
 	_List_fromArray(
@@ -6275,17 +6309,16 @@ var $MaybeJustJames$yaml$Yaml$Parser$Document$begins = $elm$parser$Parser$oneOf(
 			$elm$parser$Parser$succeed($elm$core$Basics$identity),
 			$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)
 		]));
-var $elm$parser$Parser$ExpectingEnd = {$: 'ExpectingEnd'};
+var $elm$parser$Parser$ExpectingEnd = {$: 10};
 var $elm$parser$Parser$Advanced$end = function (x) {
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s) {
-			return _Utils_eq(
-				$elm$core$String$length(s.src),
-				s.offset) ? A3($elm$parser$Parser$Advanced$Good, false, _Utils_Tuple0, s) : A2(
-				$elm$parser$Parser$Advanced$Bad,
-				false,
-				A2($elm$parser$Parser$Advanced$fromState, s, x));
-		});
+	return function (s) {
+		return _Utils_eq(
+			$elm$core$String$length(s.b),
+			s.c) ? A3($elm$parser$Parser$Advanced$Good, false, 0, s) : A2(
+			$elm$parser$Parser$Advanced$Bad,
+			false,
+			A2($elm$parser$Parser$Advanced$fromState, s, x));
+	};
 };
 var $elm$parser$Parser$end = $elm$parser$Parser$Advanced$end($elm$parser$Parser$ExpectingEnd);
 var $MaybeJustJames$yaml$Yaml$Parser$Util$threeDots = $elm$parser$Parser$symbol('...');
@@ -6303,7 +6336,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$Document$ends = A2(
 				_List_fromArray(
 					[
 						$MaybeJustJames$yaml$Yaml$Parser$Util$threeDots,
-						$elm$parser$Parser$succeed(_Utils_Tuple0)
+						$elm$parser$Parser$succeed(0)
 					]))),
 		$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
 	$elm$parser$Parser$end);
@@ -6312,9 +6345,9 @@ var $elm$parser$Parser$Advanced$keeper = F2(
 		return A3($elm$parser$Parser$Advanced$map2, $elm$core$Basics$apL, parseFunc, parseArg);
 	});
 var $elm$parser$Parser$keeper = $elm$parser$Parser$Advanced$keeper;
-var $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_ = {$: 'Null_'};
+var $MaybeJustJames$yaml$Yaml$Parser$Ast$Null_ = {$: 6};
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$String_ = function (a) {
-	return {$: 'String_', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
@@ -6324,28 +6357,27 @@ var $elm$core$Basics$composeL = F3(
 var $elm$parser$Parser$chompUntilEndOr = $elm$parser$Parser$Advanced$chompUntilEndOr;
 var $elm$parser$Parser$Advanced$mapChompedString = F2(
 	function (func, _v0) {
-		var parse = _v0.a;
-		return $elm$parser$Parser$Advanced$Parser(
-			function (s0) {
-				var _v1 = parse(s0);
-				if (_v1.$ === 'Bad') {
-					var p = _v1.a;
-					var x = _v1.b;
-					return A2($elm$parser$Parser$Advanced$Bad, p, x);
-				} else {
-					var p = _v1.a;
-					var a = _v1.b;
-					var s1 = _v1.c;
-					return A3(
-						$elm$parser$Parser$Advanced$Good,
-						p,
-						A2(
-							func,
-							A3($elm$core$String$slice, s0.offset, s1.offset, s0.src),
-							a),
-						s1);
-				}
-			});
+		var parse = _v0;
+		return function (s0) {
+			var _v1 = parse(s0);
+			if (_v1.$ === 1) {
+				var p = _v1.a;
+				var x = _v1.b;
+				return A2($elm$parser$Parser$Advanced$Bad, p, x);
+			} else {
+				var p = _v1.a;
+				var a = _v1.b;
+				var s1 = _v1.c;
+				return A3(
+					$elm$parser$Parser$Advanced$Good,
+					p,
+					A2(
+						func,
+						A3($elm$core$String$slice, s0.c, s1.c, s0.b),
+						a),
+					s1);
+			}
+		};
 	});
 var $elm$parser$Parser$Advanced$getChompedString = function (parser) {
 	return A2($elm$parser$Parser$Advanced$mapChompedString, $elm$core$Basics$always, parser);
@@ -6354,7 +6386,7 @@ var $elm$parser$Parser$getChompedString = $elm$parser$Parser$Advanced$getChomped
 var $MaybeJustJames$yaml$Yaml$Parser$Util$remaining = $elm$parser$Parser$getChompedString(
 	A2(
 		$elm$parser$Parser$ignorer,
-		$elm$parser$Parser$succeed(_Utils_Tuple0),
+		$elm$parser$Parser$succeed(0),
 		$elm$parser$Parser$chompUntilEndOr('\n...\n')));
 var $MaybeJustJames$yaml$Yaml$Parser$String$exceptions = function () {
 	var dashed = function (s) {
@@ -6389,13 +6421,13 @@ var $elm$parser$Parser$Advanced$chompWhileHelp = F5(
 	function (isGood, offset, row, col, s0) {
 		chompWhileHelp:
 		while (true) {
-			var newOffset = A3($elm$parser$Parser$Advanced$isSubChar, isGood, offset, s0.src);
+			var newOffset = A3($elm$parser$Parser$Advanced$isSubChar, isGood, offset, s0.b);
 			if (_Utils_eq(newOffset, -1)) {
 				return A3(
 					$elm$parser$Parser$Advanced$Good,
-					_Utils_cmp(s0.offset, offset) < 0,
-					_Utils_Tuple0,
-					{col: col, context: s0.context, indent: s0.indent, offset: offset, row: row, src: s0.src});
+					_Utils_cmp(s0.c, offset) < 0,
+					0,
+					{A: col, e: s0.e, B: s0.B, c: offset, cE: row, b: s0.b});
 			} else {
 				if (_Utils_eq(newOffset, -2)) {
 					var $temp$isGood = isGood,
@@ -6426,10 +6458,9 @@ var $elm$parser$Parser$Advanced$chompWhileHelp = F5(
 		}
 	});
 var $elm$parser$Parser$Advanced$chompWhile = function (isGood) {
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s) {
-			return A5($elm$parser$Parser$Advanced$chompWhileHelp, isGood, s.offset, s.row, s.col, s);
-		});
+	return function (s) {
+		return A5($elm$parser$Parser$Advanced$chompWhileHelp, isGood, s.c, s.cE, s.A, s);
+	};
 };
 var $elm$parser$Parser$chompWhile = $elm$parser$Parser$Advanced$chompWhile;
 var $elm$core$List$any = F2(
@@ -6472,17 +6503,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$refName = A2(
 					$elm$core$List$member,
 					c,
 					_List_fromArray(
-						[
-							_Utils_chr('\u000D'),
-							_Utils_chr('\n'),
-							_Utils_chr(' '),
-							_Utils_chr('\t'),
-							_Utils_chr(','),
-							_Utils_chr('['),
-							_Utils_chr(']'),
-							_Utils_chr('{'),
-							_Utils_chr('}')
-						]));
+						['\u000D', '\n', ' ', '\t', ',', '[', ']', '{', '}']));
 			})));
 var $MaybeJustJames$yaml$Yaml$Parser$anchor = function (valParser) {
 	return A2(
@@ -6497,40 +6518,38 @@ var $MaybeJustJames$yaml$Yaml$Parser$anchor = function (valParser) {
 		A2($elm$parser$Parser$andThen, valParser, $elm$parser$Parser$getCol));
 };
 var $elm$parser$Parser$Advanced$backtrackable = function (_v0) {
-	var parse = _v0.a;
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s0) {
-			var _v1 = parse(s0);
-			if (_v1.$ === 'Bad') {
-				var x = _v1.b;
-				return A2($elm$parser$Parser$Advanced$Bad, false, x);
-			} else {
-				var a = _v1.b;
-				var s1 = _v1.c;
-				return A3($elm$parser$Parser$Advanced$Good, false, a, s1);
-			}
-		});
+	var parse = _v0;
+	return function (s0) {
+		var _v1 = parse(s0);
+		if (_v1.$ === 1) {
+			var x = _v1.b;
+			return A2($elm$parser$Parser$Advanced$Bad, false, x);
+		} else {
+			var a = _v1.b;
+			var s1 = _v1.c;
+			return A3($elm$parser$Parser$Advanced$Good, false, a, s1);
+		}
+	};
 };
 var $elm$parser$Parser$backtrackable = $elm$parser$Parser$Advanced$backtrackable;
-var $elm$parser$Parser$UnexpectedChar = {$: 'UnexpectedChar'};
+var $elm$parser$Parser$UnexpectedChar = {$: 11};
 var $elm$parser$Parser$Advanced$chompIf = F2(
 	function (isGood, expecting) {
-		return $elm$parser$Parser$Advanced$Parser(
-			function (s) {
-				var newOffset = A3($elm$parser$Parser$Advanced$isSubChar, isGood, s.offset, s.src);
-				return _Utils_eq(newOffset, -1) ? A2(
-					$elm$parser$Parser$Advanced$Bad,
-					false,
-					A2($elm$parser$Parser$Advanced$fromState, s, expecting)) : (_Utils_eq(newOffset, -2) ? A3(
-					$elm$parser$Parser$Advanced$Good,
-					true,
-					_Utils_Tuple0,
-					{col: 1, context: s.context, indent: s.indent, offset: s.offset + 1, row: s.row + 1, src: s.src}) : A3(
-					$elm$parser$Parser$Advanced$Good,
-					true,
-					_Utils_Tuple0,
-					{col: s.col + 1, context: s.context, indent: s.indent, offset: newOffset, row: s.row, src: s.src}));
-			});
+		return function (s) {
+			var newOffset = A3($elm$parser$Parser$Advanced$isSubChar, isGood, s.c, s.b);
+			return _Utils_eq(newOffset, -1) ? A2(
+				$elm$parser$Parser$Advanced$Bad,
+				false,
+				A2($elm$parser$Parser$Advanced$fromState, s, expecting)) : (_Utils_eq(newOffset, -2) ? A3(
+				$elm$parser$Parser$Advanced$Good,
+				true,
+				0,
+				{A: 1, e: s.e, B: s.B, c: s.c + 1, cE: s.cE + 1, b: s.b}) : A3(
+				$elm$parser$Parser$Advanced$Good,
+				true,
+				0,
+				{A: s.A + 1, e: s.e, B: s.B, c: newOffset, cE: s.cE, b: s.b}));
+		};
 	});
 var $elm$parser$Parser$chompIf = function (isGood) {
 	return A2($elm$parser$Parser$Advanced$chompIf, isGood, $elm$parser$Parser$UnexpectedChar);
@@ -6539,17 +6558,15 @@ var $MaybeJustJames$yaml$Yaml$Parser$Util$characters_ = function (isOk) {
 	return $elm$parser$Parser$getChompedString(
 		A2(
 			$elm$parser$Parser$ignorer,
-			$elm$parser$Parser$succeed(_Utils_Tuple0),
+			$elm$parser$Parser$succeed(0),
 			$elm$parser$Parser$chompWhile(isOk)));
 };
 var $MaybeJustJames$yaml$Yaml$Parser$Util$is = F2(
 	function (searched, _char) {
 		return _Utils_eq(_char, searched);
 	});
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isDoubleQuote = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr('\"'));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isSpace = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr(' '));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isDoubleQuote = $MaybeJustJames$yaml$Yaml$Parser$Util$is('\"');
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isSpace = $MaybeJustJames$yaml$Yaml$Parser$Util$is(' ');
 var $MaybeJustJames$yaml$Yaml$Parser$Util$spaces = $elm$parser$Parser$chompWhile($MaybeJustJames$yaml$Yaml$Parser$Util$isSpace);
 var $MaybeJustJames$yaml$Yaml$Parser$Util$doubleQuotes = A2(
 	$elm$parser$Parser$keeper,
@@ -6565,20 +6582,17 @@ var $MaybeJustJames$yaml$Yaml$Parser$Util$doubleQuotes = A2(
 				A2($elm$core$Basics$composeL, $elm$core$Basics$not, $MaybeJustJames$yaml$Yaml$Parser$Util$isDoubleQuote)),
 			$elm$parser$Parser$symbol('\"')),
 		$MaybeJustJames$yaml$Yaml$Parser$Util$spaces));
-var $elm$core$Set$Set_elm_builtin = function (a) {
-	return {$: 'Set_elm_builtin', a: a};
-};
-var $elm$core$Set$empty = $elm$core$Set$Set_elm_builtin($elm$core$Dict$empty);
+var $elm$core$Set$Set_elm_builtin = $elm$core$Basics$identity;
+var $elm$core$Set$empty = $elm$core$Dict$empty;
 var $elm$core$Set$insert = F2(
 	function (key, _v0) {
-		var dict = _v0.a;
-		return $elm$core$Set$Set_elm_builtin(
-			A3($elm$core$Dict$insert, key, _Utils_Tuple0, dict));
+		var dict = _v0;
+		return A3($elm$core$Dict$insert, key, 0, dict);
 	});
 var $elm$core$Dict$member = F2(
 	function (key, dict) {
 		var _v0 = A2($elm$core$Dict$get, key, dict);
-		if (_v0.$ === 'Just') {
+		if (!_v0.$) {
 			return true;
 		} else {
 			return false;
@@ -6586,7 +6600,7 @@ var $elm$core$Dict$member = F2(
 	});
 var $elm$core$Set$member = F2(
 	function (key, _v0) {
-		var dict = _v0.a;
+		var dict = _v0;
 		return A2($elm$core$Dict$member, key, dict);
 	});
 var $elm$core$Tuple$second = function (_v0) {
@@ -6612,16 +6626,15 @@ var $MaybeJustJames$yaml$Yaml$Parser$duplicatedPropertyKeys = function (properti
 	return $elm$core$Set$toList(duplicated.b);
 };
 var $elm$parser$Parser$Problem = function (a) {
-	return {$: 'Problem', a: a};
+	return {$: 12, a: a};
 };
 var $elm$parser$Parser$Advanced$problem = function (x) {
-	return $elm$parser$Parser$Advanced$Parser(
-		function (s) {
-			return A2(
-				$elm$parser$Parser$Advanced$Bad,
-				false,
-				A2($elm$parser$Parser$Advanced$fromState, s, x));
-		});
+	return function (s) {
+		return A2(
+			$elm$parser$Parser$Advanced$Bad,
+			false,
+			A2($elm$parser$Parser$Advanced$fromState, s, x));
+	};
 };
 var $elm$parser$Parser$problem = function (msg) {
 	return $elm$parser$Parser$Advanced$problem(
@@ -6633,13 +6646,13 @@ var $MaybeJustJames$yaml$Yaml$Parser$duplicatedPropertyKeysCheck = function (pro
 		'Non-unique keys in record: ' + A2($elm$core$String$join, ', ', duplicates));
 };
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$Bool_ = function (a) {
-	return {$: 'Bool_', a: a};
+	return {$: 5, a: a};
 };
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_ = function (a) {
-	return {$: 'Float_', a: a};
+	return {$: 1, a: a};
 };
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$Int_ = function (a) {
-	return {$: 'Int_', a: a};
+	return {$: 2, a: a};
 };
 var $elm$core$String$toFloat = _String_toFloat;
 var $elm$core$String$trim = _String_trim;
@@ -6736,12 +6749,12 @@ var $MaybeJustJames$yaml$Yaml$Parser$Ast$fromString = function (string) {
 			return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_((mult * 1) / 0);
 		default:
 			var _v1 = $elm$core$String$toInt(trimmed);
-			if (_v1.$ === 'Just') {
+			if (!_v1.$) {
 				var _int = _v1.a;
 				return $MaybeJustJames$yaml$Yaml$Parser$Ast$Int_(_int);
 			} else {
 				var _v2 = $elm$core$String$toFloat(trimmed);
-				if (_v2.$ === 'Just') {
+				if (!_v2.$) {
 					var _float = _v2.a;
 					return $MaybeJustJames$yaml$Yaml$Parser$Ast$Float_(_float);
 				} else {
@@ -6769,16 +6782,16 @@ var $MaybeJustJames$yaml$Yaml$Parser$Util$indented = F2(
 						A2(
 						$elm$parser$Parser$andThen,
 						function (_v0) {
-							return next.ending;
+							return next.ar;
 						},
 						$elm$parser$Parser$end),
 						A2(
 						$elm$parser$Parser$andThen,
 						function (_v1) {
-							return next.ending;
+							return next.ar;
 						},
 						$elm$parser$Parser$symbol('\n...\n')),
-						_Utils_eq(actual, indent) ? next.exactly : ((_Utils_cmp(actual, indent) > 0) ? next.larger(actual) : next.smaller)
+						_Utils_eq(actual, indent) ? next.as : ((_Utils_cmp(actual, indent) > 0) ? next.au(actual) : next.az)
 					]));
 		};
 		return A2(
@@ -6792,26 +6805,19 @@ var $MaybeJustJames$yaml$Yaml$Parser$Util$indented = F2(
 					$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace),
 				$elm$parser$Parser$getCol));
 	});
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isColon = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr(':'));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isListEnd = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr(']'));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isListStart = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr('['));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr('\n'));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr('}'));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordStart = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr('{'));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isColon = $MaybeJustJames$yaml$Yaml$Parser$Util$is(':');
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isListEnd = $MaybeJustJames$yaml$Yaml$Parser$Util$is(']');
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isListStart = $MaybeJustJames$yaml$Yaml$Parser$Util$is('[');
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isNewLine = $MaybeJustJames$yaml$Yaml$Parser$Util$is('\n');
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd = $MaybeJustJames$yaml$Yaml$Parser$Util$is('}');
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordStart = $MaybeJustJames$yaml$Yaml$Parser$Util$is('{');
 var $MaybeJustJames$yaml$Yaml$Parser$listElementBegin = $elm$parser$Parser$oneOf(
 	_List_fromArray(
 		[
 			$elm$parser$Parser$symbol('- '),
 			$elm$parser$Parser$symbol('-\n')
 		]));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isComma = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr(','));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isComma = $MaybeJustJames$yaml$Yaml$Parser$Util$is(',');
 var $MaybeJustJames$yaml$Yaml$Parser$listInlineOnDone = F2(
 	function (elements, element) {
 		return $elm$parser$Parser$Done(
@@ -6860,7 +6866,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$listInlineString = A2(
 	$elm$parser$Parser$getChompedString(
 		A2(
 			$elm$parser$Parser$ignorer,
-			$elm$parser$Parser$succeed(_Utils_Tuple0),
+			$elm$parser$Parser$succeed(0),
 			$elm$parser$Parser$chompWhile(
 				A2($MaybeJustJames$yaml$Yaml$Parser$Util$neither, $MaybeJustJames$yaml$Yaml$Parser$Util$isComma, $MaybeJustJames$yaml$Yaml$Parser$Util$isListEnd)))));
 var $elm$core$String$concat = function (strings) {
@@ -6892,7 +6898,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$Util$characters = function (isOk) {
 					$elm$parser$Parser$getChompedString(
 						A2(
 							$elm$parser$Parser$ignorer,
-							$elm$parser$Parser$succeed(_Utils_Tuple0),
+							$elm$parser$Parser$succeed(0),
 							$elm$parser$Parser$chompIf(isOk)))),
 					$elm$parser$Parser$succeed(
 					done(chars))
@@ -6949,13 +6955,13 @@ var $elm$core$Tuple$pair = F2(
 	});
 var $elm$regex$Regex$Match = F4(
 	function (match, index, number, submatches) {
-		return {index: index, match: match, number: number, submatches: submatches};
+		return {b3: index, b9: match, cn: number, cF: submatches};
 	});
 var $elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
 var $elm$regex$Regex$fromString = function (string) {
 	return A2(
 		$elm$regex$Regex$fromStringWith,
-		{caseInsensitive: false, multiline: false},
+		{bQ: false, cc: false},
 		string);
 };
 var $elm$regex$Regex$never = _Regex_never;
@@ -6969,7 +6975,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$Util$postProcessString = function (str) {
 		$elm$regex$Regex$replace,
 		regexFromString('\\s\\s+'),
 		function (match) {
-			return A2($elm$core$String$contains, '\n\n', match.match) ? '\n' : ' ';
+			return A2($elm$core$String$contains, '\n\n', match.b9) ? '\n' : ' ';
 		},
 		str);
 };
@@ -7013,12 +7019,11 @@ var $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyNameString = A2(
 			$elm$parser$Parser$ignorer,
 			A2(
 				$elm$parser$Parser$ignorer,
-				$elm$parser$Parser$succeed(_Utils_Tuple0),
+				$elm$parser$Parser$succeed(0),
 				$elm$parser$Parser$chompWhile(
 					A3($MaybeJustJames$yaml$Yaml$Parser$Util$neither3, $MaybeJustJames$yaml$Yaml$Parser$Util$isColon, $MaybeJustJames$yaml$Yaml$Parser$Util$isComma, $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd))),
 			$MaybeJustJames$yaml$Yaml$Parser$Util$whitespace)));
-var $MaybeJustJames$yaml$Yaml$Parser$Util$isSingleQuote = $MaybeJustJames$yaml$Yaml$Parser$Util$is(
-	_Utils_chr('\''));
+var $MaybeJustJames$yaml$Yaml$Parser$Util$isSingleQuote = $MaybeJustJames$yaml$Yaml$Parser$Util$is('\'');
 var $MaybeJustJames$yaml$Yaml$Parser$Util$singleQuotes = A2(
 	$elm$parser$Parser$keeper,
 	A2(
@@ -7066,11 +7071,11 @@ var $MaybeJustJames$yaml$Yaml$Parser$recordInlineString = A2(
 	$elm$parser$Parser$getChompedString(
 		A2(
 			$elm$parser$Parser$ignorer,
-			$elm$parser$Parser$succeed(_Utils_Tuple0),
+			$elm$parser$Parser$succeed(0),
 			$elm$parser$Parser$chompWhile(
 				A2($MaybeJustJames$yaml$Yaml$Parser$Util$neither, $MaybeJustJames$yaml$Yaml$Parser$Util$isComma, $MaybeJustJames$yaml$Yaml$Parser$Util$isRecordEnd)))));
 var $MaybeJustJames$yaml$Yaml$Parser$Ast$Alias_ = function (a) {
-	return {$: 'Alias_', a: a};
+	return {$: 8, a: a};
 };
 var $MaybeJustJames$yaml$Yaml$Parser$reference = A2(
 	$elm$parser$Parser$keeper,
@@ -7123,9 +7128,9 @@ var $MaybeJustJames$yaml$Yaml$Parser$listElementValue = function (indent) {
 		$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
 		indent,
 		{
-			ending: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
-			exactly: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
-			larger: function (indent_) {
+			ar: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+			as: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+			au: function (indent_) {
 				return $elm$parser$Parser$oneOf(
 					_List_fromArray(
 						[
@@ -7134,7 +7139,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$listElementValue = function (indent) {
 							elVal(indent_)
 						]));
 			},
-			smaller: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
+			az: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
 		});
 };
 var $MaybeJustJames$yaml$Yaml$Parser$listInlineStep = function (elements) {
@@ -7164,8 +7169,8 @@ var $MaybeJustJames$yaml$Yaml$Parser$listStep = F2(
 			$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
 			indent,
 			{
-				ending: $elm$parser$Parser$succeed(finish),
-				exactly: $elm$parser$Parser$oneOf(
+				ar: $elm$parser$Parser$succeed(finish),
+				as: $elm$parser$Parser$oneOf(
 					_List_fromArray(
 						[
 							A2(
@@ -7174,10 +7179,10 @@ var $MaybeJustJames$yaml$Yaml$Parser$listStep = F2(
 							$MaybeJustJames$yaml$Yaml$Parser$listElement(indent)),
 							$elm$parser$Parser$succeed(finish)
 						])),
-				larger: function (_v1) {
+				au: function (_v1) {
 					return $elm$parser$Parser$problem('I was looking for the next element but didn\'t find one.');
 				},
-				smaller: $elm$parser$Parser$succeed(finish)
+				az: $elm$parser$Parser$succeed(finish)
 			});
 	});
 var $MaybeJustJames$yaml$Yaml$Parser$quotedString = function (indent) {
@@ -7265,14 +7270,14 @@ var $MaybeJustJames$yaml$Yaml$Parser$recordElementValue = function (indent) {
 		$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
 		indent,
 		{
-			ending: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
-			exactly: $elm$parser$Parser$oneOf(
+			ar: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_),
+			as: $elm$parser$Parser$oneOf(
 				_List_fromArray(
 					[
 						$MaybeJustJames$yaml$Yaml$Parser$list(indent),
 						$elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
 					])),
-			larger: function (indent_) {
+			au: function (indent_) {
 				return $elm$parser$Parser$oneOf(
 					_List_fromArray(
 						[
@@ -7281,7 +7286,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$recordElementValue = function (indent) {
 							elVal(indent_)
 						]));
 			},
-			smaller: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
+			az: $elm$parser$Parser$succeed($MaybeJustJames$yaml$Yaml$Parser$Ast$Null_)
 		});
 };
 var $MaybeJustJames$yaml$Yaml$Parser$recordInlineStep = function (elements) {
@@ -7393,15 +7398,15 @@ var $MaybeJustJames$yaml$Yaml$Parser$recordStep = F2(
 			$MaybeJustJames$yaml$Yaml$Parser$Util$indented,
 			indent,
 			{
-				ending: $elm$parser$Parser$succeed(finish),
-				exactly: A2(
+				ar: $elm$parser$Parser$succeed(finish),
+				as: A2(
 					$elm$parser$Parser$keeper,
 					$elm$parser$Parser$succeed(next),
 					$MaybeJustJames$yaml$Yaml$Parser$recordElement(indent)),
-				larger: function (_v0) {
+				au: function (_v0) {
 					return $elm$parser$Parser$problem('I was looking for the next property but didn\'t find one.');
 				},
-				smaller: $elm$parser$Parser$succeed(finish)
+				az: $elm$parser$Parser$succeed(finish)
 			});
 	});
 function $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue() {
@@ -7504,37 +7509,34 @@ function $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne() {
 					A2($elm$parser$Parser$loop, _List_Nil, $MaybeJustJames$yaml$Yaml$Parser$recordInlineStep))
 				])));
 }
-try {
-	var $MaybeJustJames$yaml$Yaml$Parser$recordInlineValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue();
-	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue = function () {
-		return $MaybeJustJames$yaml$Yaml$Parser$recordInlineValue;
-	};
-	var $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue();
-	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue = function () {
-		return $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyValue;
-	};
-	var $MaybeJustJames$yaml$Yaml$Parser$listInlineValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue();
-	$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue = function () {
-		return $MaybeJustJames$yaml$Yaml$Parser$listInlineValue;
-	};
-	var $MaybeJustJames$yaml$Yaml$Parser$listInline = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline();
-	$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline = function () {
-		return $MaybeJustJames$yaml$Yaml$Parser$listInline;
-	};
-	var $MaybeJustJames$yaml$Yaml$Parser$listInlineStepOne = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne();
-	$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne = function () {
-		return $MaybeJustJames$yaml$Yaml$Parser$listInlineStepOne;
-	};
-	var $MaybeJustJames$yaml$Yaml$Parser$recordInline = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline();
-	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline = function () {
-		return $MaybeJustJames$yaml$Yaml$Parser$recordInline;
-	};
-	var $MaybeJustJames$yaml$Yaml$Parser$recordInlineStepOne = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne();
-	$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne = function () {
-		return $MaybeJustJames$yaml$Yaml$Parser$recordInlineStepOne;
-	};
-} catch ($) {
-	throw 'Some top-level definitions from `Yaml.Parser` are causing infinite recursion:\n\n  ┌─────┐\n  │    list\n  │     ↓\n  │    listElement\n  │     ↓\n  │    listElementValue\n  │     ↓\n  │    recordInlineValue\n  │     ↓\n  │    recordInlinePropertyValue\n  │     ↓\n  │    listInlineValue\n  │     ↓\n  │    listInline\n  │     ↓\n  │    listInlineStepOne\n  │     ↓\n  │    listInlineStep\n  │     ↓\n  │    listStep\n  │     ↓\n  │    quotedString\n  │     ↓\n  │    record\n  │     ↓\n  │    recordElement\n  │     ↓\n  │    recordElementValue\n  │     ↓\n  │    recordInline\n  │     ↓\n  │    recordInlineStepOne\n  │     ↓\n  │    recordInlineStep\n  │     ↓\n  │    recordOrString\n  │     ↓\n  │    recordProperty\n  │     ↓\n  │    recordStep\n  └─────┘\n\nThese errors are very tricky, so read https://elm-lang.org/0.19.1/bad-recursion to learn how to fix it!';}
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlineValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue();
+$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineValue = function () {
+	return $MaybeJustJames$yaml$Yaml$Parser$recordInlineValue;
+};
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue();
+$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlinePropertyValue = function () {
+	return $MaybeJustJames$yaml$Yaml$Parser$recordInlinePropertyValue;
+};
+var $MaybeJustJames$yaml$Yaml$Parser$listInlineValue = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue();
+$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineValue = function () {
+	return $MaybeJustJames$yaml$Yaml$Parser$listInlineValue;
+};
+var $MaybeJustJames$yaml$Yaml$Parser$listInline = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline();
+$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInline = function () {
+	return $MaybeJustJames$yaml$Yaml$Parser$listInline;
+};
+var $MaybeJustJames$yaml$Yaml$Parser$listInlineStepOne = $MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne();
+$MaybeJustJames$yaml$Yaml$Parser$cyclic$listInlineStepOne = function () {
+	return $MaybeJustJames$yaml$Yaml$Parser$listInlineStepOne;
+};
+var $MaybeJustJames$yaml$Yaml$Parser$recordInline = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline();
+$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInline = function () {
+	return $MaybeJustJames$yaml$Yaml$Parser$recordInline;
+};
+var $MaybeJustJames$yaml$Yaml$Parser$recordInlineStepOne = $MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne();
+$MaybeJustJames$yaml$Yaml$Parser$cyclic$recordInlineStepOne = function () {
+	return $MaybeJustJames$yaml$Yaml$Parser$recordInlineStepOne;
+};
 var $MaybeJustJames$yaml$Yaml$Parser$value = $elm$parser$Parser$oneOf(
 	_List_fromArray(
 		[
@@ -7559,19 +7561,19 @@ var $MaybeJustJames$yaml$Yaml$Parser$parser = A2(
 	A2($elm$parser$Parser$ignorer, $MaybeJustJames$yaml$Yaml$Parser$value, $MaybeJustJames$yaml$Yaml$Parser$Document$ends));
 var $elm$parser$Parser$DeadEnd = F3(
 	function (row, col, problem) {
-		return {col: col, problem: problem, row: row};
+		return {A: col, cu: problem, cE: row};
 	});
 var $elm$parser$Parser$problemToDeadEnd = function (p) {
-	return A3($elm$parser$Parser$DeadEnd, p.row, p.col, p.problem);
+	return A3($elm$parser$Parser$DeadEnd, p.cE, p.A, p.cu);
 };
 var $elm$parser$Parser$Advanced$bagToList = F2(
 	function (bag, list) {
 		bagToList:
 		while (true) {
 			switch (bag.$) {
-				case 'Empty':
+				case 0:
 					return list;
-				case 'AddRight':
+				case 1:
 					var bag1 = bag.a;
 					var x = bag.b;
 					var $temp$bag = bag1,
@@ -7592,10 +7594,10 @@ var $elm$parser$Parser$Advanced$bagToList = F2(
 	});
 var $elm$parser$Parser$Advanced$run = F2(
 	function (_v0, src) {
-		var parse = _v0.a;
+		var parse = _v0;
 		var _v1 = parse(
-			{col: 1, context: _List_Nil, indent: 1, offset: 0, row: 1, src: src});
-		if (_v1.$ === 'Good') {
+			{A: 1, e: _List_Nil, B: 1, c: 0, cE: 1, b: src});
+		if (!_v1.$) {
 			var value = _v1.b;
 			return $elm$core$Result$Ok(value);
 		} else {
@@ -7607,7 +7609,7 @@ var $elm$parser$Parser$Advanced$run = F2(
 var $elm$parser$Parser$run = F2(
 	function (parser, source) {
 		var _v0 = A2($elm$parser$Parser$Advanced$run, parser, source);
-		if (_v0.$ === 'Ok') {
+		if (!_v0.$) {
 			var a = _v0.a;
 			return $elm$core$Result$Ok(a);
 		} else {
@@ -7626,7 +7628,7 @@ var $MaybeJustJames$yaml$Yaml$Parser$fromString = A2(
 var $MaybeJustJames$yaml$Yaml$Decode$fromString = F2(
 	function (decoder, raw) {
 		var _v0 = $MaybeJustJames$yaml$Yaml$Parser$fromString(raw);
-		if (_v0.$ === 'Ok') {
+		if (!_v0.$) {
 			var v = _v0.a;
 			return A2($MaybeJustJames$yaml$Yaml$Decode$fromValue, decoder, v);
 		} else {
@@ -7638,11 +7640,11 @@ var $MaybeJustJames$yaml$Yaml$Decode$fromString = F2(
 var $MaybeJustJames$yaml$Yaml$Decode$singleResult = function () {
 	var each = F2(
 		function (v, r) {
-			if (r.$ === 'Err') {
+			if (r.$ === 1) {
 				return r;
 			} else {
 				var vs = r.a;
-				if (v.$ === 'Ok') {
+				if (!v.$) {
 					var vok = v.a;
 					return $elm$core$Result$Ok(
 						A2($elm$core$List$cons, vok, vs));
@@ -7661,22 +7663,21 @@ var $MaybeJustJames$yaml$Yaml$Decode$singleResult = function () {
 		$elm$core$Result$map($elm$core$List$reverse));
 }();
 var $MaybeJustJames$yaml$Yaml$Decode$list = function (decoder) {
-	return $MaybeJustJames$yaml$Yaml$Decode$Decoder(
-		function (v) {
-			switch (v.$) {
-				case 'List_':
-					var list_ = v.a;
-					return $MaybeJustJames$yaml$Yaml$Decode$singleResult(
-						A2(
-							$elm$core$List$map,
-							$MaybeJustJames$yaml$Yaml$Decode$fromValue(decoder),
-							list_));
-				case 'Null_':
-					return $elm$core$Result$Ok(_List_Nil);
-				default:
-					return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'list', v);
-			}
-		});
+	return function (v) {
+		switch (v.$) {
+			case 3:
+				var list_ = v.a;
+				return $MaybeJustJames$yaml$Yaml$Decode$singleResult(
+					A2(
+						$elm$core$List$map,
+						$MaybeJustJames$yaml$Yaml$Decode$fromValue(decoder),
+						list_));
+			case 6:
+				return $elm$core$Result$Ok(_List_Nil);
+			default:
+				return A2($MaybeJustJames$yaml$Yaml$Decode$decodeError, 'list', v);
+		}
+	};
 };
 var $author$project$Data$decodeReadingList = $MaybeJustJames$yaml$Yaml$Decode$fromString(
 	$MaybeJustJames$yaml$Yaml$Decode$list($author$project$Data$decoder));
@@ -7925,7 +7926,7 @@ var $author$project$Data$reading = $elm$core$Dict$fromList(
 var $elm$core$Dict$getMin = function (dict) {
 	getMin:
 	while (true) {
-		if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
+		if ((dict.$ === -1) && (dict.d.$ === -1)) {
 			var left = dict.d;
 			var $temp$dict = left;
 			dict = $temp$dict;
@@ -7936,8 +7937,8 @@ var $elm$core$Dict$getMin = function (dict) {
 	}
 };
 var $elm$core$Dict$moveRedLeft = function (dict) {
-	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
-		if ((dict.e.d.$ === 'RBNode_elm_builtin') && (dict.e.d.a.$ === 'Red')) {
+	if (((dict.$ === -1) && (dict.d.$ === -1)) && (dict.e.$ === -1)) {
+		if ((dict.e.d.$ === -1) && (!dict.e.d.a)) {
 			var clr = dict.a;
 			var k = dict.b;
 			var v = dict.c;
@@ -7960,17 +7961,17 @@ var $elm$core$Dict$moveRedLeft = function (dict) {
 			var rRight = _v2.e;
 			return A5(
 				$elm$core$Dict$RBNode_elm_builtin,
-				$elm$core$Dict$Red,
+				0,
 				rlK,
 				rlV,
 				A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
+					1,
 					k,
 					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, lK, lV, lLeft, lRight),
 					rlL),
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rlR, rRight));
+				A5($elm$core$Dict$RBNode_elm_builtin, 1, rK, rV, rlR, rRight));
 		} else {
 			var clr = dict.a;
 			var k = dict.b;
@@ -7987,22 +7988,22 @@ var $elm$core$Dict$moveRedLeft = function (dict) {
 			var rV = _v5.c;
 			var rLeft = _v5.d;
 			var rRight = _v5.e;
-			if (clr.$ === 'Black') {
+			if (clr === 1) {
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
+					1,
 					k,
 					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, rK, rV, rLeft, rRight));
 			} else {
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
+					1,
 					k,
 					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, rK, rV, rLeft, rRight));
 			}
 		}
 	} else {
@@ -8010,8 +8011,8 @@ var $elm$core$Dict$moveRedLeft = function (dict) {
 	}
 };
 var $elm$core$Dict$moveRedRight = function (dict) {
-	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
-		if ((dict.d.d.$ === 'RBNode_elm_builtin') && (dict.d.d.a.$ === 'Red')) {
+	if (((dict.$ === -1) && (dict.d.$ === -1)) && (dict.e.$ === -1)) {
+		if ((dict.d.d.$ === -1) && (!dict.d.d.a)) {
 			var clr = dict.a;
 			var k = dict.b;
 			var v = dict.c;
@@ -8034,17 +8035,17 @@ var $elm$core$Dict$moveRedRight = function (dict) {
 			var rRight = _v4.e;
 			return A5(
 				$elm$core$Dict$RBNode_elm_builtin,
-				$elm$core$Dict$Red,
+				0,
 				lK,
 				lV,
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
+				A5($elm$core$Dict$RBNode_elm_builtin, 1, llK, llV, llLeft, llRight),
 				A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
+					1,
 					k,
 					v,
 					lRight,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight)));
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, rK, rV, rLeft, rRight)));
 		} else {
 			var clr = dict.a;
 			var k = dict.b;
@@ -8061,22 +8062,22 @@ var $elm$core$Dict$moveRedRight = function (dict) {
 			var rV = _v6.c;
 			var rLeft = _v6.d;
 			var rRight = _v6.e;
-			if (clr.$ === 'Black') {
+			if (clr === 1) {
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
+					1,
 					k,
 					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, rK, rV, rLeft, rRight));
 			} else {
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
+					1,
 					k,
 					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, rK, rV, rLeft, rRight));
 			}
 		}
 	} else {
@@ -8085,7 +8086,7 @@ var $elm$core$Dict$moveRedRight = function (dict) {
 };
 var $elm$core$Dict$removeHelpPrepEQGT = F7(
 	function (targetKey, dict, color, key, value, left, right) {
-		if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+		if ((left.$ === -1) && (!left.a)) {
 			var _v1 = left.a;
 			var lK = left.b;
 			var lV = left.c;
@@ -8097,13 +8098,13 @@ var $elm$core$Dict$removeHelpPrepEQGT = F7(
 				lK,
 				lV,
 				lLeft,
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, lRight, right));
+				A5($elm$core$Dict$RBNode_elm_builtin, 0, key, value, lRight, right));
 		} else {
 			_v2$2:
 			while (true) {
-				if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Black')) {
-					if (right.d.$ === 'RBNode_elm_builtin') {
-						if (right.d.a.$ === 'Black') {
+				if ((right.$ === -1) && (right.a === 1)) {
+					if (right.d.$ === -1) {
+						if (right.d.a === 1) {
 							var _v3 = right.a;
 							var _v4 = right.d;
 							var _v5 = _v4.a;
@@ -8124,7 +8125,7 @@ var $elm$core$Dict$removeHelpPrepEQGT = F7(
 		}
 	});
 var $elm$core$Dict$removeMin = function (dict) {
-	if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
+	if ((dict.$ === -1) && (dict.d.$ === -1)) {
 		var color = dict.a;
 		var key = dict.b;
 		var value = dict.c;
@@ -8132,8 +8133,8 @@ var $elm$core$Dict$removeMin = function (dict) {
 		var lColor = left.a;
 		var lLeft = left.d;
 		var right = dict.e;
-		if (lColor.$ === 'Black') {
-			if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
+		if (lColor === 1) {
+			if ((lLeft.$ === -1) && (!lLeft.a)) {
 				var _v3 = lLeft.a;
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
@@ -8144,7 +8145,7 @@ var $elm$core$Dict$removeMin = function (dict) {
 					right);
 			} else {
 				var _v4 = $elm$core$Dict$moveRedLeft(dict);
-				if (_v4.$ === 'RBNode_elm_builtin') {
+				if (_v4.$ === -1) {
 					var nColor = _v4.a;
 					var nKey = _v4.b;
 					var nValue = _v4.c;
@@ -8176,7 +8177,7 @@ var $elm$core$Dict$removeMin = function (dict) {
 };
 var $elm$core$Dict$removeHelp = F2(
 	function (targetKey, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
+		if (dict.$ === -2) {
 			return $elm$core$Dict$RBEmpty_elm_builtin;
 		} else {
 			var color = dict.a;
@@ -8185,10 +8186,10 @@ var $elm$core$Dict$removeHelp = F2(
 			var left = dict.d;
 			var right = dict.e;
 			if (_Utils_cmp(targetKey, key) < 0) {
-				if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Black')) {
+				if ((left.$ === -1) && (left.a === 1)) {
 					var _v4 = left.a;
 					var lLeft = left.d;
-					if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
+					if ((lLeft.$ === -1) && (!lLeft.a)) {
 						var _v6 = lLeft.a;
 						return A5(
 							$elm$core$Dict$RBNode_elm_builtin,
@@ -8199,7 +8200,7 @@ var $elm$core$Dict$removeHelp = F2(
 							right);
 					} else {
 						var _v7 = $elm$core$Dict$moveRedLeft(dict);
-						if (_v7.$ === 'RBNode_elm_builtin') {
+						if (_v7.$ === -1) {
 							var nColor = _v7.a;
 							var nKey = _v7.b;
 							var nValue = _v7.c;
@@ -8235,7 +8236,7 @@ var $elm$core$Dict$removeHelp = F2(
 	});
 var $elm$core$Dict$removeHelpEQGT = F2(
 	function (targetKey, dict) {
-		if (dict.$ === 'RBNode_elm_builtin') {
+		if (dict.$ === -1) {
 			var color = dict.a;
 			var key = dict.b;
 			var value = dict.c;
@@ -8243,7 +8244,7 @@ var $elm$core$Dict$removeHelpEQGT = F2(
 			var right = dict.e;
 			if (_Utils_eq(targetKey, key)) {
 				var _v1 = $elm$core$Dict$getMin(right);
-				if (_v1.$ === 'RBNode_elm_builtin') {
+				if (_v1.$ === -1) {
 					var minKey = _v1.b;
 					var minValue = _v1.c;
 					return A5(
@@ -8272,13 +8273,13 @@ var $elm$core$Dict$removeHelpEQGT = F2(
 var $elm$core$Dict$remove = F2(
 	function (key, dict) {
 		var _v0 = A2($elm$core$Dict$removeHelp, key, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
+		if ((_v0.$ === -1) && (!_v0.a)) {
 			var _v1 = _v0.a;
 			var k = _v0.b;
 			var v = _v0.c;
 			var l = _v0.d;
 			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
+			return A5($elm$core$Dict$RBNode_elm_builtin, 1, k, v, l, r);
 		} else {
 			var x = _v0;
 			return x;
@@ -8288,7 +8289,7 @@ var $elm$core$Dict$update = F3(
 	function (targetKey, alter, dictionary) {
 		var _v0 = alter(
 			A2($elm$core$Dict$get, targetKey, dictionary));
-		if (_v0.$ === 'Just') {
+		if (!_v0.$) {
 			var value = _v0.a;
 			return A3($elm$core$Dict$insert, targetKey, value, dictionary);
 		} else {
@@ -8297,7 +8298,7 @@ var $elm$core$Dict$update = F3(
 	});
 var $elm$core$Result$withDefault = F2(
 	function (def, result) {
-		if (result.$ === 'Ok') {
+		if (!result.$) {
 			var a = result.a;
 			return a;
 		} else {
@@ -8313,12 +8314,12 @@ var $author$project$Data$mkReadingList = function (ymlString) {
 		function (book, acc) {
 			return A3(
 				$elm$core$Dict$update,
-				book.year,
+				book.bI,
 				function (entries) {
 					return $elm$core$Maybe$Just(
 						A2(
 							$elm$core$List$cons,
-							_Utils_Tuple2(book.title, book.author),
+							_Utils_Tuple2(book.z, book.aS),
 							A2($elm$core$Maybe$withDefault, _List_Nil, entries)));
 				},
 				acc);
@@ -8343,79 +8344,79 @@ var $author$project$Data$poetry = _List_fromArray(
 var $author$project$Data$projects = _List_fromArray(
 	[
 		{
-		description: '\n        My latest gamedev project has been implementing Tetris in my Swift-Metal \'framework\'.\n        So far, I\'m around 80% fidelity. It\'s been a lot of fun learning how Tetris really works.\n        Did you know that on initial release, every country\'s version had slightly different rules\n        and functionality?\n    ',
-		links: _List_fromArray(
+		F: '\n        My latest gamedev project has been implementing Tetris in my Swift-Metal \'framework\'.\n        So far, I\'m around 80% fidelity. It\'s been a lot of fun learning how Tetris really works.\n        Did you know that on initial release, every country\'s version had slightly different rules\n        and functionality?\n    ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/metal-tetris', 'github')
 			]),
-		title: 'Tetris on Metal'
+		z: 'Tetris on Metal'
 	},
 		{
-		description: '\n                        In an effort to learn video game development I reimplemented Snake\n                        in Godot. Then I wrote it again in Swift using Metal to interface\n                        directly with the GPU.\n                      ',
-		links: _List_fromArray(
+		F: '\n                        In an effort to learn video game development I reimplemented Snake\n                        in Godot. Then I wrote it again in Swift using Metal to interface\n                        directly with the GPU.\n                      ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/godot-snake', 'godot implementation'),
 				_Utils_Tuple2('https://github.com/willisplummer/metal-snake', 'swift + metal')
 			]),
-		title: 'Two Implementations of Snake'
+		z: 'Two Implementations of Snake'
 	},
 		{
-		description: '\n                       A small nodejs application to enable public interviews performed via SMS.\n                       Participants generate a proxy number via Twilio and then send message there.\n                       The messages are forwarded back and forth like a normal text conversation and appear on the site as well.\n                        ',
-		links: _List_fromArray(
+		F: '\n                       A small nodejs application to enable public interviews performed via SMS.\n                       Participants generate a proxy number via Twilio and then send message there.\n                       The messages are forwarded back and forth like a normal text conversation and appear on the site as well.\n                        ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/public-texting', 'github')
 			]),
-		title: 'Public Texting'
+		z: 'Public Texting'
 	},
 		{
-		description: '\n                        A Tic Tac Toe AI that recurses through every possible move and chooses the option with the most winning outcomes.\n                        Written as an opportunity to experiment with ReasonML.\n                      ',
-		links: _List_fromArray(
+		F: '\n                        A Tic Tac Toe AI that recurses through every possible move and chooses the option with the most winning outcomes.\n                        Written as an opportunity to experiment with ReasonML.\n                      ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/reason-react-tictac', 'github')
 			]),
-		title: 'Tic Tac Toe AI'
+		z: 'Tic Tac Toe AI'
 	},
 		{
-		description: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for handling navigation and cursor events.\n                        ',
-		links: _List_fromArray(
+		F: '\n                        A lightweight landing page for any type of project.\n                        Mouseover the squares to change their color and shape.\n                        I used RXJS for handling navigation and cursor events.\n                        ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://willisplummer.github.io/demo-squares/', 'site'),
 				_Utils_Tuple2('https://github.com/willisplummer/demo-squares', 'github')
 			]),
-		title: 'A Colorful Landing Page'
+		z: 'A Colorful Landing Page'
 	},
 		{
-		description: '\n                        A standalone page for Kickstarter\'s Experts program.\n                        Implemented in React with atomic classes generated via SCSS.\n                        The list of Experts is sourced from a Rails controller.\n                      ',
-		links: _List_fromArray(
+		F: '\n                        A standalone page for Kickstarter\'s Experts program.\n                        Implemented in React with atomic classes generated via SCSS.\n                        The list of Experts is sourced from a Rails controller.\n                      ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://www.kickstarter.com/experts', 'site')
 			]),
-		title: 'Kickstarter Experts'
+		z: 'Kickstarter Experts'
 	},
 		{
-		description: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
-		links: _List_fromArray(
+		F: '\n                        This single-page portfolio site was built using Elm.\n                        It implements the Navigation and URLparser packages to handle routing.\n                        ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/elm-personal-website', 'github')
 			]),
-		title: 'This Portfolio Site'
+		z: 'This Portfolio Site'
 	},
 		{
-		description: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
-		links: _List_fromArray(
+		F: '\n                        This ruby app runs on Sinatra and enables the Amazon Echo to\n                        let you know when the next bus will arrive via the MTA\'s Bus Time API.\n                        ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('https://github.com/willisplummer/mta_alexa_app', 'github')
 			]),
-		title: 'MTA Bus Times App for Amazon Echo'
+		z: 'MTA Bus Times App for Amazon Echo'
 	},
 		{
-		description: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
-		links: _List_fromArray(
+		F: '\n                        This is a poetry and prose website that I edited in 2014 and 2015.\n                        I built a Rails CMS to simplify the process of adding new content.\n                        ',
+		G: _List_fromArray(
 			[
 				_Utils_Tuple2('http://westernbeefs.com/', 'site'),
 				_Utils_Tuple2('https://github.com/willisplummer/westernbeefs', 'github')
 			]),
-		title: 'Western Beefs of North America'
+		z: 'Western Beefs of North America'
 	}
 	]);
 var $author$project$Data$prose = _List_fromArray(
@@ -8434,24 +8435,24 @@ var $author$project$Data$prose = _List_fromArray(
 var $author$project$Model$initialModel = F3(
 	function (ymlReadingList, route, key) {
 		return {
-			key: key,
-			nav: _List_fromArray(
+			b6: key,
+			cf: _List_fromArray(
 				[
-					_Utils_Tuple3('About', $author$project$Types$ShowAbout, $author$project$Types$AboutRoute),
-					_Utils_Tuple3('Writing', $author$project$Types$ShowWriting, $author$project$Types$WritingRoute)
+					_Utils_Tuple3('About', $author$project$Types$ShowAbout, 0),
+					_Utils_Tuple3('Writing', $author$project$Types$ShowWriting, 1)
 				]),
-			projectDescriptions: $author$project$Data$projects,
-			readingList: $author$project$Data$mkReadingList(ymlReadingList),
-			route: route,
-			writingLinks: {poetryLinks: $author$project$Data$poetry, proseLinks: $author$project$Data$prose}
+			cv: $author$project$Data$projects,
+			cx: $author$project$Data$mkReadingList(ymlReadingList),
+			cD: route,
+			cN: {ct: $author$project$Data$poetry, cw: $author$project$Data$prose}
 		};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$Types$NotFoundRoute = {$: 'NotFoundRoute'};
+var $author$project$Types$NotFoundRoute = 4;
 var $elm$url$Url$Parser$State = F5(
 	function (visited, unvisited, params, frag, value) {
-		return {frag: frag, params: params, unvisited: unvisited, value: value, visited: visited};
+		return {P: frag, S: params, N: unvisited, I: value, V: visited};
 	});
 var $elm$url$Url$Parser$getFirstMatch = function (states) {
 	getFirstMatch:
@@ -8461,12 +8462,12 @@ var $elm$url$Url$Parser$getFirstMatch = function (states) {
 		} else {
 			var state = states.a;
 			var rest = states.b;
-			var _v1 = state.unvisited;
+			var _v1 = state.N;
 			if (!_v1.b) {
-				return $elm$core$Maybe$Just(state.value);
+				return $elm$core$Maybe$Just(state.I);
 			} else {
 				if ((_v1.a === '') && (!_v1.b.b)) {
-					return $elm$core$Maybe$Just(state.value);
+					return $elm$core$Maybe$Just(state.I);
 				} else {
 					var $temp$states = rest;
 					states = $temp$states;
@@ -8504,7 +8505,7 @@ var $elm$url$Url$Parser$preparePath = function (path) {
 };
 var $elm$url$Url$Parser$addToParametersHelp = F2(
 	function (value, maybeList) {
-		if (maybeList.$ === 'Nothing') {
+		if (maybeList.$ === 1) {
 			return $elm$core$Maybe$Just(
 				_List_fromArray(
 					[value]));
@@ -8523,12 +8524,12 @@ var $elm$url$Url$Parser$addParam = F2(
 			var _v1 = _v0.b;
 			var rawValue = _v1.a;
 			var _v2 = $elm$url$Url$percentDecode(rawKey);
-			if (_v2.$ === 'Nothing') {
+			if (_v2.$ === 1) {
 				return dict;
 			} else {
 				var key = _v2.a;
 				var _v3 = $elm$url$Url$percentDecode(rawValue);
-				if (_v3.$ === 'Nothing') {
+				if (_v3.$ === 1) {
 					return dict;
 				} else {
 					var value = _v3.a;
@@ -8544,7 +8545,7 @@ var $elm$url$Url$Parser$addParam = F2(
 		}
 	});
 var $elm$url$Url$Parser$prepareQuery = function (maybeQuery) {
-	if (maybeQuery.$ === 'Nothing') {
+	if (maybeQuery.$ === 1) {
 		return $elm$core$Dict$empty;
 	} else {
 		var qry = maybeQuery.a;
@@ -8557,29 +8558,27 @@ var $elm$url$Url$Parser$prepareQuery = function (maybeQuery) {
 };
 var $elm$url$Url$Parser$parse = F2(
 	function (_v0, url) {
-		var parser = _v0.a;
+		var parser = _v0;
 		return $elm$url$Url$Parser$getFirstMatch(
 			parser(
 				A5(
 					$elm$url$Url$Parser$State,
 					_List_Nil,
-					$elm$url$Url$Parser$preparePath(url.path),
-					$elm$url$Url$Parser$prepareQuery(url.query),
-					url.fragment,
+					$elm$url$Url$Parser$preparePath(url.cs),
+					$elm$url$Url$Parser$prepareQuery(url.bp),
+					url.a2,
 					$elm$core$Basics$identity)));
 	});
-var $author$project$Types$PortfolioRoute = {$: 'PortfolioRoute'};
-var $author$project$Types$ReadingListRoute = {$: 'ReadingListRoute'};
-var $elm$url$Url$Parser$Parser = function (a) {
-	return {$: 'Parser', a: a};
-};
+var $author$project$Types$PortfolioRoute = 2;
+var $author$project$Types$ReadingListRoute = 3;
+var $elm$url$Url$Parser$Parser = $elm$core$Basics$identity;
 var $elm$url$Url$Parser$mapState = F2(
 	function (func, _v0) {
-		var value = _v0.value;
-		var frag = _v0.frag;
-		var params = _v0.params;
-		var unvisited = _v0.unvisited;
-		var visited = _v0.visited;
+		var value = _v0.I;
+		var frag = _v0.P;
+		var params = _v0.S;
+		var unvisited = _v0.N;
+		var visited = _v0.V;
 		return A5(
 			$elm$url$Url$Parser$State,
 			visited,
@@ -8590,20 +8589,19 @@ var $elm$url$Url$Parser$mapState = F2(
 	});
 var $elm$url$Url$Parser$map = F2(
 	function (subValue, _v0) {
-		var parseArg = _v0.a;
-		return $elm$url$Url$Parser$Parser(
-			function (_v1) {
-				var value = _v1.value;
-				var frag = _v1.frag;
-				var params = _v1.params;
-				var unvisited = _v1.unvisited;
-				var visited = _v1.visited;
-				return A2(
-					$elm$core$List$map,
-					$elm$url$Url$Parser$mapState(value),
-					parseArg(
-						A5($elm$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
-			});
+		var parseArg = _v0;
+		return function (_v1) {
+			var value = _v1.I;
+			var frag = _v1.P;
+			var params = _v1.S;
+			var unvisited = _v1.N;
+			var visited = _v1.V;
+			return A2(
+				$elm$core$List$map,
+				$elm$url$Url$Parser$mapState(value),
+				parseArg(
+					A5($elm$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
+		};
 	});
 var $elm$core$List$append = F2(
 	function (xs, ys) {
@@ -8622,85 +8620,82 @@ var $elm$core$List$concatMap = F2(
 			A2($elm$core$List$map, f, list));
 	});
 var $elm$url$Url$Parser$oneOf = function (parsers) {
-	return $elm$url$Url$Parser$Parser(
-		function (state) {
-			return A2(
-				$elm$core$List$concatMap,
-				function (_v0) {
-					var parser = _v0.a;
-					return parser(state);
-				},
-				parsers);
-		});
+	return function (state) {
+		return A2(
+			$elm$core$List$concatMap,
+			function (_v0) {
+				var parser = _v0;
+				return parser(state);
+			},
+			parsers);
+	};
 };
 var $elm$url$Url$Parser$s = function (str) {
-	return $elm$url$Url$Parser$Parser(
-		function (_v0) {
-			var value = _v0.value;
-			var frag = _v0.frag;
-			var params = _v0.params;
-			var unvisited = _v0.unvisited;
-			var visited = _v0.visited;
-			if (!unvisited.b) {
-				return _List_Nil;
-			} else {
-				var next = unvisited.a;
-				var rest = unvisited.b;
-				return _Utils_eq(next, str) ? _List_fromArray(
-					[
-						A5(
-						$elm$url$Url$Parser$State,
-						A2($elm$core$List$cons, next, visited),
-						rest,
-						params,
-						frag,
-						value)
-					]) : _List_Nil;
-			}
-		});
+	return function (_v0) {
+		var value = _v0.I;
+		var frag = _v0.P;
+		var params = _v0.S;
+		var unvisited = _v0.N;
+		var visited = _v0.V;
+		if (!unvisited.b) {
+			return _List_Nil;
+		} else {
+			var next = unvisited.a;
+			var rest = unvisited.b;
+			return _Utils_eq(next, str) ? _List_fromArray(
+				[
+					A5(
+					$elm$url$Url$Parser$State,
+					A2($elm$core$List$cons, next, visited),
+					rest,
+					params,
+					frag,
+					value)
+				]) : _List_Nil;
+		}
+	};
 };
-var $elm$url$Url$Parser$top = $elm$url$Url$Parser$Parser(
-	function (state) {
-		return _List_fromArray(
-			[state]);
-	});
+var $elm$url$Url$Parser$top = function (state) {
+	return _List_fromArray(
+		[state]);
+};
 var $author$project$Routing$route = $elm$url$Url$Parser$oneOf(
 	_List_fromArray(
 		[
-			A2($elm$url$Url$Parser$map, $author$project$Types$AboutRoute, $elm$url$Url$Parser$top),
+			A2($elm$url$Url$Parser$map, 0, $elm$url$Url$Parser$top),
 			A2(
 			$elm$url$Url$Parser$map,
-			$author$project$Types$AboutRoute,
+			0,
 			$elm$url$Url$Parser$s('about')),
 			A2(
 			$elm$url$Url$Parser$map,
-			$author$project$Types$WritingRoute,
+			1,
 			$elm$url$Url$Parser$s('writing')),
 			A2(
 			$elm$url$Url$Parser$map,
-			$author$project$Types$PortfolioRoute,
+			2,
 			$elm$url$Url$Parser$s('projects')),
 			A2(
 			$elm$url$Url$Parser$map,
-			$author$project$Types$PortfolioRoute,
+			2,
 			$elm$url$Url$Parser$s('portfolio')),
 			A2(
 			$elm$url$Url$Parser$map,
-			$author$project$Types$ReadingListRoute,
+			3,
 			$elm$url$Url$Parser$s('reading-list'))
 		]));
 var $author$project$Routing$parseUrl = function (url) {
 	return A2(
 		$elm$core$Maybe$withDefault,
-		$author$project$Types$NotFoundRoute,
+		4,
 		A2(
 			$elm$url$Url$Parser$parse,
 			$author$project$Routing$route,
 			_Utils_update(
 				url,
 				{
-					fragment: $elm$core$Maybe$Nothing,
-					path: A2($elm$core$Maybe$withDefault, '', url.fragment)
+					a2: $elm$core$Maybe$Nothing,
+					cs: A2($elm$core$Maybe$withDefault, '', url.a2)
 				})));
 };
 var $author$project$Model$init = F3(
@@ -8720,7 +8715,7 @@ var $elm$browser$Browser$Navigation$load = _Browser_load;
 var $elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
 var $elm$url$Url$addPort = F2(
 	function (maybePort, starter) {
-		if (maybePort.$ === 'Nothing') {
+		if (maybePort.$ === 1) {
 			return starter;
 		} else {
 			var port_ = maybePort.a;
@@ -8729,7 +8724,7 @@ var $elm$url$Url$addPort = F2(
 	});
 var $elm$url$Url$addPrefixed = F3(
 	function (prefix, maybeSegment, starter) {
-		if (maybeSegment.$ === 'Nothing') {
+		if (maybeSegment.$ === 1) {
 			return starter;
 		} else {
 			var segment = maybeSegment.a;
@@ -8740,8 +8735,8 @@ var $elm$url$Url$addPrefixed = F3(
 	});
 var $elm$url$Url$toString = function (url) {
 	var http = function () {
-		var _v0 = url.protocol;
-		if (_v0.$ === 'Http') {
+		var _v0 = url.bo;
+		if (!_v0) {
 			return 'http://';
 		} else {
 			return 'https://';
@@ -8750,48 +8745,48 @@ var $elm$url$Url$toString = function (url) {
 	return A3(
 		$elm$url$Url$addPrefixed,
 		'#',
-		url.fragment,
+		url.a2,
 		A3(
 			$elm$url$Url$addPrefixed,
 			'?',
-			url.query,
+			url.bp,
 			_Utils_ap(
 				A2(
 					$elm$url$Url$addPort,
-					url.port_,
-					_Utils_ap(http, url.host)),
-				url.path)));
+					url.bl,
+					_Utils_ap(http, url.a7)),
+				url.cs)));
 };
 var $author$project$Update$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'ShowAbout':
+			case 0:
 				return _Utils_Tuple2(
 					model,
-					A2($elm$browser$Browser$Navigation$pushUrl, model.key, '#about'));
-			case 'ShowWriting':
+					A2($elm$browser$Browser$Navigation$pushUrl, model.b6, '#about'));
+			case 1:
 				return _Utils_Tuple2(
 					model,
-					A2($elm$browser$Browser$Navigation$pushUrl, model.key, '#writing'));
-			case 'ShowPortfolio':
+					A2($elm$browser$Browser$Navigation$pushUrl, model.b6, '#writing'));
+			case 2:
 				return _Utils_Tuple2(
 					model,
-					A2($elm$browser$Browser$Navigation$pushUrl, model.key, '#portfolio'));
-			case 'ShowReadingList':
+					A2($elm$browser$Browser$Navigation$pushUrl, model.b6, '#portfolio'));
+			case 3:
 				return _Utils_Tuple2(
 					model,
-					A2($elm$browser$Browser$Navigation$pushUrl, model.key, '#reading-list'));
-			case 'Noop':
+					A2($elm$browser$Browser$Navigation$pushUrl, model.b6, '#reading-list'));
+			case 6:
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-			case 'LinkClicked':
+			case 5:
 				var urlRequest = msg.a;
-				if (urlRequest.$ === 'Internal') {
+				if (!urlRequest.$) {
 					var url = urlRequest.a;
 					return _Utils_Tuple2(
 						model,
 						A2(
 							$elm$browser$Browser$Navigation$pushUrl,
-							model.key,
+							model.b6,
 							$elm$url$Url$toString(url)));
 				} else {
 					var href = urlRequest.a;
@@ -8805,7 +8800,7 @@ var $author$project$Update$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{route: currentRoute}),
+						{cD: currentRoute}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -8824,7 +8819,7 @@ var $elm$core$Dict$foldl = F3(
 	function (func, acc, dict) {
 		foldl:
 		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
+			if (dict.$ === -2) {
 				return acc;
 			} else {
 				var key = dict.b;
@@ -8933,14 +8928,14 @@ var $author$project$View$showProject = function (project) {
 							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$text(project.title)
+									$elm$html$Html$text(project.z)
 								])),
 							A2(
 							$elm$html$Html$p,
 							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$text(project.description)
+									$elm$html$Html$text(project.F)
 								])),
 							A2(
 							$elm$html$Html$p,
@@ -8966,16 +8961,16 @@ var $author$project$View$showProject = function (project) {
 											$elm$html$Html$text(')')
 										]);
 								},
-								project.links))
+								project.G))
 						]))
 				]))
 		]);
 };
 var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
 var $author$project$View$content = function (model) {
-	var _v0 = model.route;
-	switch (_v0.$) {
-		case 'AboutRoute':
+	var _v0 = model.cD;
+	switch (_v0) {
+		case 0:
 			return A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -8996,7 +8991,7 @@ var $author$project$View$content = function (model) {
 						_List_Nil,
 						_List_fromArray(
 							[
-								$elm$html$Html$text('I work at Patreon on the Creator Insights team as a Senior Software Developer.')
+								$elm$html$Html$text('I work at Patreon on the Creator Insights team as a Senior Software Engineer.')
 							])),
 						A2(
 						$elm$html$Html$p,
@@ -9277,7 +9272,7 @@ var $author$project$View$content = function (model) {
 								$elm$html$Html$text(' is the best way to get in touch.')
 							]))
 					]));
-		case 'WritingRoute':
+		case 1:
 			return A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -9324,7 +9319,7 @@ var $author$project$View$content = function (model) {
 											]))
 									]);
 							},
-							model.writingLinks.poetryLinks)),
+							model.cN.ct)),
 						A2(
 						$elm$html$Html$p,
 						_List_Nil,
@@ -9363,24 +9358,24 @@ var $author$project$View$content = function (model) {
 											]))
 									]);
 							},
-							model.writingLinks.proseLinks))
+							model.cN.cw))
 					]));
-		case 'PortfolioRoute':
+		case 2:
 			return A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
 						$elm$html$Html$Attributes$class('content')
 					]),
-				A2($elm$core$List$concatMap, $author$project$View$showProject, model.projectDescriptions));
-		case 'ReadingListRoute':
+				A2($elm$core$List$concatMap, $author$project$View$showProject, model.cv));
+		case 3:
 			return A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
 						$elm$html$Html$Attributes$class('content')
 					]),
-				A3($elm$core$Dict$foldl, $author$project$View$showBooksByYear, _List_Nil, model.readingList));
+				A3($elm$core$Dict$foldl, $author$project$View$showBooksByYear, _List_Nil, model.cx));
 		default:
 			return A2(
 				$elm$html$Html$div,
@@ -9417,7 +9412,7 @@ var $elm$core$List$intersperse = F2(
 	});
 var $elm$html$Html$nav = _VirtualDom_node('nav');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
+	return {$: 0, a: a};
 };
 var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $elm$html$Html$Events$on = F2(
@@ -9447,7 +9442,7 @@ var $tesk9$accessible_html$Accessibility$Utils$aria = A2(
 	$elm$core$Basics$append('aria-'));
 var $elm$core$Maybe$map = F2(
 	function (f, maybe) {
-		if (maybe.$ === 'Just') {
+		if (!maybe.$) {
 			var value = maybe.a;
 			return $elm$core$Maybe$Just(
 				f(value));
@@ -9505,10 +9500,10 @@ var $author$project$View$headerNav = function (model) {
 											$elm$html$Html$Events$onClick(msg),
 											$tesk9$accessible_html$Accessibility$Aria$pressed(
 											$elm$core$Maybe$Just(
-												_Utils_eq(model.route, route))),
+												_Utils_eq(model.cD, route))),
 											$elm$html$Html$Attributes$class(
 											navItemClass(
-												_Utils_eq(model.route, route)))
+												_Utils_eq(model.cD, route)))
 										]),
 									_List_fromArray(
 										[
@@ -9516,12 +9511,12 @@ var $author$project$View$headerNav = function (model) {
 										]))
 								]);
 						},
-						model.nav)))
+						model.cf)))
 			]));
 };
 var $author$project$View$view = function (model) {
 	return {
-		body: _List_fromArray(
+		bN: _List_fromArray(
 			[
 				A2(
 				$elm$html$Html$div,
@@ -9532,18 +9527,18 @@ var $author$project$View$view = function (model) {
 						$author$project$View$content(model)
 					]))
 			]),
-		title: 'Willis Plummer Personal Website'
+		z: 'Willis Plummer Personal Website'
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$application(
 	{
-		init: $author$project$Model$init,
-		onUrlChange: $author$project$Types$UrlChange,
-		onUrlRequest: $author$project$Types$LinkClicked,
-		subscriptions: function (_v0) {
+		b4: $author$project$Model$init,
+		co: $author$project$Types$UrlChange,
+		cp: $author$project$Types$LinkClicked,
+		cG: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
-		update: $author$project$Update$update,
-		view: $author$project$View$view
+		cK: $author$project$Update$update,
+		cL: $author$project$View$view
 	});
 _Platform_export({'Main':{'init':$author$project$Main$main($elm$json$Json$Decode$string)(0)}});}(this));
