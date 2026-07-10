@@ -1,15 +1,19 @@
 module Routing exposing (..)
 
 -- import Browser.Navigation exposing (Key)
+
 import Types exposing (Route(..))
 import Url exposing (Url)
-import Url.Parser exposing (Parser, parse, map, fragment, s, top, oneOf)
+import Url.Parser exposing (Parser, fragment, map, oneOf, parse, s, top)
+
 
 parseUrl url =
     -- Treat fragment as path
     { url | path = Maybe.withDefault "" url.fragment, fragment = Nothing }
-      |> parse route
-      |> Maybe.withDefault NotFoundRoute
+        |> parse route
+        |> Maybe.withDefault NotFoundRoute
+
+
 
 -- parseUrl : Url -> Maybe(string)
 -- parseUrl location =
@@ -25,6 +29,7 @@ parseUrl url =
 --                 NotFoundRoute
 --             Nothing ->
 --                 NotFoundRoute
+
 
 route : Parser (Route -> a) a
 route =

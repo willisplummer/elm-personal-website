@@ -1,73 +1,81 @@
 module Data exposing (..)
 
 import Dict exposing (fromList)
-import Types exposing (Project, ReadingList, BookList, Book)
-import Yaml.Decode exposing (..)
 import Result exposing (Result)
+import Types exposing (Book, BookList, Project, ReadingList)
+import Yaml.Decode exposing (..)
+
 
 type alias BookEntry =
-  { title: String
-  , author: String
-  , year: Int
-  }
+    { title : String
+    , author : String
+    , year : Int
+    }
+
 
 decoder : Decoder BookEntry
 decoder =
-  map3 BookEntry
-    (field "title" string)
-    (field "author" string)
-    (field "year" int)
+    map3 BookEntry
+        (field "title" string)
+        (field "author" string)
+        (field "year" int)
+
 
 decodeReadingList : String -> Result Error (List BookEntry)
 decodeReadingList =
-  fromString (list decoder) 
+    fromString (list decoder)
 
-mkReadingList: String -> ReadingList
+
+mkReadingList : String -> ReadingList
 mkReadingList ymlString =
-  let
-      list : List BookEntry
-      list = Result.withDefault [] <| decodeReadingList ymlString
+    let
+        list : List BookEntry
+        list =
+            Result.withDefault [] <| decodeReadingList ymlString
 
+        addEntryToList : BookEntry -> ReadingList -> ReadingList
+        addEntryToList book acc =
+            Dict.update book.year (\entries -> Just <| ( book.title, book.author ) :: Maybe.withDefault [] entries) acc
 
-      addEntryToList : BookEntry -> ReadingList -> ReadingList
-      addEntryToList book acc = Dict.update book.year (\entries -> Just <| ( book.title, book.author) :: Maybe.withDefault [] entries) acc
+        readingList : ReadingList
+        readingList =
+            List.foldr addEntryToList reading list
+    in
+    readingList
 
-      readingList: ReadingList 
-      readingList= List.foldr addEntryToList reading list
-  in
-    readingList     
 
 reading : ReadingList
 reading =
     fromList
-        [ ( 2023,
-            [ ( "the fall of babel", "josiah bancroft")
+        [ ( 2023
+          , [ ( "the fall of babel", "josiah bancroft" )
             , ( "the hod king", "josiah bancroft" )
             , ( "the ministry for the future", "kim stanley robinson" )
-            , ( "rainwater harvesting for drylands and beyond vol. 1", "brad lancaster")
-            , ( "mating", "norman rush")
-            , ( "whites", "norman rush")
-            , ( "the pillowman", "martin mcdonagh")
-            , ( "the twilight world", "werner herzog")
+            , ( "rainwater harvesting for drylands and beyond vol. 1", "brad lancaster" )
+            , ( "mating", "norman rush" )
+            , ( "whites", "norman rush" )
+            , ( "the pillowman", "martin mcdonagh" )
+            , ( "the twilight world", "werner herzog" )
             ]
-          ), ( 2022,
-            [ ( "pure colour", "sheila heti")
-            , ( "blood meridian", "cormac mccarthy")
-            , ( "moon witch, spider king", "marlon james")
-            , ( "convenience store woman", "sayaka murata")
-            , ( "black leopard, red wolf", "marlon james")
-            , ( "on earth we're briefly gorgeous", "ocean vuong")
-            , ( "waking up in the sea", "derek dunfee")
-            , ( "vintage sadness", "hanif willis abduraqib")
-            , ( "cold spring harbor", "richard yates")
+          )
+        , ( 2022
+          , [ ( "pure colour", "sheila heti" )
+            , ( "blood meridian", "cormac mccarthy" )
+            , ( "moon witch, spider king", "marlon james" )
+            , ( "convenience store woman", "sayaka murata" )
+            , ( "black leopard, red wolf", "marlon james" )
+            , ( "on earth we're briefly gorgeous", "ocean vuong" )
+            , ( "waking up in the sea", "derek dunfee" )
+            , ( "vintage sadness", "hanif willis abduraqib" )
+            , ( "cold spring harbor", "richard yates" )
             ]
           )
         , ( 2021
-          , [ ("we die in italy", "sarah jean alexander")
-            , ("even two hands pressed together are split", "sarah o'neal")
-            , ( "rock wagram", "william saroyan")
-            , ( "the dead do not improve", "jay caspian kang")
-            , ( "cats cradle", "kurt vonnegut")
+          , [ ( "we die in italy", "sarah jean alexander" )
+            , ( "even two hands pressed together are split", "sarah o'neal" )
+            , ( "rock wagram", "william saroyan" )
+            , ( "the dead do not improve", "jay caspian kang" )
+            , ( "cats cradle", "kurt vonnegut" )
             , ( "masters of atlantis", "charles portis" )
             , ( "true grit", "charles portis" )
             , ( "norwood", "charles portis" )
@@ -268,7 +276,7 @@ reading =
 
 poetry : List ( String, String )
 poetry =
-    [ ( "http://muumuuhouse.com/wp.07jun2021.html", "Three Poems From L-Theanine (muumuu house)")
+    [ ( "http://muumuuhouse.com/wp.07jun2021.html", "Three Poems From L-Theanine (muumuu house)" )
     , ( "http://thenervousbreakdown.com/willisplummer/2020/10/three-poems-from-mons-pubis/", "Three Poems From MONS PUBIS (The Nervous Breakdown)" )
     , ( "http://quick-books.biz/", "The Book of Judith (quickbooks, pamphlet, ltd run of 100)" )
     , ( "https://ghostcitypress.com/2017-summer-microchap-series/wild-horse-rappers", "wild horse rappers (with precious okoyomon)" )
@@ -299,41 +307,39 @@ prose =
 
 projects : List Project
 projects =
-    [ {
-       title = "Tetris on Metal"
-    , description = """
+    [ { title = "Tetris on Metal"
+      , description = """
         My latest gamedev project has been implementing Tetris in my Swift-Metal 'framework'.
         So far, I'm around 80% fidelity. It's been a lot of fun learning how Tetris really works.
         Did you know that on initial release, every country's version had slightly different rules
         and functionality?
     """
-     , links = [("https://github.com/willisplummer/metal-tetris", "github")] } 
-      , {
-        title = "Two Implementations of Snake"
+      , links = [ ( "https://github.com/willisplummer/metal-tetris", "github" ) ]
+      }
+    , { title = "Two Implementations of Snake"
       , description = """
                         In an effort to learn video game development I reimplemented Snake
                         in Godot. Then I wrote it again in Swift using Metal to interface
                         directly with the GPU.
-                      """ 
-      , links = [( "https://github.com/willisplummer/godot-snake", "godot implementation"), ( "https://github.com/willisplummer/metal-snake", "swift + metal")]
+                      """
+      , links = [ ( "https://github.com/willisplummer/godot-snake", "godot implementation" ), ( "https://github.com/willisplummer/metal-snake", "swift + metal" ) ]
       }
-      ,{
-        title = "Public Texting"
+    , { title = "Public Texting"
       , description = """
                        A small nodejs application to enable public interviews performed via SMS.
                        Participants generate a proxy number via Twilio and then send message there.
                        The messages are forwarded back and forth like a normal text conversation and appear on the site as well.
                         """
-      , links = [( "https://github.com/willisplummer/public-texting", "github")]
+      , links = [ ( "https://github.com/willisplummer/public-texting", "github" ) ]
       }
-     ,{ title = "Tic Tac Toe AI" 
+    , { title = "Tic Tac Toe AI"
       , description = """
                         A Tic Tac Toe AI that recurses through every possible move and chooses the option with the most winning outcomes.
                         Written as an opportunity to experiment with ReasonML.
                       """
-      , links = [ ("https://github.com/willisplummer/reason-react-tictac", "github")]
+      , links = [ ( "https://github.com/willisplummer/reason-react-tictac", "github" ) ]
       }
-      ,{ title = "A Colorful Landing Page"
+    , { title = "A Colorful Landing Page"
       , description = """
                         A lightweight landing page for any type of project.
                         Mouseover the squares to change their color and shape.
@@ -370,4 +376,4 @@ projects =
                         """
       , links = [ ( "http://westernbeefs.com/", "site" ), ( "https://github.com/willisplummer/westernbeefs", "github" ) ]
       }
-    ] 
+    ]

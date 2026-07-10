@@ -3,9 +3,10 @@ module Update exposing (..)
 import Browser
 import Browser.Navigation as Nav exposing (pushUrl)
 import Routing exposing (parseUrl)
-import Url.Builder exposing (relative)
 import Types exposing (..)
 import Url
+import Url.Builder exposing (relative)
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -14,7 +15,7 @@ update msg model =
             ( model, pushUrl model.key "#about" )
 
         ShowWriting ->
-            ( model, pushUrl model.key "#writing")
+            ( model, pushUrl model.key "#writing" )
 
         ShowPortfolio ->
             ( model, pushUrl model.key "#portfolio" )
@@ -26,16 +27,16 @@ update msg model =
             ( model, Cmd.none )
 
         LinkClicked urlRequest ->
-           case urlRequest of
+            case urlRequest of
                 Browser.Internal url ->
-                  ( model, pushUrl model.key (Url.toString url) )
+                    ( model, pushUrl model.key (Url.toString url) )
 
                 Browser.External href ->
-                  ( model, Nav.load href )
+                    ( model, Nav.load href )
 
         UrlChange location ->
             let
                 currentRoute =
                     parseUrl location
             in
-                ( { model | route = currentRoute }, Cmd.none )
+            ( { model | route = currentRoute }, Cmd.none )

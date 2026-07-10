@@ -1,0 +1,21 @@
+<!-- Local-development entry point (see `make dev`).
+     Identical to index.html except it loads the unminified elm.js that
+     elm-live rebuilds on each change. index.html is the deployed page. -->
+<html>
+	<head>
+		<title>Willis Plummer</title>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+	</head>
+	<body>
+		<div id="main"></div>
+	</body>
+	<script src="elm.js"></script>
+	<script>
+		fetch('reading-list.yml').then(res => res.text()).then(yml => {
+			var node = document.getElementById('main');
+			var app = Elm.Main.init({node, flags: yml});
+		})
+	</script>
+</html>

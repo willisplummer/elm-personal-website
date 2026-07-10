@@ -3,7 +3,8 @@
 A static personal website written in [Elm](https://elm-lang.org/). It's a plain
 HTML + JS + data-file project — no npm/node_modules install step:
 
-- `index.html` — the page shell; loads the compiled `elm.min.js` and fetches `reading-list.yml`
+- `index.html` — the deployed page shell; loads the compiled `elm.min.js` and fetches `reading-list.yml`
+- `dev.html` — local-dev page shell; same as `index.html` but loads the unminified `elm.js` (used by `make dev`)
 - `Main.elm` / `src/` — the Elm source
 - `reading-list.yml` — content rendered by the app at runtime
 - `elm.js` / `elm.min.js` — the compiled output, committed so GitHub Pages can serve it
@@ -27,33 +28,39 @@ Without direnv, run commands inside `nix develop`:
 $ nix develop
 ```
 
+## COMMON TASKS
+
+Common tasks are wrapped in a `Makefile` (run `make help` to list them):
+
+```
+$ make dev      # live-reloading dev server (serves dev.html + elm.js)
+$ make build    # optimized production build -> elm.js + elm.min.js
+$ make test     # run the elm-test suite
+$ make format   # elm-format all sources in place
+$ make clean    # remove the elm build cache
+```
+
 ## DEVELOP LOCALLY
 
-Live-reloading dev server:
+`make dev` runs a live-reloading server that serves `dev.html` (which loads the
+unminified `elm.js` that elm-live rebuilds on each change). It's the equivalent
+of:
 
 ```
-$ elm-live Main.elm -- --output=elm.js
+$ elm-live Main.elm --start-page=dev.html --pushstate -- --output=elm.js
 ```
 
-Or just open the current build in a browser:
-
-```
-$ open index.html
-```
-
-Run the tests:
-
-```
-$ elm-test
-```
+`--start-page=dev.html` avoids touching the deployed `index.html`, and
+`--pushstate` is required because the app is a `Browser.application` (so client
+-side routes resolve on refresh).
 
 ## BUILD
 
-`build.sh` compiles `Main.elm` with `--optimize` and minifies it to `elm.min.js`
-(the file `index.html` loads):
+`make build` (a.k.a. `./build.sh`) compiles `Main.elm` with `--optimize` and
+minifies it to `elm.min.js` (the file `index.html` loads):
 
 ```
-$ ./build.sh
+$ make build
 ```
 
 ## HOW TO DEPLOY CHANGES

@@ -1,25 +1,25 @@
 module View exposing (view)
 
+import Accessibility.Aria exposing (pressed)
+import Browser exposing (Document)
+import Dict exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Accessibility.Aria exposing (pressed)
 import Html.Events exposing (..)
 import Types exposing (..)
-import Dict exposing (..)
-import Browser exposing (Document)
+
 
 view : Model -> Document Msg
 view model =
-  { title = "Willis Plummer Personal Website"
-  , body =
-      [ div
-        []
-        [ headerNav model
-        , content model
+    { title = "Willis Plummer Personal Website"
+    , body =
+        [ div
+            []
+            [ headerNav model
+            , content model
+            ]
         ]
-      ]
-  }
-
+    }
 
 
 headerNav : Model -> Html Msg
@@ -29,16 +29,17 @@ headerNav model =
             \bool ->
                 if bool then
                     "active"
+
                 else
                     ""
     in
-        header []
-            [ h1 [] [ text "Willis Plummer" ]
-            , nav []
-                (List.intersperse (text " | ")
-                    (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), class (navItemClass (model.route == route)) ] [ text description ] ]) model.nav)
-                )
-            ]
+    header []
+        [ h1 [] [ text "Willis Plummer" ]
+        , nav []
+            (List.intersperse (text " | ")
+                (List.concatMap (\( description, msg, route ) -> [ button [ type_ "button", onClick msg, pressed <| Just (model.route == route), class (navItemClass (model.route == route)) ] [ text description ] ]) model.nav)
+            )
+        ]
 
 
 content : Model -> Html Msg
@@ -46,9 +47,10 @@ content model =
     case model.route of
         AboutRoute ->
             div [ class "content" ]
-                [ p [] [ text "Hi, I'm Willis. I live in Brookyln. I write code, poetry, and fiction." ]
+                [ p [] [ text "Hi, I'm Willis. I live in New York. I write code, poetry, and fiction." ]
+                , p [] [ text "I work at Patreon on the Creator Insights team as a Senior Software Developer." ]
                 , p []
-                    [ text "Since 2020, I've been doing project based consulting for a bunch of companies including:"
+                    [ text "From 2020 to 2025, I did project-based consulting for a bunch of companies including:"
                     , ul []
                         [ li []
                             [ a [ href "https://www.meredithmonk.org/", target "_blank" ] [ text "The House Foundation" ]

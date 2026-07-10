@@ -5,6 +5,7 @@ import Browser.Navigation exposing (Key)
 import Dict exposing (Dict)
 import Url exposing (Url)
 
+
 type Route
     = AboutRoute
     | WritingRoute

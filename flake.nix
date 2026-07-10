@@ -26,13 +26,17 @@
 
             # Used by build.sh to minify the compiled output.
             pkgs.uglify-js
+
+            # Task runner (see Makefile).
+            pkgs.gnumake
           ];
 
           shellHook = ''
             echo "elm-personal-website dev shell"
             echo "  elm       $(elm --version)"
             echo "  node      $(node --version)"
-            echo "  elm-test / elm-live / uglifyjs on PATH"
+            echo "  elm-test / elm-live / uglifyjs / make on PATH"
+            echo "  run 'make help' for common tasks"
           '';
         };
       });

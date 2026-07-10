@@ -1,11 +1,12 @@
 module Main exposing (..)
 
+import Browser exposing (application)
 import List exposing (..)
 import Model exposing (init)
-import Browser exposing (application)
 import Types exposing (..)
 import Update exposing (update)
 import View exposing (view)
+
 
 main : Program String Model Msg
 main =
@@ -17,4 +18,3 @@ main =
         , onUrlChange = UrlChange
         , onUrlRequest = LinkClicked
         }
-
